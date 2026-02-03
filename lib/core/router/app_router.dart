@@ -14,6 +14,7 @@ import 'package:ticket_bay/features/movie/presentation/screens/movies_screen.dar
 import 'package:ticket_bay/features/movie/presentation/screens/coming_soon_movies_screen.dart';
 import 'package:ticket_bay/features/movie/presentation/screens/upcoming_movies_screen.dart';
 import 'package:ticket_bay/features/movie/presentation/screens/movie_details_screen.dart';
+import 'package:ticket_bay/features/movie/presentation/screens/movie_info_screen.dart';
 import 'package:ticket_bay/features/movie/presentation/screens/reviews_screen.dart';
 import 'package:ticket_bay/features/theater/presentation/screens/theaters_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/account_screen.dart';
@@ -50,6 +51,7 @@ class RoutePath {
 
   // movie screens
   static const String movieDetails = '/movie-details';
+  static const String movieInfo = '/movie-info';
   static const String movieReviews = '/movie-reviews';
 
   // account screens
@@ -84,6 +86,7 @@ class RouteName {
 
   // movie screens
   static const String movieDetails = 'movieDetails';
+  static const String movieInfo = 'movieInfo';
   static const String movieReviews = 'movieReviews';
 
   // account screens
@@ -271,6 +274,17 @@ class MovieDetailsRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(MovieDetailsScreen(movieName: movieName));
+  }
+}
+
+@TypedGoRoute<MovieInfoRoute>(
+  path: RoutePath.movieInfo,
+  name: RouteName.movieInfo,
+)
+class MovieInfoRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(MovieInfoScreen());
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/api/end_points.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
@@ -185,7 +186,8 @@ class MovieDetailsScreen extends HookConsumerWidget {
                                               .map((format) {
                                             return GestureDetector(
                                               onTap: () {
-                                                /// handle selection here
+                                                context.pop();
+                                                MovieInfoRoute().push(context);
                                               },
                                               child: Container(
                                                 padding:
