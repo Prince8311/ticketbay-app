@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="themeColor">#FC6736</color>
+    <color name="transparent">#FFFFFF0</color>
+    <color name="black">#000000</color>
+    <color name="black1">#444444</color>
+    <color name="black2">#7E7E7E</color>
+    <color name="black3">#C2C2C2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellowColor">#FFC76C</color>
+    <color name="yellowColorLight">#FFC76C33</color>
+    <color name="redColor">#FF0000</color>
+    <color name="redColor1">#E5322D</color>
+    <color name="redColorLight">#FF000026</color>
+    <color name="orangeColorLight">#FF8F6A</color>
+    <color name="greenColor">#3FE44F</color>
+    <color name="greenColorLight">#3FE44F26</color>
+    <color name="blueColor">#02C0FF</color>
+    <color name="blueColorLight">#02C0FF14</color>
+    <color name="gradientColor1">#FFFF6C</color>
+    <color name="gradientColor2">#FFC76C</color>
+    <color name="lightBackground1">#FFFEFE</color>
+    <color name="lightBackground2">#DADADA</color>
+    <color name="lightBackground3">#F3F3F3</color>
+    <color name="borderColor">#E1E0EA</color>
+    <color name="borderColor1">#C9C9C9</color>
+</resources>

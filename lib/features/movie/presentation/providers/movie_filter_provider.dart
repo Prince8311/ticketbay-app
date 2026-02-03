@@ -1,0 +1,26 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:ticket_bay/core/api/error_handler.dart';
+import 'package:ticket_bay/features/movie/data/repositories/movie_repo_impl.dart';
+import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
+
+part 'movie_filter_provider.g.dart';
+
+@riverpod
+Future<List<LanguageFormatsModel>?> getMovieLanguageFormats(
+  Ref ref, {
+  required String movieName,
+  required String location,
+}) async {
+  final result = await ref
+      .read(movieRepoProvider)
+      .getMovieLanguageFormats(name: movieName, location: location);
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return [];
+    },
+    (data) => data ?? [],
+  );
+}
