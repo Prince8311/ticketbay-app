@@ -8,8 +8,8 @@ import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
-class MovieInfoScreen extends HookConsumerWidget {
-  const MovieInfoScreen({super.key});
+class TheaterInfoScreen extends HookConsumerWidget {
+  const TheaterInfoScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +23,7 @@ class MovieInfoScreen extends HookConsumerWidget {
         scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(8),
+          preferredSize: const Size.fromHeight(9),
           child: Divider(
             height: 1,
             thickness: 1,
@@ -32,7 +32,7 @@ class MovieInfoScreen extends HookConsumerWidget {
         ),
         flexibleSpace: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 15, 16, 8),
+            padding: const EdgeInsets.fromLTRB(16, 15, 16, 9),
             child: Row(
               children: [
                 GestureDetector(
@@ -48,7 +48,7 @@ class MovieInfoScreen extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kantara: A Legend - Chapter 1',
+                        'Sreeleka Theater',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -59,29 +59,16 @@ class MovieInfoScreen extends HookConsumerWidget {
                         ),
                       ),
                       Gap(2.h),
-                      Row(
-                        children: [
-                          Text(
-                            'Show Runtime:',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: ColorName.black,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: FontFamily.poppins,
-                            ),
-                          ),
-                          Gap(3.w),
-                          Text(
-                            '3hr 12min',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: ColorName.black2,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: FontFamily.poppins,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        'orem Ipsum is simply dummy text of the printing and typesetting',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: ColorName.black2,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: FontFamily.poppins,
+                        ),
                       )
                     ],
                   ),
@@ -282,7 +269,11 @@ class MovieInfoScreen extends HookConsumerWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    Assets.images.theater.image(width: 35),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(3),
+                                      child: Assets.images.movie1
+                                          .image(height: 40),
+                                    ),
                                     Gap(12.w),
                                     Expanded(
                                       child: Column(
@@ -290,7 +281,7 @@ class MovieInfoScreen extends HookConsumerWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Sreeleka Theater',
+                                            'Kantara: A Legend - Chapter 1',
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -300,16 +291,33 @@ class MovieInfoScreen extends HookConsumerWidget {
                                               fontFamily: FontFamily.poppins,
                                             ),
                                           ),
-                                          Text(
-                                            'orem Ipsum is simply dummy text of the printing and typesetting',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              color: ColorName.black2,
-                                              fontFamily: FontFamily.poppins,
-                                            ),
-                                          ),
+                                          Gap(2.h),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Show Runtime:',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: ColorName.black,
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:
+                                                      FontFamily.poppins,
+                                                ),
+                                              ),
+                                              Gap(3.w),
+                                              Text(
+                                                '3hr 12min',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: ColorName.black2,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:
+                                                      FontFamily.poppins,
+                                                ),
+                                              ),
+                                            ],
+                                          )
                                         ],
                                       ),
                                     )

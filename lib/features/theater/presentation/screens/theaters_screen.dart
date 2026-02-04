@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/api_list_widget.dart';
@@ -184,7 +186,9 @@ class TheatersScreen extends HookConsumerWidget {
                                               .map((format) {
                                             return GestureDetector(
                                               onTap: () {
-                                                /// handle selection here
+                                                context.pop();
+                                                TheaterInfoRoute()
+                                                    .push(context);
                                               },
                                               child: Container(
                                                 padding:

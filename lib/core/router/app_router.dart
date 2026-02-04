@@ -16,6 +16,7 @@ import 'package:ticket_bay/features/movie/presentation/screens/upcoming_movies_s
 import 'package:ticket_bay/features/movie/presentation/screens/movie_details_screen.dart';
 import 'package:ticket_bay/features/movie/presentation/screens/movie_info_screen.dart';
 import 'package:ticket_bay/features/movie/presentation/screens/reviews_screen.dart';
+import 'package:ticket_bay/features/theater/presentation/screens/theater_info_screen.dart';
 import 'package:ticket_bay/features/theater/presentation/screens/theaters_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/account_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/booking_history/upcoming_booking_screen.dart';
@@ -54,6 +55,9 @@ class RoutePath {
   static const String movieInfo = '/movie-info';
   static const String movieReviews = '/movie-reviews';
 
+  // theater screens
+  static const String theaterInfo = '/theater-info';
+
   // account screens
   static const String upcomingBookings = '/upcoming-bookings';
   static const String previousBookings = '/previous-bookings';
@@ -88,6 +92,9 @@ class RouteName {
   static const String movieDetails = 'movieDetails';
   static const String movieInfo = 'movieInfo';
   static const String movieReviews = 'movieReviews';
+
+  // theater screens
+  static const String theaterInfo = 'theaterInfo';
 
   // account screens
   static const String upcomingBookings = 'upcomingBookings';
@@ -303,6 +310,17 @@ class TheatersRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(TheatersScreen());
+  }
+}
+
+@TypedGoRoute<TheaterInfoRoute>(
+  path: RoutePath.theaterInfo,
+  name: RouteName.theaterInfo,
+)
+class TheaterInfoRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(TheaterInfoScreen());
   }
 }
 
