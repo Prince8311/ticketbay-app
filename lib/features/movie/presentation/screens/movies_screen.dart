@@ -97,7 +97,7 @@ class MoviesScreen extends HookConsumerWidget {
                       ),
                     );
                   }
-                  return ApiListWidget(
+                  return ApiGridWidget(
                     provider: recommendedMoviesProvider,
                     data: recommendedState,
                     pageProvider: recommendedMoviePageProvider,

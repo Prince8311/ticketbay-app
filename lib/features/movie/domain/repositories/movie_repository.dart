@@ -19,4 +19,17 @@ abstract class MovieRepository {
     required String name,
     required String location,
   });
+  FutureEither<List<MovieDateItem>?> getMovieAvailableDates({
+    required String name,
+    required String location,
+    required String language,
+    required String format,
+  });
+  FutureEither<List<InfoTheaterItem>?> getMovieInfo({
+    required String name,
+    required String location,
+    required String date,
+    required String language,
+    required String format,
+  });
 }

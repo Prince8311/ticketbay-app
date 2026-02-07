@@ -30,3 +30,20 @@ class DateUtilsHelper {
     });
   }
 }
+
+String? normalizeApiDate(String? date) {
+  if (date == null || date.isEmpty) return null;
+
+  try {
+    // API format: "10 Feb, 2026"
+    final parsed = DateFormat('dd MMM, yyyy').parse(date);
+    return DateFormat('yyyy-MM-dd').format(parsed);
+  } catch (_) {
+    return null;
+  }
+}
+
+String formatSelectedDate(DateItem item) {
+  final year = item.iso.split('-').first;
+  return '${item.date} ${item.month}, $year';
+}

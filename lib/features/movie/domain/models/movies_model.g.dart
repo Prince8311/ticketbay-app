@@ -145,3 +145,110 @@ Map<String, dynamic> _$$LanguageFormatsModelImplToJson(
       'language': instance.language,
       'formats': instance.formats,
     };
+
+_$MovieDatesModelImpl _$$MovieDatesModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$MovieDatesModelImpl(
+      status: (json['status'] as num?)?.toInt(),
+      message: json['message'] as String?,
+      dates: (json['dates'] as List<dynamic>?)
+          ?.map((e) => MovieDateItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$MovieDatesModelImplToJson(
+        _$MovieDatesModelImpl instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'dates': instance.dates,
+    };
+
+_$MovieDateItemImpl _$$MovieDateItemImplFromJson(Map<String, dynamic> json) =>
+    _$MovieDateItemImpl(
+      date: json['start_date'] as String?,
+    );
+
+Map<String, dynamic> _$$MovieDateItemImplToJson(_$MovieDateItemImpl instance) =>
+    <String, dynamic>{
+      'start_date': instance.date,
+    };
+
+_$MovieInfoDataImpl _$$MovieInfoDataImplFromJson(Map<String, dynamic> json) =>
+    _$MovieInfoDataImpl(
+      name: json['name'] as String?,
+      totalTime: json['totalTime'] as String?,
+      language: json['language'] as String?,
+      format: json['format'] as String?,
+    );
+
+Map<String, dynamic> _$$MovieInfoDataImplToJson(_$MovieInfoDataImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'totalTime': instance.totalTime,
+      'language': instance.language,
+      'format': instance.format,
+    };
+
+_$MovieInfoModelImpl _$$MovieInfoModelImplFromJson(Map<String, dynamic> json) =>
+    _$MovieInfoModelImpl(
+      status: (json['status'] as num?)?.toInt(),
+      message: json['message'] as String?,
+      totalTime: json['totalTime'] as String?,
+      theaters: (json['theaters'] as List<dynamic>?)
+          ?.map((e) => InfoTheaterItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$MovieInfoModelImplToJson(
+        _$MovieInfoModelImpl instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'totalTime': instance.totalTime,
+      'theaters': instance.theaters,
+    };
+
+_$InfoTheaterItemImpl _$$InfoTheaterItemImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InfoTheaterItemImpl(
+      theaterName: json['theater_name'] as String?,
+      location: json['location'] as String?,
+      timings: (json['timings'] as List<dynamic>?)
+          ?.map((e) => InfoTheaterTime.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$InfoTheaterItemImplToJson(
+        _$InfoTheaterItemImpl instance) =>
+    <String, dynamic>{
+      'theater_name': instance.theaterName,
+      'location': instance.location,
+      'timings': instance.timings,
+    };
+
+_$InfoTheaterTimeImpl _$$InfoTheaterTimeImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InfoTheaterTimeImpl(
+      screen: json['screen'] as String?,
+      screenId: json['screen_id'] as String?,
+      language: json['language'] as String?,
+      format: json['format'] as String?,
+      startDate: json['start_date'] as String?,
+      startTime: json['start_time'] as String?,
+      endDate: json['end_date'] as String?,
+      endTime: json['end_time'] as String?,
+    );
+
+Map<String, dynamic> _$$InfoTheaterTimeImplToJson(
+        _$InfoTheaterTimeImpl instance) =>
+    <String, dynamic>{
+      'screen': instance.screen,
+      'screen_id': instance.screenId,
+      'language': instance.language,
+      'format': instance.format,
+      'start_date': instance.startDate,
+      'start_time': instance.startTime,
+      'end_date': instance.endDate,
+      'end_time': instance.endTime,
+    };

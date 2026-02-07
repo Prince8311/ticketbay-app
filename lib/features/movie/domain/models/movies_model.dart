@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'movies_model.freezed.dart';
 part 'movies_model.g.dart';
 
+/* ================= MOVIE LIST ================= */
 @freezed
 class MovieListModel with _$MovieListModel {
   const factory MovieListModel({
@@ -27,6 +28,7 @@ class MovieModel with _$MovieModel {
       _$MovieModelFromJson(json);
 }
 
+/* ================= MOVIE DETAILS ================= */
 @freezed
 class MovieDetailsResponseModel with _$MovieDetailsResponseModel {
   const factory MovieDetailsResponseModel({
@@ -73,6 +75,7 @@ class MovieMemberModel with _$MovieMemberModel {
       _$MovieMemberModelFromJson(json);
 }
 
+/* ================= MOVIE LANGUAGE FORMATS ================= */
 @freezed
 class LanguageFormatResponseModel with _$LanguageFormatResponseModel {
   const factory LanguageFormatResponseModel({
@@ -94,4 +97,84 @@ class LanguageFormatsModel with _$LanguageFormatsModel {
 
   factory LanguageFormatsModel.fromJson(Map<String, dynamic> json) =>
       _$LanguageFormatsModelFromJson(json);
+}
+
+/* ================= MOVIE AVAILABLE DATES ================= */
+@freezed
+class MovieDatesModel with _$MovieDatesModel {
+  const factory MovieDatesModel({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+    @JsonKey(name: 'dates') List<MovieDateItem>? dates,
+  }) = _MovieDatesModel;
+
+  factory MovieDatesModel.fromJson(Map<String, dynamic> json) =>
+      _$MovieDatesModelFromJson(json);
+}
+
+@freezed
+class MovieDateItem with _$MovieDateItem {
+  const factory MovieDateItem({
+    @JsonKey(name: 'start_date') String? date,
+  }) = _MovieDateItem;
+
+  factory MovieDateItem.fromJson(Map<String, dynamic> json) =>
+      _$MovieDateItemFromJson(json);
+}
+
+/* ================= MOVIE INFO REDIRECTION ================= */
+@freezed
+class MovieInfoData with _$MovieInfoData {
+  const factory MovieInfoData({
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'totalTime') String? totalTime,
+    @JsonKey(name: 'language') String? language,
+    @JsonKey(name: 'format') String? format,
+  }) = _MovieInfoData;
+
+  factory MovieInfoData.fromJson(Map<String, dynamic> json) =>
+      _$MovieInfoDataFromJson(json);
+}
+
+/* ================= MOVIE INFO ================= */
+@freezed
+class MovieInfoModel with _$MovieInfoModel {
+  const factory MovieInfoModel({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+    @JsonKey(name: 'totalTime') String? totalTime,
+    @JsonKey(name: 'theaters') List<InfoTheaterItem>? theaters,
+  }) = _MovieInfoModel;
+
+  factory MovieInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$MovieInfoModelFromJson(json);
+}
+
+@freezed
+class InfoTheaterItem with _$InfoTheaterItem {
+  const factory InfoTheaterItem({
+    @JsonKey(name: 'theater_name') String? theaterName,
+    @JsonKey(name: 'location') String? location,
+    @JsonKey(name: 'timings') List<InfoTheaterTime>? timings,
+  }) = _InfoTheaterItem;
+
+  factory InfoTheaterItem.fromJson(Map<String, dynamic> json) =>
+      _$InfoTheaterItemFromJson(json);
+}
+
+@freezed
+class InfoTheaterTime with _$InfoTheaterTime {
+  const factory InfoTheaterTime({
+    @JsonKey(name: 'screen') String? screen,
+    @JsonKey(name: 'screen_id') String? screenId,
+    @JsonKey(name: 'language') String? language,
+    @JsonKey(name: 'format') String? format,
+    @JsonKey(name: 'start_date') String? startDate,
+    @JsonKey(name: 'start_time') String? startTime,
+    @JsonKey(name: 'end_date') String? endDate,
+    @JsonKey(name: 'end_time') String? endTime,
+  }) = _InfoTheaterTime;
+
+  factory InfoTheaterTime.fromJson(Map<String, dynamic> json) =>
+      _$InfoTheaterTimeFromJson(json);
 }

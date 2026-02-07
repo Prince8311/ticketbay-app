@@ -9,8 +9,8 @@ mixin PaginationNotifier<T> on StateNotifier<T> {
   Future<void> refresh();
 }
 
-class ApiListWidget<T> extends ConsumerStatefulWidget {
-  const ApiListWidget({
+class ApiGridWidget<T> extends ConsumerStatefulWidget {
+  const ApiGridWidget({
     super.key,
     required this.data,
     required this.provider,
@@ -38,10 +38,10 @@ class ApiListWidget<T> extends ConsumerStatefulWidget {
   final EdgeInsets? padding;
 
   @override
-  ConsumerState<ApiListWidget<T>> createState() => _ApiListWidgetState<T>();
+  ConsumerState<ApiGridWidget<T>> createState() => _ApiGridWidgetState<T>();
 }
 
-class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
+class _ApiGridWidgetState<T> extends ConsumerState<ApiGridWidget<T>> {
   late ScrollController _listScrollController;
 
   @override
@@ -51,24 +51,19 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _listScrollController
           .addListener(widget.scrollControllerListener ?? () {});
-      //* -- Adding Hide Nav Bar Listener --
-      // _listScrollController.addListener(hideNavBar);
       _listScrollController.addListener(() {
         if (_listScrollController.offset ==
             _listScrollController.position.maxScrollExtent) {
           if (widget.pageProvider != null && widget.canLoadMore != null) {
             if (!mounted) return;
             if (!ref.watch(widget.canLoadMore!)) return;
-            //* Increasing the page count
             ref
                 .read(widget.pageProvider!.notifier)
                 .update((state) => state = state + 1);
 
-            //* Getting more data from the api
             ref.read(widget.provider.notifier).loadMore();
           }
         }
-        //* -- Hiding Nav Bar --
       });
     });
   }
@@ -89,7 +84,6 @@ class _ApiListWidgetState<T> extends ConsumerState<ApiListWidget<T>> {
                 const Text(
                   'Oops, No data found!',
                   style: TextStyle(
-                    // fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),

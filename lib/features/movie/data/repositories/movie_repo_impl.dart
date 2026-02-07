@@ -83,4 +83,42 @@ class MovieRepoImpl extends MovieRepository {
       return res.data;
     });
   }
+
+  @override
+  FutureEither<List<MovieDateItem>?> getMovieAvailableDates({
+    required String name,
+    required String location,
+    required String language,
+    required String format,
+  }) {
+    return apiHandler<List<MovieDateItem>?>(() async {
+      final res = await _apiService.getMovieAvailableDates(
+        name: name,
+        location: location,
+        language: language,
+        format: format,
+      );
+      return res.dates;
+    });
+  }
+
+  @override
+  FutureEither<List<InfoTheaterItem>?> getMovieInfo({
+    required String name,
+    required String location,
+    required String date,
+    required String language,
+    required String format,
+  }) {
+    return apiHandler<List<InfoTheaterItem>?>(() async {
+      final res = await _apiService.getMovieInfo(
+        name: name,
+        location: location,
+        date: date,
+        language: language,
+        format: format,
+      );
+      return res.theaters;
+    });
+  }
 }

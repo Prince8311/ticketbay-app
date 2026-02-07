@@ -15,7 +15,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 7420), () {
+    Future.delayed(const Duration(milliseconds: 8400), () {
       if (mounted) {
         WelcomeRoute().go(context);
       }

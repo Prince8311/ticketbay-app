@@ -300,7 +300,7 @@ class TheatersScreen extends HookConsumerWidget {
                       ),
                     );
                   }
-                  return ApiListWidget(
+                  return ApiGridWidget(
                     provider: theatersProvider,
                     data: theatersState,
                     pageProvider: theatersPageProvider,

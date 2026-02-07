@@ -24,3 +24,53 @@ Future<List<LanguageFormatsModel>?> getMovieLanguageFormats(
     (data) => data ?? [],
   );
 }
+
+@riverpod
+Future<List<MovieDateItem>?> getMovieAvailableDates(
+  Ref ref, {
+  required String movieName,
+  required String location,
+  required String language,
+  required String format,
+}) async {
+  final result = await ref.read(movieRepoProvider).getMovieAvailableDates(
+        name: movieName,
+        location: location,
+        language: language,
+        format: format,
+      );
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return [];
+    },
+    (data) => data ?? [],
+  );
+}
+
+@riverpod
+Future<List<InfoTheaterItem>?> getMovieInfo(
+  Ref ref, {
+  required String movieName,
+  required String location,
+  required String date,
+  required String language,
+  required String format,
+}) async {
+  final result = await ref.read(movieRepoProvider).getMovieInfo(
+        name: movieName,
+        location: location,
+        date: date,
+        language: language,
+        format: format,
+      );
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return [];
+    },
+    (data) => data ?? [],
+  );
+}

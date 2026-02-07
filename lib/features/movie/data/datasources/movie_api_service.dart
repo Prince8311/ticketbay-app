@@ -42,4 +42,21 @@ abstract class MovieApiService {
     @Query("name") required String name,
     @Query("location") required String location,
   });
+
+  @GET(Endpoints.movieDates)
+  Future<MovieDatesModel> getMovieAvailableDates({
+    @Query("name") required String name,
+    @Query("location") required String location,
+    @Query("language") required String language,
+    @Query("format") required String format,
+  });
+
+  @GET(Endpoints.movieInfo)
+  Future<MovieInfoModel> getMovieInfo({
+    @Query("name") required String name,
+    @Query("location") required String location,
+    @Query("date") required String date,
+    @Query("language") required String language,
+    @Query("format") required String format,
+  });
 }

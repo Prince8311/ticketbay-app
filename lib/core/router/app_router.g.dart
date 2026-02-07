@@ -345,10 +345,15 @@ RouteBase get $movieInfoRoute => GoRouteData.$route(
     );
 
 extension $MovieInfoRouteExtension on MovieInfoRoute {
-  static MovieInfoRoute _fromState(GoRouterState state) => MovieInfoRoute();
+  static MovieInfoRoute _fromState(GoRouterState state) => MovieInfoRoute(
+        moviedata: state.uri.queryParameters['moviedata']!,
+      );
 
   String get location => GoRouteData.$location(
         '/movie-info',
+        queryParams: {
+          'moviedata': moviedata,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

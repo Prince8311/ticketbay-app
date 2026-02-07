@@ -1779,3 +1779,1373 @@ abstract class _LanguageFormatsModel implements LanguageFormatsModel {
   _$$LanguageFormatsModelImplCopyWith<_$LanguageFormatsModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+MovieDatesModel _$MovieDatesModelFromJson(Map<String, dynamic> json) {
+  return _MovieDatesModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MovieDatesModel {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'dates')
+  List<MovieDateItem>? get dates => throw _privateConstructorUsedError;
+
+  /// Serializes this MovieDatesModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MovieDatesModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MovieDatesModelCopyWith<MovieDatesModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MovieDatesModelCopyWith<$Res> {
+  factory $MovieDatesModelCopyWith(
+          MovieDatesModel value, $Res Function(MovieDatesModel) then) =
+      _$MovieDatesModelCopyWithImpl<$Res, MovieDatesModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'dates') List<MovieDateItem>? dates});
+}
+
+/// @nodoc
+class _$MovieDatesModelCopyWithImpl<$Res, $Val extends MovieDatesModel>
+    implements $MovieDatesModelCopyWith<$Res> {
+  _$MovieDatesModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MovieDatesModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? dates = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dates: freezed == dates
+          ? _value.dates
+          : dates // ignore: cast_nullable_to_non_nullable
+              as List<MovieDateItem>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MovieDatesModelImplCopyWith<$Res>
+    implements $MovieDatesModelCopyWith<$Res> {
+  factory _$$MovieDatesModelImplCopyWith(_$MovieDatesModelImpl value,
+          $Res Function(_$MovieDatesModelImpl) then) =
+      __$$MovieDatesModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'dates') List<MovieDateItem>? dates});
+}
+
+/// @nodoc
+class __$$MovieDatesModelImplCopyWithImpl<$Res>
+    extends _$MovieDatesModelCopyWithImpl<$Res, _$MovieDatesModelImpl>
+    implements _$$MovieDatesModelImplCopyWith<$Res> {
+  __$$MovieDatesModelImplCopyWithImpl(
+      _$MovieDatesModelImpl _value, $Res Function(_$MovieDatesModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MovieDatesModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? dates = freezed,
+  }) {
+    return _then(_$MovieDatesModelImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dates: freezed == dates
+          ? _value._dates
+          : dates // ignore: cast_nullable_to_non_nullable
+              as List<MovieDateItem>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MovieDatesModelImpl implements _MovieDatesModel {
+  const _$MovieDatesModelImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'dates') final List<MovieDateItem>? dates})
+      : _dates = dates;
+
+  factory _$MovieDatesModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MovieDatesModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+  final List<MovieDateItem>? _dates;
+  @override
+  @JsonKey(name: 'dates')
+  List<MovieDateItem>? get dates {
+    final value = _dates;
+    if (value == null) return null;
+    if (_dates is EqualUnmodifiableListView) return _dates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'MovieDatesModel(status: $status, message: $message, dates: $dates)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MovieDatesModelImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality().equals(other._dates, _dates));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message,
+      const DeepCollectionEquality().hash(_dates));
+
+  /// Create a copy of MovieDatesModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovieDatesModelImplCopyWith<_$MovieDatesModelImpl> get copyWith =>
+      __$$MovieDatesModelImplCopyWithImpl<_$MovieDatesModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MovieDatesModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MovieDatesModel implements MovieDatesModel {
+  const factory _MovieDatesModel(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message,
+          @JsonKey(name: 'dates') final List<MovieDateItem>? dates}) =
+      _$MovieDatesModelImpl;
+
+  factory _MovieDatesModel.fromJson(Map<String, dynamic> json) =
+      _$MovieDatesModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+  @override
+  @JsonKey(name: 'dates')
+  List<MovieDateItem>? get dates;
+
+  /// Create a copy of MovieDatesModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MovieDatesModelImplCopyWith<_$MovieDatesModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MovieDateItem _$MovieDateItemFromJson(Map<String, dynamic> json) {
+  return _MovieDateItem.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MovieDateItem {
+  @JsonKey(name: 'start_date')
+  String? get date => throw _privateConstructorUsedError;
+
+  /// Serializes this MovieDateItem to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MovieDateItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MovieDateItemCopyWith<MovieDateItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MovieDateItemCopyWith<$Res> {
+  factory $MovieDateItemCopyWith(
+          MovieDateItem value, $Res Function(MovieDateItem) then) =
+      _$MovieDateItemCopyWithImpl<$Res, MovieDateItem>;
+  @useResult
+  $Res call({@JsonKey(name: 'start_date') String? date});
+}
+
+/// @nodoc
+class _$MovieDateItemCopyWithImpl<$Res, $Val extends MovieDateItem>
+    implements $MovieDateItemCopyWith<$Res> {
+  _$MovieDateItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MovieDateItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = freezed,
+  }) {
+    return _then(_value.copyWith(
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MovieDateItemImplCopyWith<$Res>
+    implements $MovieDateItemCopyWith<$Res> {
+  factory _$$MovieDateItemImplCopyWith(
+          _$MovieDateItemImpl value, $Res Function(_$MovieDateItemImpl) then) =
+      __$$MovieDateItemImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({@JsonKey(name: 'start_date') String? date});
+}
+
+/// @nodoc
+class __$$MovieDateItemImplCopyWithImpl<$Res>
+    extends _$MovieDateItemCopyWithImpl<$Res, _$MovieDateItemImpl>
+    implements _$$MovieDateItemImplCopyWith<$Res> {
+  __$$MovieDateItemImplCopyWithImpl(
+      _$MovieDateItemImpl _value, $Res Function(_$MovieDateItemImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MovieDateItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = freezed,
+  }) {
+    return _then(_$MovieDateItemImpl(
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MovieDateItemImpl implements _MovieDateItem {
+  const _$MovieDateItemImpl({@JsonKey(name: 'start_date') this.date});
+
+  factory _$MovieDateItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MovieDateItemImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'start_date')
+  final String? date;
+
+  @override
+  String toString() {
+    return 'MovieDateItem(date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MovieDateItemImpl &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, date);
+
+  /// Create a copy of MovieDateItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovieDateItemImplCopyWith<_$MovieDateItemImpl> get copyWith =>
+      __$$MovieDateItemImplCopyWithImpl<_$MovieDateItemImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MovieDateItemImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MovieDateItem implements MovieDateItem {
+  const factory _MovieDateItem(
+      {@JsonKey(name: 'start_date') final String? date}) = _$MovieDateItemImpl;
+
+  factory _MovieDateItem.fromJson(Map<String, dynamic> json) =
+      _$MovieDateItemImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'start_date')
+  String? get date;
+
+  /// Create a copy of MovieDateItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MovieDateItemImplCopyWith<_$MovieDateItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MovieInfoData _$MovieInfoDataFromJson(Map<String, dynamic> json) {
+  return _MovieInfoData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MovieInfoData {
+  @JsonKey(name: 'name')
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalTime')
+  String? get totalTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'language')
+  String? get language => throw _privateConstructorUsedError;
+  @JsonKey(name: 'format')
+  String? get format => throw _privateConstructorUsedError;
+
+  /// Serializes this MovieInfoData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MovieInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MovieInfoDataCopyWith<MovieInfoData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MovieInfoDataCopyWith<$Res> {
+  factory $MovieInfoDataCopyWith(
+          MovieInfoData value, $Res Function(MovieInfoData) then) =
+      _$MovieInfoDataCopyWithImpl<$Res, MovieInfoData>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'totalTime') String? totalTime,
+      @JsonKey(name: 'language') String? language,
+      @JsonKey(name: 'format') String? format});
+}
+
+/// @nodoc
+class _$MovieInfoDataCopyWithImpl<$Res, $Val extends MovieInfoData>
+    implements $MovieInfoDataCopyWith<$Res> {
+  _$MovieInfoDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MovieInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? totalTime = freezed,
+    Object? language = freezed,
+    Object? format = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTime: freezed == totalTime
+          ? _value.totalTime
+          : totalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: freezed == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MovieInfoDataImplCopyWith<$Res>
+    implements $MovieInfoDataCopyWith<$Res> {
+  factory _$$MovieInfoDataImplCopyWith(
+          _$MovieInfoDataImpl value, $Res Function(_$MovieInfoDataImpl) then) =
+      __$$MovieInfoDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'totalTime') String? totalTime,
+      @JsonKey(name: 'language') String? language,
+      @JsonKey(name: 'format') String? format});
+}
+
+/// @nodoc
+class __$$MovieInfoDataImplCopyWithImpl<$Res>
+    extends _$MovieInfoDataCopyWithImpl<$Res, _$MovieInfoDataImpl>
+    implements _$$MovieInfoDataImplCopyWith<$Res> {
+  __$$MovieInfoDataImplCopyWithImpl(
+      _$MovieInfoDataImpl _value, $Res Function(_$MovieInfoDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MovieInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? totalTime = freezed,
+    Object? language = freezed,
+    Object? format = freezed,
+  }) {
+    return _then(_$MovieInfoDataImpl(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTime: freezed == totalTime
+          ? _value.totalTime
+          : totalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: freezed == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MovieInfoDataImpl implements _MovieInfoData {
+  const _$MovieInfoDataImpl(
+      {@JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'totalTime') this.totalTime,
+      @JsonKey(name: 'language') this.language,
+      @JsonKey(name: 'format') this.format});
+
+  factory _$MovieInfoDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MovieInfoDataImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'name')
+  final String? name;
+  @override
+  @JsonKey(name: 'totalTime')
+  final String? totalTime;
+  @override
+  @JsonKey(name: 'language')
+  final String? language;
+  @override
+  @JsonKey(name: 'format')
+  final String? format;
+
+  @override
+  String toString() {
+    return 'MovieInfoData(name: $name, totalTime: $totalTime, language: $language, format: $format)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MovieInfoDataImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.totalTime, totalTime) ||
+                other.totalTime == totalTime) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
+            (identical(other.format, format) || other.format == format));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, totalTime, language, format);
+
+  /// Create a copy of MovieInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovieInfoDataImplCopyWith<_$MovieInfoDataImpl> get copyWith =>
+      __$$MovieInfoDataImplCopyWithImpl<_$MovieInfoDataImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MovieInfoDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MovieInfoData implements MovieInfoData {
+  const factory _MovieInfoData(
+      {@JsonKey(name: 'name') final String? name,
+      @JsonKey(name: 'totalTime') final String? totalTime,
+      @JsonKey(name: 'language') final String? language,
+      @JsonKey(name: 'format') final String? format}) = _$MovieInfoDataImpl;
+
+  factory _MovieInfoData.fromJson(Map<String, dynamic> json) =
+      _$MovieInfoDataImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'name')
+  String? get name;
+  @override
+  @JsonKey(name: 'totalTime')
+  String? get totalTime;
+  @override
+  @JsonKey(name: 'language')
+  String? get language;
+  @override
+  @JsonKey(name: 'format')
+  String? get format;
+
+  /// Create a copy of MovieInfoData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MovieInfoDataImplCopyWith<_$MovieInfoDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MovieInfoModel _$MovieInfoModelFromJson(Map<String, dynamic> json) {
+  return _MovieInfoModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MovieInfoModel {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalTime')
+  String? get totalTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'theaters')
+  List<InfoTheaterItem>? get theaters => throw _privateConstructorUsedError;
+
+  /// Serializes this MovieInfoModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of MovieInfoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $MovieInfoModelCopyWith<MovieInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MovieInfoModelCopyWith<$Res> {
+  factory $MovieInfoModelCopyWith(
+          MovieInfoModel value, $Res Function(MovieInfoModel) then) =
+      _$MovieInfoModelCopyWithImpl<$Res, MovieInfoModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'totalTime') String? totalTime,
+      @JsonKey(name: 'theaters') List<InfoTheaterItem>? theaters});
+}
+
+/// @nodoc
+class _$MovieInfoModelCopyWithImpl<$Res, $Val extends MovieInfoModel>
+    implements $MovieInfoModelCopyWith<$Res> {
+  _$MovieInfoModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of MovieInfoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? totalTime = freezed,
+    Object? theaters = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTime: freezed == totalTime
+          ? _value.totalTime
+          : totalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaters: freezed == theaters
+          ? _value.theaters
+          : theaters // ignore: cast_nullable_to_non_nullable
+              as List<InfoTheaterItem>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$MovieInfoModelImplCopyWith<$Res>
+    implements $MovieInfoModelCopyWith<$Res> {
+  factory _$$MovieInfoModelImplCopyWith(_$MovieInfoModelImpl value,
+          $Res Function(_$MovieInfoModelImpl) then) =
+      __$$MovieInfoModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'totalTime') String? totalTime,
+      @JsonKey(name: 'theaters') List<InfoTheaterItem>? theaters});
+}
+
+/// @nodoc
+class __$$MovieInfoModelImplCopyWithImpl<$Res>
+    extends _$MovieInfoModelCopyWithImpl<$Res, _$MovieInfoModelImpl>
+    implements _$$MovieInfoModelImplCopyWith<$Res> {
+  __$$MovieInfoModelImplCopyWithImpl(
+      _$MovieInfoModelImpl _value, $Res Function(_$MovieInfoModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MovieInfoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? totalTime = freezed,
+    Object? theaters = freezed,
+  }) {
+    return _then(_$MovieInfoModelImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalTime: freezed == totalTime
+          ? _value.totalTime
+          : totalTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaters: freezed == theaters
+          ? _value._theaters
+          : theaters // ignore: cast_nullable_to_non_nullable
+              as List<InfoTheaterItem>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$MovieInfoModelImpl implements _MovieInfoModel {
+  const _$MovieInfoModelImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'totalTime') this.totalTime,
+      @JsonKey(name: 'theaters') final List<InfoTheaterItem>? theaters})
+      : _theaters = theaters;
+
+  factory _$MovieInfoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MovieInfoModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+  @override
+  @JsonKey(name: 'totalTime')
+  final String? totalTime;
+  final List<InfoTheaterItem>? _theaters;
+  @override
+  @JsonKey(name: 'theaters')
+  List<InfoTheaterItem>? get theaters {
+    final value = _theaters;
+    if (value == null) return null;
+    if (_theaters is EqualUnmodifiableListView) return _theaters;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'MovieInfoModel(status: $status, message: $message, totalTime: $totalTime, theaters: $theaters)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MovieInfoModelImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.totalTime, totalTime) ||
+                other.totalTime == totalTime) &&
+            const DeepCollectionEquality().equals(other._theaters, _theaters));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message, totalTime,
+      const DeepCollectionEquality().hash(_theaters));
+
+  /// Create a copy of MovieInfoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MovieInfoModelImplCopyWith<_$MovieInfoModelImpl> get copyWith =>
+      __$$MovieInfoModelImplCopyWithImpl<_$MovieInfoModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MovieInfoModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MovieInfoModel implements MovieInfoModel {
+  const factory _MovieInfoModel(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message,
+          @JsonKey(name: 'totalTime') final String? totalTime,
+          @JsonKey(name: 'theaters') final List<InfoTheaterItem>? theaters}) =
+      _$MovieInfoModelImpl;
+
+  factory _MovieInfoModel.fromJson(Map<String, dynamic> json) =
+      _$MovieInfoModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+  @override
+  @JsonKey(name: 'totalTime')
+  String? get totalTime;
+  @override
+  @JsonKey(name: 'theaters')
+  List<InfoTheaterItem>? get theaters;
+
+  /// Create a copy of MovieInfoModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MovieInfoModelImplCopyWith<_$MovieInfoModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+InfoTheaterItem _$InfoTheaterItemFromJson(Map<String, dynamic> json) {
+  return _InfoTheaterItem.fromJson(json);
+}
+
+/// @nodoc
+mixin _$InfoTheaterItem {
+  @JsonKey(name: 'theater_name')
+  String? get theaterName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'location')
+  String? get location => throw _privateConstructorUsedError;
+  @JsonKey(name: 'timings')
+  List<InfoTheaterTime>? get timings => throw _privateConstructorUsedError;
+
+  /// Serializes this InfoTheaterItem to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of InfoTheaterItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $InfoTheaterItemCopyWith<InfoTheaterItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InfoTheaterItemCopyWith<$Res> {
+  factory $InfoTheaterItemCopyWith(
+          InfoTheaterItem value, $Res Function(InfoTheaterItem) then) =
+      _$InfoTheaterItemCopyWithImpl<$Res, InfoTheaterItem>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'theater_name') String? theaterName,
+      @JsonKey(name: 'location') String? location,
+      @JsonKey(name: 'timings') List<InfoTheaterTime>? timings});
+}
+
+/// @nodoc
+class _$InfoTheaterItemCopyWithImpl<$Res, $Val extends InfoTheaterItem>
+    implements $InfoTheaterItemCopyWith<$Res> {
+  _$InfoTheaterItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of InfoTheaterItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theaterName = freezed,
+    Object? location = freezed,
+    Object? timings = freezed,
+  }) {
+    return _then(_value.copyWith(
+      theaterName: freezed == theaterName
+          ? _value.theaterName
+          : theaterName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timings: freezed == timings
+          ? _value.timings
+          : timings // ignore: cast_nullable_to_non_nullable
+              as List<InfoTheaterTime>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$InfoTheaterItemImplCopyWith<$Res>
+    implements $InfoTheaterItemCopyWith<$Res> {
+  factory _$$InfoTheaterItemImplCopyWith(_$InfoTheaterItemImpl value,
+          $Res Function(_$InfoTheaterItemImpl) then) =
+      __$$InfoTheaterItemImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'theater_name') String? theaterName,
+      @JsonKey(name: 'location') String? location,
+      @JsonKey(name: 'timings') List<InfoTheaterTime>? timings});
+}
+
+/// @nodoc
+class __$$InfoTheaterItemImplCopyWithImpl<$Res>
+    extends _$InfoTheaterItemCopyWithImpl<$Res, _$InfoTheaterItemImpl>
+    implements _$$InfoTheaterItemImplCopyWith<$Res> {
+  __$$InfoTheaterItemImplCopyWithImpl(
+      _$InfoTheaterItemImpl _value, $Res Function(_$InfoTheaterItemImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of InfoTheaterItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? theaterName = freezed,
+    Object? location = freezed,
+    Object? timings = freezed,
+  }) {
+    return _then(_$InfoTheaterItemImpl(
+      theaterName: freezed == theaterName
+          ? _value.theaterName
+          : theaterName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      location: freezed == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String?,
+      timings: freezed == timings
+          ? _value._timings
+          : timings // ignore: cast_nullable_to_non_nullable
+              as List<InfoTheaterTime>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$InfoTheaterItemImpl implements _InfoTheaterItem {
+  const _$InfoTheaterItemImpl(
+      {@JsonKey(name: 'theater_name') this.theaterName,
+      @JsonKey(name: 'location') this.location,
+      @JsonKey(name: 'timings') final List<InfoTheaterTime>? timings})
+      : _timings = timings;
+
+  factory _$InfoTheaterItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InfoTheaterItemImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'theater_name')
+  final String? theaterName;
+  @override
+  @JsonKey(name: 'location')
+  final String? location;
+  final List<InfoTheaterTime>? _timings;
+  @override
+  @JsonKey(name: 'timings')
+  List<InfoTheaterTime>? get timings {
+    final value = _timings;
+    if (value == null) return null;
+    if (_timings is EqualUnmodifiableListView) return _timings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'InfoTheaterItem(theaterName: $theaterName, location: $location, timings: $timings)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InfoTheaterItemImpl &&
+            (identical(other.theaterName, theaterName) ||
+                other.theaterName == theaterName) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            const DeepCollectionEquality().equals(other._timings, _timings));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, theaterName, location,
+      const DeepCollectionEquality().hash(_timings));
+
+  /// Create a copy of InfoTheaterItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InfoTheaterItemImplCopyWith<_$InfoTheaterItemImpl> get copyWith =>
+      __$$InfoTheaterItemImplCopyWithImpl<_$InfoTheaterItemImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InfoTheaterItemImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _InfoTheaterItem implements InfoTheaterItem {
+  const factory _InfoTheaterItem(
+          {@JsonKey(name: 'theater_name') final String? theaterName,
+          @JsonKey(name: 'location') final String? location,
+          @JsonKey(name: 'timings') final List<InfoTheaterTime>? timings}) =
+      _$InfoTheaterItemImpl;
+
+  factory _InfoTheaterItem.fromJson(Map<String, dynamic> json) =
+      _$InfoTheaterItemImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'theater_name')
+  String? get theaterName;
+  @override
+  @JsonKey(name: 'location')
+  String? get location;
+  @override
+  @JsonKey(name: 'timings')
+  List<InfoTheaterTime>? get timings;
+
+  /// Create a copy of InfoTheaterItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InfoTheaterItemImplCopyWith<_$InfoTheaterItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+InfoTheaterTime _$InfoTheaterTimeFromJson(Map<String, dynamic> json) {
+  return _InfoTheaterTime.fromJson(json);
+}
+
+/// @nodoc
+mixin _$InfoTheaterTime {
+  @JsonKey(name: 'screen')
+  String? get screen => throw _privateConstructorUsedError;
+  @JsonKey(name: 'screen_id')
+  String? get screenId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'language')
+  String? get language => throw _privateConstructorUsedError;
+  @JsonKey(name: 'format')
+  String? get format => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_date')
+  String? get startDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'start_time')
+  String? get startTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_date')
+  String? get endDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'end_time')
+  String? get endTime => throw _privateConstructorUsedError;
+
+  /// Serializes this InfoTheaterTime to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of InfoTheaterTime
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $InfoTheaterTimeCopyWith<InfoTheaterTime> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $InfoTheaterTimeCopyWith<$Res> {
+  factory $InfoTheaterTimeCopyWith(
+          InfoTheaterTime value, $Res Function(InfoTheaterTime) then) =
+      _$InfoTheaterTimeCopyWithImpl<$Res, InfoTheaterTime>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'screen') String? screen,
+      @JsonKey(name: 'screen_id') String? screenId,
+      @JsonKey(name: 'language') String? language,
+      @JsonKey(name: 'format') String? format,
+      @JsonKey(name: 'start_date') String? startDate,
+      @JsonKey(name: 'start_time') String? startTime,
+      @JsonKey(name: 'end_date') String? endDate,
+      @JsonKey(name: 'end_time') String? endTime});
+}
+
+/// @nodoc
+class _$InfoTheaterTimeCopyWithImpl<$Res, $Val extends InfoTheaterTime>
+    implements $InfoTheaterTimeCopyWith<$Res> {
+  _$InfoTheaterTimeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of InfoTheaterTime
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? screen = freezed,
+    Object? screenId = freezed,
+    Object? language = freezed,
+    Object? format = freezed,
+    Object? startDate = freezed,
+    Object? startTime = freezed,
+    Object? endDate = freezed,
+    Object? endTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      screen: freezed == screen
+          ? _value.screen
+          : screen // ignore: cast_nullable_to_non_nullable
+              as String?,
+      screenId: freezed == screenId
+          ? _value.screenId
+          : screenId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: freezed == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$InfoTheaterTimeImplCopyWith<$Res>
+    implements $InfoTheaterTimeCopyWith<$Res> {
+  factory _$$InfoTheaterTimeImplCopyWith(_$InfoTheaterTimeImpl value,
+          $Res Function(_$InfoTheaterTimeImpl) then) =
+      __$$InfoTheaterTimeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'screen') String? screen,
+      @JsonKey(name: 'screen_id') String? screenId,
+      @JsonKey(name: 'language') String? language,
+      @JsonKey(name: 'format') String? format,
+      @JsonKey(name: 'start_date') String? startDate,
+      @JsonKey(name: 'start_time') String? startTime,
+      @JsonKey(name: 'end_date') String? endDate,
+      @JsonKey(name: 'end_time') String? endTime});
+}
+
+/// @nodoc
+class __$$InfoTheaterTimeImplCopyWithImpl<$Res>
+    extends _$InfoTheaterTimeCopyWithImpl<$Res, _$InfoTheaterTimeImpl>
+    implements _$$InfoTheaterTimeImplCopyWith<$Res> {
+  __$$InfoTheaterTimeImplCopyWithImpl(
+      _$InfoTheaterTimeImpl _value, $Res Function(_$InfoTheaterTimeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of InfoTheaterTime
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? screen = freezed,
+    Object? screenId = freezed,
+    Object? language = freezed,
+    Object? format = freezed,
+    Object? startDate = freezed,
+    Object? startTime = freezed,
+    Object? endDate = freezed,
+    Object? endTime = freezed,
+  }) {
+    return _then(_$InfoTheaterTimeImpl(
+      screen: freezed == screen
+          ? _value.screen
+          : screen // ignore: cast_nullable_to_non_nullable
+              as String?,
+      screenId: freezed == screenId
+          ? _value.screenId
+          : screenId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: freezed == language
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      format: freezed == format
+          ? _value.format
+          : format // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$InfoTheaterTimeImpl implements _InfoTheaterTime {
+  const _$InfoTheaterTimeImpl(
+      {@JsonKey(name: 'screen') this.screen,
+      @JsonKey(name: 'screen_id') this.screenId,
+      @JsonKey(name: 'language') this.language,
+      @JsonKey(name: 'format') this.format,
+      @JsonKey(name: 'start_date') this.startDate,
+      @JsonKey(name: 'start_time') this.startTime,
+      @JsonKey(name: 'end_date') this.endDate,
+      @JsonKey(name: 'end_time') this.endTime});
+
+  factory _$InfoTheaterTimeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$InfoTheaterTimeImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'screen')
+  final String? screen;
+  @override
+  @JsonKey(name: 'screen_id')
+  final String? screenId;
+  @override
+  @JsonKey(name: 'language')
+  final String? language;
+  @override
+  @JsonKey(name: 'format')
+  final String? format;
+  @override
+  @JsonKey(name: 'start_date')
+  final String? startDate;
+  @override
+  @JsonKey(name: 'start_time')
+  final String? startTime;
+  @override
+  @JsonKey(name: 'end_date')
+  final String? endDate;
+  @override
+  @JsonKey(name: 'end_time')
+  final String? endTime;
+
+  @override
+  String toString() {
+    return 'InfoTheaterTime(screen: $screen, screenId: $screenId, language: $language, format: $format, startDate: $startDate, startTime: $startTime, endDate: $endDate, endTime: $endTime)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InfoTheaterTimeImpl &&
+            (identical(other.screen, screen) || other.screen == screen) &&
+            (identical(other.screenId, screenId) ||
+                other.screenId == screenId) &&
+            (identical(other.language, language) ||
+                other.language == language) &&
+            (identical(other.format, format) || other.format == format) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, screen, screenId, language,
+      format, startDate, startTime, endDate, endTime);
+
+  /// Create a copy of InfoTheaterTime
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InfoTheaterTimeImplCopyWith<_$InfoTheaterTimeImpl> get copyWith =>
+      __$$InfoTheaterTimeImplCopyWithImpl<_$InfoTheaterTimeImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InfoTheaterTimeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _InfoTheaterTime implements InfoTheaterTime {
+  const factory _InfoTheaterTime(
+          {@JsonKey(name: 'screen') final String? screen,
+          @JsonKey(name: 'screen_id') final String? screenId,
+          @JsonKey(name: 'language') final String? language,
+          @JsonKey(name: 'format') final String? format,
+          @JsonKey(name: 'start_date') final String? startDate,
+          @JsonKey(name: 'start_time') final String? startTime,
+          @JsonKey(name: 'end_date') final String? endDate,
+          @JsonKey(name: 'end_time') final String? endTime}) =
+      _$InfoTheaterTimeImpl;
+
+  factory _InfoTheaterTime.fromJson(Map<String, dynamic> json) =
+      _$InfoTheaterTimeImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'screen')
+  String? get screen;
+  @override
+  @JsonKey(name: 'screen_id')
+  String? get screenId;
+  @override
+  @JsonKey(name: 'language')
+  String? get language;
+  @override
+  @JsonKey(name: 'format')
+  String? get format;
+  @override
+  @JsonKey(name: 'start_date')
+  String? get startDate;
+  @override
+  @JsonKey(name: 'start_time')
+  String? get startTime;
+  @override
+  @JsonKey(name: 'end_date')
+  String? get endDate;
+  @override
+  @JsonKey(name: 'end_time')
+  String? get endTime;
+
+  /// Create a copy of InfoTheaterTime
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InfoTheaterTimeImplCopyWith<_$InfoTheaterTimeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

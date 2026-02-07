@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,7 +30,7 @@ class MovieDetailsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedLocation = ref.watch(locationProvider);
-
+    String? movieTotalTime;
     final movieAsync = (selectedLocation != null)
         ? ref.watch(
             movieDetailsProvider(
@@ -186,8 +188,17 @@ class MovieDetailsScreen extends HookConsumerWidget {
                                               .map((format) {
                                             return GestureDetector(
                                               onTap: () {
+                                                final movie = MovieInfoData(
+                                                  name: movieName,
+                                                  totalTime: movieTotalTime,
+                                                  language: item.language,
+                                                  format: format,
+                                                );
                                                 context.pop();
-                                                MovieInfoRoute().push(context);
+                                                MovieInfoRoute(
+                                                        moviedata: json.encode(
+                                                            movie.toJson()))
+                                                    .push(context);
                                               },
                                               child: Container(
                                                 padding:
@@ -272,6 +283,7 @@ class MovieDetailsScreen extends HookConsumerWidget {
                   if (movie == null) {
                     return const Center(child: Text('Select a location'));
                   }
+                  movieTotalTime = movie.totalTime;
                   return Column(
                     children: [
                       Container(

@@ -84,7 +84,7 @@ class UpcomingMoviesScreen extends HookConsumerWidget {
                       ),
                     );
                   }
-                  return ApiListWidget(
+                  return ApiGridWidget(
                     provider: upcomingMoviesProvider,
                     data: upcomingState,
                     pageProvider: upcomingMoviesPageProvider,

@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_bay/core/shared/widgets/bottom_nav_bar.dart';
+import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 
 // UI Screens
 import 'package:ticket_bay/features/onboarding/splash_screen.dart';
@@ -296,9 +298,13 @@ class MovieDetailsRoute extends GoRouteData {
   name: RouteName.movieInfo,
 )
 class MovieInfoRoute extends GoRouteData {
+  const MovieInfoRoute({required this.moviedata});
+  final String moviedata;
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(MovieInfoScreen());
+    final decodedMap = json.decode(moviedata) as Map<String, dynamic>;
+    final movie = MovieInfoData.fromJson(decodedMap);
+    return slideTransitionPage(MovieInfoScreen(moviedata: movie));
   }
 }
 
