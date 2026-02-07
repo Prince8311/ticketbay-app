@@ -21,6 +21,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/actor.jpeg
   AssetGenImage get actor => const AssetGenImage('assets/images/actor.jpeg');
 
+  /// File path: assets/images/auto-rikshaw.jpg
+  AssetGenImage get autoRikshaw => const AssetGenImage('assets/images/auto-rikshaw.jpg');
+
   /// File path: assets/images/banner-1.jpeg
   AssetGenImage get banner1 => const AssetGenImage('assets/images/banner-1.jpeg');
 
@@ -30,17 +33,29 @@ class $AssetsImagesGen {
   /// File path: assets/images/banner-3.jpeg
   AssetGenImage get banner3 => const AssetGenImage('assets/images/banner-3.jpeg');
 
+  /// File path: assets/images/bike.jpg
+  AssetGenImage get bike => const AssetGenImage('assets/images/bike.jpg');
+
+  /// File path: assets/images/bus.jpg
+  AssetGenImage get bus => const AssetGenImage('assets/images/bus.jpg');
+
   /// File path: assets/images/cancel-tag.png
   AssetGenImage get cancelTag => const AssetGenImage('assets/images/cancel-tag.png');
 
   /// File path: assets/images/city.svg
   SvgGenImage get city => const SvgGenImage('assets/images/city.svg');
 
+  /// File path: assets/images/cycle.jpg
+  AssetGenImage get cycle => const AssetGenImage('assets/images/cycle.jpg');
+
   /// File path: assets/images/director.jpeg
   AssetGenImage get director => const AssetGenImage('assets/images/director.jpeg');
 
   /// File path: assets/images/forgot-password-icon.svg
   SvgGenImage get forgotPasswordIcon => const SvgGenImage('assets/images/forgot-password-icon.svg');
+
+  /// File path: assets/images/large-car.jpg
+  AssetGenImage get largeCar => const AssetGenImage('assets/images/large-car.jpg');
 
   /// File path: assets/images/login-icon.svg
   SvgGenImage get loginIcon => const SvgGenImage('assets/images/login-icon.svg');
@@ -63,8 +78,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/slide-5.jpeg
   AssetGenImage get slide5 => const AssetGenImage('assets/images/slide-5.jpeg');
 
+  /// File path: assets/images/small-car.jpg
+  AssetGenImage get smallCar => const AssetGenImage('assets/images/small-car.jpg');
+
   /// File path: assets/images/splash_logo.gif
   AssetGenImage get splashLogo => const AssetGenImage('assets/images/splash_logo.gif');
+
+  /// File path: assets/images/theater-screen.svg
+  SvgGenImage get theaterScreen => const SvgGenImage('assets/images/theater-screen.svg');
 
   /// File path: assets/images/theater.png
   AssetGenImage get theater => const AssetGenImage('assets/images/theater.png');
@@ -73,13 +94,18 @@ class $AssetsImagesGen {
   List<dynamic> get values => [
         movie1,
         actor,
+        autoRikshaw,
         banner1,
         banner2,
         banner3,
+        bike,
+        bus,
         cancelTag,
         city,
+        cycle,
         director,
         forgotPasswordIcon,
+        largeCar,
         loginIcon,
         profileImage,
         registerIcon,
@@ -87,7 +113,9 @@ class $AssetsImagesGen {
         slide2,
         slide3,
         slide5,
+        smallCar,
         splashLogo,
+        theaterScreen,
         theater
       ];
 }

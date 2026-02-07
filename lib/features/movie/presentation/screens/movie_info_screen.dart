@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
@@ -323,93 +324,111 @@ class MovieInfoScreen extends HookConsumerWidget {
                                   spacing: 8,
                                   runSpacing: 8,
                                   children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorName.blueColor),
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Text(
-                                        '02:10 PM',
-                                        style: TextStyle(
-                                          color: ColorName.black2,
-                                          fontSize: 13,
-                                          fontFamily: FontFamily.poppins,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      onTap: () {
+                                        SeatLayoutRoute().push(context);
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorName.blueColor),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Text(
+                                          '02:10 PM',
+                                          style: TextStyle(
+                                            color: ColorName.black2,
+                                            fontSize: 13,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorName.blueColor),
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Text(
-                                        '05:30 PM',
-                                        style: TextStyle(
-                                          color: ColorName.black2,
-                                          fontSize: 13,
-                                          fontFamily: FontFamily.poppins,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorName.blueColor),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Text(
+                                          '05:30 PM',
+                                          style: TextStyle(
+                                            color: ColorName.black2,
+                                            fontSize: 13,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorName.blueColor),
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Text(
-                                        '05:30 PM',
-                                        style: TextStyle(
-                                          color: ColorName.black2,
-                                          fontSize: 13,
-                                          fontFamily: FontFamily.poppins,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorName.blueColor),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Text(
+                                          '05:30 PM',
+                                          style: TextStyle(
+                                            color: ColorName.black2,
+                                            fontSize: 13,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorName.blueColor),
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Text(
-                                        '05:30 PM',
-                                        style: TextStyle(
-                                          color: ColorName.black2,
-                                          fontSize: 13,
-                                          fontFamily: FontFamily.poppins,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorName.blueColor),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Text(
+                                          '05:30 PM',
+                                          style: TextStyle(
+                                            color: ColorName.black2,
+                                            fontSize: 13,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 5),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: ColorName.blueColor),
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                      child: Text(
-                                        '05:30 PM',
-                                        style: TextStyle(
-                                          color: ColorName.black2,
-                                          fontSize: 13,
-                                          fontFamily: FontFamily.poppins,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: ColorName.blueColor),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                        ),
+                                        child: Text(
+                                          '05:30 PM',
+                                          style: TextStyle(
+                                            color: ColorName.black2,
+                                            fontSize: 13,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),

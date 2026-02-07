@@ -18,6 +18,7 @@ List<RouteBase> get $appRoutes => [
       $movieInfoRoute,
       $movieReviewsRoute,
       $theaterInfoRoute,
+      $seatLayoutRoute,
       $upcomingBookingsRoute,
       $previousBookingsRoute,
       $cancelledBookingsRoute,
@@ -395,6 +396,29 @@ extension $TheaterInfoRouteExtension on TheaterInfoRoute {
 
   String get location => GoRouteData.$location(
         '/theater-info',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $seatLayoutRoute => GoRouteData.$route(
+      path: '/seat-layout',
+      name: 'seatLayout',
+      factory: $SeatLayoutRouteExtension._fromState,
+    );
+
+extension $SeatLayoutRouteExtension on SeatLayoutRoute {
+  static SeatLayoutRoute _fromState(GoRouterState state) => SeatLayoutRoute();
+
+  String get location => GoRouteData.$location(
+        '/seat-layout',
       );
 
   void go(BuildContext context) => context.go(location);
