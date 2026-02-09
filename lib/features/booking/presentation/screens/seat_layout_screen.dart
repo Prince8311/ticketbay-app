@@ -1,16 +1,330 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/core/shared/widgets/loader.dart';
+import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
+import 'package:ticket_bay/features/booking/domain/models/screen_layout_model.dart';
+import 'package:ticket_bay/features/booking/presentation/providers/screen_layout_provider.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
+final seatCountProvider = StateProvider<int>((ref) => 1);
+final selectedSectionProvider = StateProvider<SectionItem?>((ref) => null);
+
 class ScreenLayoutScreen extends HookConsumerWidget {
-  const ScreenLayoutScreen({super.key});
+  const ScreenLayoutScreen({
+    super.key,
+    required this.layoutData,
+  });
+
+  final SeatLayoutInfoModel layoutData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final seatCount = ref.watch(seatCountProvider);
+    final selectedSection = ref.watch(selectedSectionProvider);
+    Widget getVehicleImage(int count) {
+      if (count == 1) {
+        return Assets.images.cycle.image(height: 90);
+      } else if (count == 2) {
+        return Assets.images.bike.image(height: 90);
+      } else if (count == 3) {
+        return Assets.images.autoRikshaw.image(height: 90);
+      } else if (count == 4) {
+        return Assets.images.smallCar.image(height: 90);
+      } else if (count >= 5 && count <= 7) {
+        return Assets.images.largeCar.image(height: 90);
+      } else {
+        return Assets.images.bus.image(height: 90);
+      }
+    }
+
+    ref.listen<AsyncValue<List<SectionItem>?>>(
+      getScreenSectionsProvider(
+        screen: layoutData.screen ?? '',
+        screenId: layoutData.screenId ?? '',
+        theaterName: layoutData.theaterName ?? '',
+      ),
+      (previous, next) {
+        next.whenData((sections) {
+          if (sections != null &&
+              sections.isNotEmpty &&
+              ref.read(selectedSectionProvider) == null) {
+            ref.read(selectedSectionProvider.notifier).state = sections.first;
+          }
+        });
+      },
+    );
+
+    final screenLayoutAsync = selectedSection == null
+        ? const AsyncValue<List<ScreenSeatsModel>?>.loading()
+        : ref.watch(
+            getScreenLayoutProvider(
+              screenId: layoutData.screenId ?? '',
+              sectionName: selectedSection.sectionName ?? '',
+              theaterName: layoutData.theaterName ?? '',
+            ),
+          );
+
+    void _showSectionsDrawer() {
+      showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        backgroundColor: ColorName.white,
+        builder: (ctx) {
+          return HookConsumer(
+            builder: (context, ref, _) {
+              final selected = ref.watch(seatCountProvider);
+              final selectedSection = ref.watch(selectedSectionProvider);
+              final screenSectionsAsync = ref.watch(
+                getScreenSectionsProvider(
+                  screen: layoutData.screen ?? '',
+                  screenId: layoutData.screenId ?? '',
+                  theaterName: layoutData.theaterName ?? '',
+                ),
+              );
+
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom,
+                ),
+                child: FractionallySizedBox(
+                  heightFactor: 0.62,
+                  widthFactor: 1,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 5,
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: ColorName.black3.withAlpha(120),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        Gap(10.h),
+                        Text(
+                          "How many seats you want?",
+                          style: TextStyle(
+                            color: ColorName.black1,
+                            fontSize: 14,
+                            fontFamily: FontFamily.poppins,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Gap(15.h),
+                        getVehicleImage(selected),
+                        Gap(10.h),
+                        Wrap(
+                          spacing: 9,
+                          children: List.generate(10, (index) {
+                            final value = index + 1;
+                            final isSelected = value == selected;
+
+                            return GestureDetector(
+                              onTap: () {
+                                ref.read(seatCountProvider.notifier).state =
+                                    value;
+                              },
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? ColorName.themeColor
+                                      : ColorName.white,
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? ColorName.themeColor
+                                        : ColorName.borderColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    value.toString(),
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? ColorName.white
+                                          : ColorName.black2,
+                                      fontSize: 11.3,
+                                      fontFamily: FontFamily.poppins,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                        Gap(15.h),
+                        Expanded(
+                          child: screenSectionsAsync.when(
+                            loading: () => SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SkeletonLoader(
+                                    height: 80,
+                                    width: double.maxFinite,
+                                  ),
+                                  Gap(10.h),
+                                  SkeletonLoader(
+                                    height: 80,
+                                    width: double.maxFinite,
+                                  ),
+                                  Gap(10.h),
+                                  SkeletonLoader(
+                                    height: 80,
+                                    width: double.maxFinite,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            error: (e, _) => const Center(
+                                child: Text('Something went wrong')),
+                            data: (sections) {
+                              if (sections == null || sections.isEmpty) {
+                                return const Center(
+                                  child: Text('No sections available'),
+                                );
+                              }
+                              return ListView.builder(
+                                itemCount: sections.length,
+                                itemBuilder: (context, index) {
+                                  final item = sections[index];
+                                  final isSelected =
+                                      selectedSection?.sectionName ==
+                                          item.sectionName;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      ref
+                                          .read(
+                                              selectedSectionProvider.notifier)
+                                          .state = item;
+                                    },
+                                    child: Container(
+                                      width: double.maxFinite,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                        color: isSelected
+                                            ? ColorName.blueColor
+                                            : ColorName.lightBackground2
+                                                .withAlpha(125),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.sectionName ?? '-',
+                                            style: TextStyle(
+                                              color: isSelected
+                                                  ? ColorName.white
+                                                  : ColorName.black1,
+                                              fontSize: 14,
+                                              fontStyle: FontStyle.italic,
+                                              fontFamily: FontFamily.poppins,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          Gap(7.h),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "₹",
+                                                style: TextStyle(
+                                                  color: isSelected
+                                                      ? ColorName.white
+                                                      : ColorName.black,
+                                                  fontSize: 13,
+                                                  height: 1.19,
+                                                  fontFamily:
+                                                      FontFamily.poppins,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              Gap(1.w),
+                                              Text(
+                                                item.price ?? '-',
+                                                style: TextStyle(
+                                                  color: isSelected
+                                                      ? ColorName.white
+                                                      : ColorName.black,
+                                                  fontSize: 20,
+                                                  height: 1,
+                                                  fontFamily:
+                                                      FontFamily.poppins,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Text(
+                                                "${item.seats} seats available",
+                                                style: TextStyle(
+                                                    color: isSelected
+                                                        ? ColorName.white
+                                                        : ColorName.black2,
+                                                    fontSize: 11,
+                                                    height: 1,
+                                                    fontFamily:
+                                                        FontFamily.poppins),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        Gap(15.h),
+                        SizedBox(
+                          height: 45,
+                          width: double.maxFinite,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorName.redColor1,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: () {},
+                            child: const Text(
+                              "Select Seats",
+                              style: TextStyle(
+                                color: ColorName.white,
+                                fontSize: 14,
+                                fontFamily: FontFamily.poppins,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
+
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: AppBar(
@@ -23,7 +337,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
           child: Divider(
             height: 1,
             thickness: 1,
-            color: ColorName.black1.withAlpha(60), // subtle border
+            color: ColorName.black1.withAlpha(60),
           ),
         ),
         flexibleSpace: SafeArea(
@@ -44,7 +358,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kantara: A Legend - Chapter 1',
+                        layoutData.movieName ?? '-',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -56,7 +370,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                       ),
                       Gap(2.h),
                       Text(
-                        'Sreelekha Theater',
+                        layoutData.theaterName ?? '-',
                         style: TextStyle(
                           fontSize: 13,
                           color: ColorName.black.withAlpha(120),
@@ -98,7 +412,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Text(
-                          'Hindi',
+                          layoutData.language ?? '-',
                           style: TextStyle(
                             height: 1,
                             fontSize: 13,
@@ -117,7 +431,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Text(
-                          '2D',
+                          layoutData.format ?? '-',
                           style: TextStyle(
                             height: 1,
                             fontSize: 13,
@@ -127,16 +441,37 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                           ),
                         ),
                       ),
+                      Spacer(),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 7, horizontal: 18),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: ColorName.borderColor),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          layoutData.screen ?? '-',
+                          style: TextStyle(
+                            height: 1,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: FontFamily.poppins,
+                            color: ColorName.black1,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Gap(10.h),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      Gap(2.w),
                       Expanded(
                         child: Row(
                           children: [
                             Text(
-                              'Mon',
+                              formatDay(layoutData.day),
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 12,
@@ -154,7 +489,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                             ),
                             Gap(6.w),
                             Text(
-                              '25 Jan, 2026',
+                              layoutData.date ?? '-',
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 12,
@@ -172,7 +507,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                             ),
                             Gap(6.w),
                             Text(
-                              '02:15 PM',
+                              layoutData.time ?? '-',
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 12,
@@ -185,27 +520,29 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () => _showSectionsDrawer(),
                         child: Row(
                           children: [
                             Icon(
                               Icons.drive_file_rename_outline,
                               size: 17,
+                              color: ColorName.blueColor,
                             ),
                             Gap(3.w),
                             Text(
-                              '2 Seats',
+                              '$seatCount Seat${seatCount > 1 ? 's' : ''}',
                               style: TextStyle(
                                 height: 1,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: FontFamily.poppins,
-                                color: ColorName.black,
+                                color: ColorName.blueColor,
                               ),
                             ),
                           ],
                         ),
                       ),
+                      Gap(10.w),
                     ],
                   ),
                 ],
@@ -215,7 +552,47 @@ class ScreenLayoutScreen extends HookConsumerWidget {
             Center(
               child: Assets.images.theaterScreen.svg(width: 225),
             ),
-            Gap(20.h),
+            Gap(8.h),
+            Consumer(
+              builder: (context, ref, _) {
+                final selectedSection = ref.watch(selectedSectionProvider);
+                if (selectedSection == null) return const SizedBox();
+
+                return Container(
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 5),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(color: ColorName.borderColor),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        selectedSection.sectionName ?? '-',
+                        style: TextStyle(
+                          color: ColorName.black1,
+                          fontSize: 12,
+                          fontFamily: FontFamily.poppins,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Gap(6.w),
+                      Text(
+                        "[₹${selectedSection.price ?? '-'}]",
+                        style: TextStyle(
+                          color: ColorName.black1,
+                          fontSize: 11,
+                          fontFamily: FontFamily.poppins,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            Gap(15.h),
             Expanded(
               child: SingleChildScrollView(
                 reverse: true,
@@ -232,7 +609,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                           child: Column(
                             children: List.generate(20, (rowIndex) {
                               return SizedBox(
-                                height: 30, // 🔑 fixed row height
+                                height: 30,
                                 child: Row(
                                   children: List.generate(20, (seatIndex) {
                                     final seatNumber = seatIndex + 1;
@@ -254,7 +631,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                           final rowLabel = String.fromCharCode(65 + rowIndex);
 
                           return SizedBox(
-                            height: 30, // 🔑 SAME height as seat row
+                            height: 30,
                             child: Center(
                               child: Text(
                                 rowLabel,
@@ -400,7 +777,6 @@ class ScreenLayoutScreen extends HookConsumerWidget {
 
 class _SeatBox extends StatelessWidget {
   final int seat;
-
   const _SeatBox({required this.seat});
 
   @override

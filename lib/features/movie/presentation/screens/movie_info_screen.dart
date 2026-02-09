@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/loader.dart';
+import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 import 'package:ticket_bay/features/home/presentation/providers/location_provider.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 import 'package:ticket_bay/features/movie/presentation/providers/movie_filter_provider.dart';
@@ -480,8 +483,26 @@ class MovieInfoScreen extends HookConsumerWidget {
                                       children:
                                           (theater.timings ?? []).map((time) {
                                         return GestureDetector(
-                                          onTap: () =>
-                                              SeatLayoutRoute().push(context),
+                                          onTap: () {
+                                            final layoutInfo =
+                                                SeatLayoutInfoModel(
+                                              movieName: moviedata.name,
+                                              theaterName: theater.theaterName,
+                                              language: time.language,
+                                              format: time.format,
+                                              day:
+                                                  dates[selectedDateIndex.value]
+                                                      .day,
+                                              date: time.startDate,
+                                              time: time.startTime,
+                                              screen: time.screen,
+                                              screenId: time.screenId,
+                                            );
+                                            SeatLayoutRoute(
+                                                    seatLayoutData: json.encode(
+                                                        layoutInfo.toJson()))
+                                                .push(context);
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15, vertical: 5),

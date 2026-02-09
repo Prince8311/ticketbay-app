@@ -47,3 +47,8 @@ String formatSelectedDate(DateItem item) {
   final year = item.iso.split('-').first;
   return '${item.date} ${item.month}, $year';
 }
+
+String formatDay(String? day) {
+  if (day == null || day.isEmpty) return '-';
+  return day[0].toUpperCase() + day.substring(1).toLowerCase();
+}

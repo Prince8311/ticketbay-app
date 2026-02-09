@@ -420,10 +420,15 @@ RouteBase get $seatLayoutRoute => GoRouteData.$route(
     );
 
 extension $SeatLayoutRouteExtension on SeatLayoutRoute {
-  static SeatLayoutRoute _fromState(GoRouterState state) => SeatLayoutRoute();
+  static SeatLayoutRoute _fromState(GoRouterState state) => SeatLayoutRoute(
+        seatLayoutData: state.uri.queryParameters['seat-layout-data']!,
+      );
 
   String get location => GoRouteData.$location(
         '/seat-layout',
+        queryParams: {
+          'seat-layout-data': seatLayoutData,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

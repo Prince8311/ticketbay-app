@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_bay/core/shared/widgets/bottom_nav_bar.dart';
+import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 
 // UI Screens
@@ -342,9 +343,13 @@ class TheaterInfoRoute extends GoRouteData {
   name: RouteName.seatLayout,
 )
 class SeatLayoutRoute extends GoRouteData {
+  const SeatLayoutRoute({required this.seatLayoutData});
+  final String seatLayoutData;
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(ScreenLayoutScreen());
+    final decodedMap = json.decode(seatLayoutData) as Map<String, dynamic>;
+    final layoutData = SeatLayoutInfoModel.fromJson(decodedMap);
+    return slideTransitionPage(ScreenLayoutScreen(layoutData: layoutData));
   }
 }
 
