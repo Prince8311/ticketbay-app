@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
@@ -325,6 +326,13 @@ class ScreenLayoutScreen extends HookConsumerWidget {
       );
     }
 
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showSectionsDrawer();
+      });
+      return null;
+    }, []);
+
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: AppBar(
@@ -594,61 +602,147 @@ class ScreenLayoutScreen extends HookConsumerWidget {
             ),
             Gap(15.h),
             Expanded(
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // ===== SEATS (single horizontal scroll) =====
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          reverse: true,
-                          child: Column(
-                            children: List.generate(20, (rowIndex) {
+              child: screenLayoutAsync.when(
+                loading: () => const SizedBox(),
+                error: (e, _) =>
+                    const Center(child: Text('Failed to load layout')),
+                data: (sections) {
+                  if (sections == null || sections.isEmpty) {
+                    return const Center(child: Text('No seats available'));
+                  }
+
+                  // Usually one section → one seat layout
+                  final rows = sections.first.seatLayout ?? [];
+                  final reversedRows = rows.reversed.toList();
+
+                  return SingleChildScrollView(
+                    reverse: false,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ===== SEATS =====
+                          Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              reverse: true,
+                              child: Column(
+                                children:
+                                    reversedRows.asMap().entries.map((entry) {
+                                  final rowIndex = entry.key;
+                                  final row = entry.value;
+                                  final seatCount =
+                                      int.tryParse(row.seats ?? '0') ?? 0;
+                                  final gapSeatList = (row.gapSeats ?? '')
+                                      .split(',')
+                                      .where((e) => e.isNotEmpty)
+                                      .map(int.parse)
+                                      .toList();
+
+                                  final gapAmountList = (row.gapAmounts ?? '')
+                                      .split(',')
+                                      .where((e) => e.isNotEmpty)
+                                      .map(int.parse)
+                                      .toList();
+
+                                  final Map<int, int> gapMap = {};
+                                  for (int i = 0; i < gapSeatList.length; i++) {
+                                    if (i < gapAmountList.length) {
+                                      gapMap[gapSeatList[i]] = gapAmountList[i];
+                                    }
+                                  }
+
+                                  return SizedBox(
+                                    height: 30,
+                                    child: Row(
+                                      children:
+                                          List.generate(seatCount, (index) {
+                                        final seatNo = seatCount - index;
+
+                                        final gapMultiplier =
+                                            gapMap[seatNo] ?? 0;
+                                        final leftMargin = gapMultiplier * 30.0;
+
+                                        return Consumer(
+                                          builder: (context, ref, _) {
+                                            final rowLetter =
+                                                String.fromCharCode(65 +
+                                                    (reversedRows.length -
+                                                        1 -
+                                                        rowIndex));
+
+                                            final selectedSeats = ref
+                                                .watch(selectedSeatsProvider);
+
+                                            final isSelected =
+                                                selectedSeats.any(
+                                              (s) =>
+                                                  s.row == rowLetter &&
+                                                  s.seat == seatNo,
+                                            );
+
+                                            return GestureDetector(
+                                              onTap: () {
+                                                ref
+                                                    .read(selectedSeatsProvider
+                                                        .notifier)
+                                                    .toggleSeat(
+                                                      SelectedSeat(
+                                                        row: rowLetter,
+                                                        seat: seatNo,
+                                                      ),
+                                                    );
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    left: leftMargin),
+                                                child: _SeatBox(
+                                                  seat: seatNo,
+                                                  isSelected: isSelected,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+
+                          Gap(12.w),
+
+                          // ===== ROW LABELS =====
+                          Column(
+                            children:
+                                List.generate(reversedRows.length, (index) {
+                              final rowLetter = String.fromCharCode(
+                                  65 + (reversedRows.length - 1 - index));
+
                               return SizedBox(
                                 height: 30,
-                                child: Row(
-                                  children: List.generate(20, (seatIndex) {
-                                    final seatNumber = seatIndex + 1;
-
-                                    return _SeatBox(seat: seatNumber);
-                                  }),
+                                child: Center(
+                                  child: Text(
+                                    rowLetter,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: FontFamily.poppins,
+                                      color: ColorName.black,
+                                    ),
+                                  ),
                                 ),
                               );
                             }),
                           ),
-                        ),
+                        ],
                       ),
-
-                      Gap(12.w),
-
-                      // ===== FIXED ROW LABELS =====
-                      Column(
-                        children: List.generate(20, (rowIndex) {
-                          final rowLabel = String.fromCharCode(65 + rowIndex);
-
-                          return SizedBox(
-                            height: 30,
-                            child: Center(
-                              child: Text(
-                                rowLabel,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: FontFamily.poppins,
-                                  color: ColorName.black,
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
             ),
             Gap(10.h),
@@ -777,22 +871,25 @@ class ScreenLayoutScreen extends HookConsumerWidget {
 
 class _SeatBox extends StatelessWidget {
   final int seat;
-  const _SeatBox({required this.seat});
+  final bool isSelected;
+
+  const _SeatBox({
+    required this.seat,
+    required this.isSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 30,
       height: 30,
-      padding: EdgeInsets.all(4),
+      padding: const EdgeInsets.all(4),
       child: Container(
-        width: 22,
-        height: 22,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: ColorName.greenColor),
-          color: ColorName.white,
+          color: isSelected ? ColorName.greenColor : ColorName.white,
         ),
         child: Text(
           seat.toString(),
@@ -800,7 +897,7 @@ class _SeatBox extends StatelessWidget {
             fontSize: 10,
             fontWeight: FontWeight.w500,
             fontFamily: FontFamily.poppins,
-            color: ColorName.black1,
+            color: isSelected ? ColorName.white : ColorName.black1,
           ),
         ),
       ),

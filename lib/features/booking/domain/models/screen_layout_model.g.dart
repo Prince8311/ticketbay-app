@@ -99,6 +99,7 @@ _$ScreenRowModelImpl _$$ScreenRowModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       row: json['row'] as String?,
       seats: json['seats'] as String?,
+      starting: json['starting'] as String?,
       gapSeats: json['gap_seats'] as String?,
       gapAmounts: json['gap_amounts'] as String?,
     );
@@ -109,6 +110,19 @@ Map<String, dynamic> _$$ScreenRowModelImplToJson(
       'id': instance.id,
       'row': instance.row,
       'seats': instance.seats,
+      'starting': instance.starting,
       'gap_seats': instance.gapSeats,
       'gap_amounts': instance.gapAmounts,
+    };
+
+_$SelectedSeatImpl _$$SelectedSeatImplFromJson(Map<String, dynamic> json) =>
+    _$SelectedSeatImpl(
+      row: json['row'] as String,
+      seat: (json['seat'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$$SelectedSeatImplToJson(_$SelectedSeatImpl instance) =>
+    <String, dynamic>{
+      'row': instance.row,
+      'seat': instance.seat,
     };

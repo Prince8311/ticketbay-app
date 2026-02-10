@@ -68,10 +68,22 @@ class ScreenRowModel with _$ScreenRowModel {
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'row') String? row,
     @JsonKey(name: 'seats') String? seats,
+    @JsonKey(name: 'starting') String? starting,
     @JsonKey(name: 'gap_seats') String? gapSeats,
     @JsonKey(name: 'gap_amounts') String? gapAmounts,
   }) = _ScreenRowModel;
 
   factory ScreenRowModel.fromJson(Map<String, dynamic> json) =>
       _$ScreenRowModelFromJson(json);
+}
+
+@freezed
+class SelectedSeat with _$SelectedSeat {
+  const factory SelectedSeat({
+    required String row,
+    required int seat,
+  }) = _SelectedSeat;
+
+  factory SelectedSeat.fromJson(Map<String, dynamic> json) =>
+      _$SelectedSeatFromJson(json);
 }

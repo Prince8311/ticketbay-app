@@ -1117,6 +1117,8 @@ mixin _$ScreenRowModel {
   String? get row => throw _privateConstructorUsedError;
   @JsonKey(name: 'seats')
   String? get seats => throw _privateConstructorUsedError;
+  @JsonKey(name: 'starting')
+  String? get starting => throw _privateConstructorUsedError;
   @JsonKey(name: 'gap_seats')
   String? get gapSeats => throw _privateConstructorUsedError;
   @JsonKey(name: 'gap_amounts')
@@ -1142,6 +1144,7 @@ abstract class $ScreenRowModelCopyWith<$Res> {
       {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'row') String? row,
       @JsonKey(name: 'seats') String? seats,
+      @JsonKey(name: 'starting') String? starting,
       @JsonKey(name: 'gap_seats') String? gapSeats,
       @JsonKey(name: 'gap_amounts') String? gapAmounts});
 }
@@ -1164,6 +1167,7 @@ class _$ScreenRowModelCopyWithImpl<$Res, $Val extends ScreenRowModel>
     Object? id = freezed,
     Object? row = freezed,
     Object? seats = freezed,
+    Object? starting = freezed,
     Object? gapSeats = freezed,
     Object? gapAmounts = freezed,
   }) {
@@ -1179,6 +1183,10 @@ class _$ScreenRowModelCopyWithImpl<$Res, $Val extends ScreenRowModel>
       seats: freezed == seats
           ? _value.seats
           : seats // ignore: cast_nullable_to_non_nullable
+              as String?,
+      starting: freezed == starting
+          ? _value.starting
+          : starting // ignore: cast_nullable_to_non_nullable
               as String?,
       gapSeats: freezed == gapSeats
           ? _value.gapSeats
@@ -1204,6 +1212,7 @@ abstract class _$$ScreenRowModelImplCopyWith<$Res>
       {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'row') String? row,
       @JsonKey(name: 'seats') String? seats,
+      @JsonKey(name: 'starting') String? starting,
       @JsonKey(name: 'gap_seats') String? gapSeats,
       @JsonKey(name: 'gap_amounts') String? gapAmounts});
 }
@@ -1224,6 +1233,7 @@ class __$$ScreenRowModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? row = freezed,
     Object? seats = freezed,
+    Object? starting = freezed,
     Object? gapSeats = freezed,
     Object? gapAmounts = freezed,
   }) {
@@ -1239,6 +1249,10 @@ class __$$ScreenRowModelImplCopyWithImpl<$Res>
       seats: freezed == seats
           ? _value.seats
           : seats // ignore: cast_nullable_to_non_nullable
+              as String?,
+      starting: freezed == starting
+          ? _value.starting
+          : starting // ignore: cast_nullable_to_non_nullable
               as String?,
       gapSeats: freezed == gapSeats
           ? _value.gapSeats
@@ -1259,6 +1273,7 @@ class _$ScreenRowModelImpl implements _ScreenRowModel {
       {@JsonKey(name: 'id') this.id,
       @JsonKey(name: 'row') this.row,
       @JsonKey(name: 'seats') this.seats,
+      @JsonKey(name: 'starting') this.starting,
       @JsonKey(name: 'gap_seats') this.gapSeats,
       @JsonKey(name: 'gap_amounts') this.gapAmounts});
 
@@ -1275,6 +1290,9 @@ class _$ScreenRowModelImpl implements _ScreenRowModel {
   @JsonKey(name: 'seats')
   final String? seats;
   @override
+  @JsonKey(name: 'starting')
+  final String? starting;
+  @override
   @JsonKey(name: 'gap_seats')
   final String? gapSeats;
   @override
@@ -1283,7 +1301,7 @@ class _$ScreenRowModelImpl implements _ScreenRowModel {
 
   @override
   String toString() {
-    return 'ScreenRowModel(id: $id, row: $row, seats: $seats, gapSeats: $gapSeats, gapAmounts: $gapAmounts)';
+    return 'ScreenRowModel(id: $id, row: $row, seats: $seats, starting: $starting, gapSeats: $gapSeats, gapAmounts: $gapAmounts)';
   }
 
   @override
@@ -1294,6 +1312,8 @@ class _$ScreenRowModelImpl implements _ScreenRowModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.row, row) || other.row == row) &&
             (identical(other.seats, seats) || other.seats == seats) &&
+            (identical(other.starting, starting) ||
+                other.starting == starting) &&
             (identical(other.gapSeats, gapSeats) ||
                 other.gapSeats == gapSeats) &&
             (identical(other.gapAmounts, gapAmounts) ||
@@ -1303,7 +1323,7 @@ class _$ScreenRowModelImpl implements _ScreenRowModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, row, seats, gapSeats, gapAmounts);
+      Object.hash(runtimeType, id, row, seats, starting, gapSeats, gapAmounts);
 
   /// Create a copy of ScreenRowModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1327,6 +1347,7 @@ abstract class _ScreenRowModel implements ScreenRowModel {
           {@JsonKey(name: 'id') final String? id,
           @JsonKey(name: 'row') final String? row,
           @JsonKey(name: 'seats') final String? seats,
+          @JsonKey(name: 'starting') final String? starting,
           @JsonKey(name: 'gap_seats') final String? gapSeats,
           @JsonKey(name: 'gap_amounts') final String? gapAmounts}) =
       _$ScreenRowModelImpl;
@@ -1344,6 +1365,9 @@ abstract class _ScreenRowModel implements ScreenRowModel {
   @JsonKey(name: 'seats')
   String? get seats;
   @override
+  @JsonKey(name: 'starting')
+  String? get starting;
+  @override
   @JsonKey(name: 'gap_seats')
   String? get gapSeats;
   @override
@@ -1355,5 +1379,172 @@ abstract class _ScreenRowModel implements ScreenRowModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ScreenRowModelImplCopyWith<_$ScreenRowModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+SelectedSeat _$SelectedSeatFromJson(Map<String, dynamic> json) {
+  return _SelectedSeat.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SelectedSeat {
+  String get row => throw _privateConstructorUsedError;
+  int get seat => throw _privateConstructorUsedError;
+
+  /// Serializes this SelectedSeat to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of SelectedSeat
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $SelectedSeatCopyWith<SelectedSeat> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SelectedSeatCopyWith<$Res> {
+  factory $SelectedSeatCopyWith(
+          SelectedSeat value, $Res Function(SelectedSeat) then) =
+      _$SelectedSeatCopyWithImpl<$Res, SelectedSeat>;
+  @useResult
+  $Res call({String row, int seat});
+}
+
+/// @nodoc
+class _$SelectedSeatCopyWithImpl<$Res, $Val extends SelectedSeat>
+    implements $SelectedSeatCopyWith<$Res> {
+  _$SelectedSeatCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of SelectedSeat
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? row = null,
+    Object? seat = null,
+  }) {
+    return _then(_value.copyWith(
+      row: null == row
+          ? _value.row
+          : row // ignore: cast_nullable_to_non_nullable
+              as String,
+      seat: null == seat
+          ? _value.seat
+          : seat // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SelectedSeatImplCopyWith<$Res>
+    implements $SelectedSeatCopyWith<$Res> {
+  factory _$$SelectedSeatImplCopyWith(
+          _$SelectedSeatImpl value, $Res Function(_$SelectedSeatImpl) then) =
+      __$$SelectedSeatImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String row, int seat});
+}
+
+/// @nodoc
+class __$$SelectedSeatImplCopyWithImpl<$Res>
+    extends _$SelectedSeatCopyWithImpl<$Res, _$SelectedSeatImpl>
+    implements _$$SelectedSeatImplCopyWith<$Res> {
+  __$$SelectedSeatImplCopyWithImpl(
+      _$SelectedSeatImpl _value, $Res Function(_$SelectedSeatImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SelectedSeat
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? row = null,
+    Object? seat = null,
+  }) {
+    return _then(_$SelectedSeatImpl(
+      row: null == row
+          ? _value.row
+          : row // ignore: cast_nullable_to_non_nullable
+              as String,
+      seat: null == seat
+          ? _value.seat
+          : seat // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SelectedSeatImpl implements _SelectedSeat {
+  const _$SelectedSeatImpl({required this.row, required this.seat});
+
+  factory _$SelectedSeatImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SelectedSeatImplFromJson(json);
+
+  @override
+  final String row;
+  @override
+  final int seat;
+
+  @override
+  String toString() {
+    return 'SelectedSeat(row: $row, seat: $seat)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectedSeatImpl &&
+            (identical(other.row, row) || other.row == row) &&
+            (identical(other.seat, seat) || other.seat == seat));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, row, seat);
+
+  /// Create a copy of SelectedSeat
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectedSeatImplCopyWith<_$SelectedSeatImpl> get copyWith =>
+      __$$SelectedSeatImplCopyWithImpl<_$SelectedSeatImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SelectedSeatImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SelectedSeat implements SelectedSeat {
+  const factory _SelectedSeat(
+      {required final String row,
+      required final int seat}) = _$SelectedSeatImpl;
+
+  factory _SelectedSeat.fromJson(Map<String, dynamic> json) =
+      _$SelectedSeatImpl.fromJson;
+
+  @override
+  String get row;
+  @override
+  int get seat;
+
+  /// Create a copy of SelectedSeat
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SelectedSeatImplCopyWith<_$SelectedSeatImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
