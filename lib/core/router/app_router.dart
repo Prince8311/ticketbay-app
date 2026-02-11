@@ -2,12 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ticket_bay/core/shared/widgets/bottom_nav_bar.dart';
-import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
-import 'package:ticket_bay/features/booking/presentation/screens/checkout_screen.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
+import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 
 // UI Screens
+import 'package:ticket_bay/core/shared/widgets/bottom_nav_bar.dart';
 import 'package:ticket_bay/features/onboarding/splash_screen.dart';
 import 'package:ticket_bay/features/onboarding/welcome_screen.dart';
 import 'package:ticket_bay/features/auth/presentation/screens/login_screen.dart';
@@ -23,6 +22,7 @@ import 'package:ticket_bay/features/movie/presentation/screens/reviews_screen.da
 import 'package:ticket_bay/features/theater/presentation/screens/theater_info_screen.dart';
 import 'package:ticket_bay/features/theater/presentation/screens/theaters_screen.dart';
 import 'package:ticket_bay/features/booking/presentation/screens/seat_layout_screen.dart';
+import 'package:ticket_bay/features/booking/presentation/screens/checkout_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/account_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/booking_history/upcoming_booking_screen.dart';
 import 'package:ticket_bay/features/account/presentation/screens/booking_history/previous_booking_screen.dart';
