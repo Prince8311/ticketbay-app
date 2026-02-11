@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
@@ -212,8 +214,8 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                     child: Container(
                                       width: double.maxFinite,
                                       margin: EdgeInsets.only(bottom: 10),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 15, horizontal: 20),
+                                      padding:
+                                          EdgeInsets.fromLTRB(20, 11, 20, 13),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(6),
                                         color: isSelected
@@ -230,8 +232,9 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                             style: TextStyle(
                                               color: isSelected
                                                   ? ColorName.white
-                                                  : ColorName.black1,
-                                              fontSize: 14,
+                                                  : const Color.fromRGBO(
+                                                      68, 68, 68, 1),
+                                              fontSize: 13,
                                               fontStyle: FontStyle.italic,
                                               fontFamily: FontFamily.poppins,
                                               fontWeight: FontWeight.w500,
@@ -248,8 +251,8 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                                   color: isSelected
                                                       ? ColorName.white
                                                       : ColorName.black,
-                                                  fontSize: 13,
-                                                  height: 1.19,
+                                                  fontSize: 12,
+                                                  height: 1.25,
                                                   fontFamily:
                                                       FontFamily.poppins,
                                                   fontWeight: FontWeight.w500,
@@ -262,7 +265,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                                   color: isSelected
                                                       ? ColorName.white
                                                       : ColorName.black,
-                                                  fontSize: 20,
+                                                  fontSize: 19,
                                                   height: 1,
                                                   fontFamily:
                                                       FontFamily.poppins,
@@ -303,7 +306,9 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              context.pop();
+                            },
                             child: const Text(
                               "Select Seats",
                               style: TextStyle(
@@ -321,6 +326,405 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                 ),
               );
             },
+          );
+        },
+      );
+    }
+
+    void _showTermsConditionsDrawer() {
+      showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        backgroundColor: ColorName.white,
+        builder: (ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(ctx).viewInsets.bottom,
+            ),
+            child: FractionallySizedBox(
+              heightFactor: 0.5,
+              widthFactor: 1,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 5,
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      decoration: BoxDecoration(
+                        color: ColorName.black3.withAlpha(120),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    Gap(10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              width: 70,
+                              height: 1,
+                              decoration: BoxDecoration(
+                                color: ColorName.black3.withAlpha(255),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            Gap(3.h),
+                            Container(
+                              width: 50,
+                              height: 1,
+                              decoration: BoxDecoration(
+                                color: ColorName.black3.withAlpha(255),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Gap(6.w),
+                        Text(
+                          "Terms & Conditions",
+                          style: TextStyle(
+                            color: ColorName.black1,
+                            fontSize: 14,
+                            fontFamily: FontFamily.poppins,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Gap(6.w),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 70,
+                              height: 1,
+                              decoration: BoxDecoration(
+                                color: ColorName.black3.withAlpha(255),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            Gap(3.h),
+                            Container(
+                              width: 50,
+                              height: 1,
+                              decoration: BoxDecoration(
+                                color: ColorName.black3.withAlpha(255),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Gap(16.h),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '1. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Please pick up your tickets at least 20 mins before showtime to avoid rush at the counter.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '2. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Outside food & beverages are not allowed inside the cinema premises.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '3. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Ticket is compulsory for children of 3 years & above.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '4. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: 'Ticket for ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "'A'",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        " rated movie should not be purchased for people under 18 years of age. There won't be a refund for tickets booked in such cases.",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '5. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Handbags, Laptops/Tabs, cameras and all other electronic items are not allowed inside cinema premises.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '6. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Smoking is strictly not permitted inside the cinema premises. Cigarettes/lighters/matchsticks/Gutkha/Pan masala etc. will not be allowed.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '7. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Cinema reserves the Right of Admission.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '8. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'People under the influence of Alcohol/Drugs will not be allowed inside the cinema premise.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '9. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Tickets once purchased cannot be exchanged or adjusted/transferred for any other shows.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Gap(8.h),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '10. ',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: ColorName.blueColor,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Screenshots or forwarded messages will not be accepted during the entry at the Cinema.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black1,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Gap(15.h),
+                    SizedBox(
+                      height: 45,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorName.redColor1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () {
+                          context.pop();
+                          CheckoutRoute().push(context);
+                        },
+                        child: const Text(
+                          "Yes, Proceed",
+                          style: TextStyle(
+                            color: ColorName.white,
+                            fontSize: 14,
+                            fontFamily: FontFamily.poppins,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         },
       );
@@ -615,132 +1019,146 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                   final rows = sections.first.seatLayout ?? [];
                   final reversedRows = rows.reversed.toList();
 
-                  return SingleChildScrollView(
-                    reverse: false,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // ===== SEATS =====
-                          Expanded(
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              reverse: true,
-                              child: Column(
-                                children:
-                                    reversedRows.asMap().entries.map((entry) {
-                                  final rowIndex = entry.key;
-                                  final row = entry.value;
-                                  final seatCount =
-                                      int.tryParse(row.seats ?? '0') ?? 0;
-                                  final gapSeatList = (row.gapSeats ?? '')
-                                      .split(',')
-                                      .where((e) => e.isNotEmpty)
-                                      .map(int.parse)
-                                      .toList();
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      final totalHeight = reversedRows.length * 27.0;
+                      final shouldReverse = totalHeight > constraints.maxHeight;
+                      return SingleChildScrollView(
+                        reverse: shouldReverse,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ===== SEATS =====
+                              Expanded(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  reverse: true,
+                                  child: Column(
+                                    children: reversedRows
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      final rowIndex = entry.key;
+                                      final row = entry.value;
+                                      final seatCount =
+                                          int.tryParse(row.seats ?? '0') ?? 0;
+                                      final gapSeatList = (row.gapSeats ?? '')
+                                          .split(',')
+                                          .where((e) => e.isNotEmpty)
+                                          .map(int.parse)
+                                          .toList();
 
-                                  final gapAmountList = (row.gapAmounts ?? '')
-                                      .split(',')
-                                      .where((e) => e.isNotEmpty)
-                                      .map(int.parse)
-                                      .toList();
+                                      final gapAmountList =
+                                          (row.gapAmounts ?? '')
+                                              .split(',')
+                                              .where((e) => e.isNotEmpty)
+                                              .map(int.parse)
+                                              .toList();
 
-                                  final Map<int, int> gapMap = {};
-                                  for (int i = 0; i < gapSeatList.length; i++) {
-                                    if (i < gapAmountList.length) {
-                                      gapMap[gapSeatList[i]] = gapAmountList[i];
-                                    }
-                                  }
+                                      final Map<int, int> gapMap = {};
+                                      for (int i = 0;
+                                          i < gapSeatList.length;
+                                          i++) {
+                                        if (i < gapAmountList.length) {
+                                          gapMap[gapSeatList[i]] =
+                                              gapAmountList[i];
+                                        }
+                                      }
 
-                                  return SizedBox(
-                                    height: 30,
-                                    child: Row(
-                                      children:
-                                          List.generate(seatCount, (index) {
-                                        final seatNo = seatCount - index;
+                                      return SizedBox(
+                                        height: 27,
+                                        child: Row(
+                                          children:
+                                              List.generate(seatCount, (index) {
+                                            final seatNo = seatCount - index;
 
-                                        final gapMultiplier =
-                                            gapMap[seatNo] ?? 0;
-                                        final leftMargin = gapMultiplier * 30.0;
+                                            final gapMultiplier =
+                                                gapMap[seatNo] ?? 0;
+                                            final leftMargin =
+                                                gapMultiplier * 27.0;
 
-                                        return Consumer(
-                                          builder: (context, ref, _) {
-                                            final rowLetter =
-                                                String.fromCharCode(65 +
-                                                    (reversedRows.length -
-                                                        1 -
-                                                        rowIndex));
+                                            return Consumer(
+                                              builder: (context, ref, _) {
+                                                final rowLetter =
+                                                    String.fromCharCode(65 +
+                                                        (reversedRows.length -
+                                                            1 -
+                                                            rowIndex));
 
-                                            final selectedSeats = ref
-                                                .watch(selectedSeatsProvider);
+                                                final selectedSeats = ref.watch(
+                                                    selectedSeatsProvider);
 
-                                            final isSelected =
-                                                selectedSeats.any(
-                                              (s) =>
-                                                  s.row == rowLetter &&
-                                                  s.seat == seatNo,
-                                            );
+                                                final isSelected =
+                                                    selectedSeats.any(
+                                                  (s) =>
+                                                      s.row == rowLetter &&
+                                                      s.seat == seatNo,
+                                                );
 
-                                            return GestureDetector(
-                                              onTap: () {
-                                                ref
-                                                    .read(selectedSeatsProvider
-                                                        .notifier)
-                                                    .toggleSeat(
-                                                      SelectedSeat(
-                                                        row: rowLetter,
-                                                        seat: seatNo,
-                                                      ),
-                                                    );
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    ref
+                                                        .read(
+                                                            selectedSeatsProvider
+                                                                .notifier)
+                                                        .toggleSeat(
+                                                          SelectedSeat(
+                                                            row: rowLetter,
+                                                            seat: seatNo,
+                                                          ),
+                                                        );
+                                                  },
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: leftMargin),
+                                                    child: _SeatBox(
+                                                      seat: seatNo,
+                                                      isSelected: isSelected,
+                                                    ),
+                                                  ),
+                                                );
                                               },
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                    left: leftMargin),
-                                                child: _SeatBox(
-                                                  seat: seatNo,
-                                                  isSelected: isSelected,
-                                                ),
-                                              ),
                                             );
-                                          },
-                                        );
-                                      }),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-
-                          Gap(12.w),
-
-                          // ===== ROW LABELS =====
-                          Column(
-                            children:
-                                List.generate(reversedRows.length, (index) {
-                              final rowLetter = String.fromCharCode(
-                                  65 + (reversedRows.length - 1 - index));
-
-                              return SizedBox(
-                                height: 30,
-                                child: Center(
-                                  child: Text(
-                                    rowLetter,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: FontFamily.poppins,
-                                      color: ColorName.black,
-                                    ),
+                                          }),
+                                        ),
+                                      );
+                                    }).toList(),
                                   ),
                                 ),
-                              );
-                            }),
+                              ),
+
+                              Gap(12.w),
+
+                              // ===== ROW LABELS =====
+                              Column(
+                                children:
+                                    List.generate(reversedRows.length, (index) {
+                                  final rowLetter = String.fromCharCode(
+                                      65 + (reversedRows.length - 1 - index));
+
+                                  return SizedBox(
+                                    height: 27,
+                                    child: Center(
+                                      child: Text(
+                                        rowLetter,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: FontFamily.poppins,
+                                          color: ColorName.black,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -751,8 +1169,8 @@ class ScreenLayoutScreen extends HookConsumerWidget {
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
-          height: 97,
-          padding: const EdgeInsets.fromLTRB(16, 13, 16, 10),
+          height: 100,
+          padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
           decoration: BoxDecoration(
             color: ColorName.white,
             boxShadow: [
@@ -849,7 +1267,7 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () => _showTermsConditionsDrawer(),
                   child: const Text(
                     "Proceed",
                     style: TextStyle(
@@ -881,9 +1299,9 @@ class _SeatBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 30,
-      height: 30,
-      padding: const EdgeInsets.all(4),
+      width: 27,
+      height: 27,
+      padding: const EdgeInsets.all(3),
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(

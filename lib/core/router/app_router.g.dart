@@ -19,6 +19,7 @@ List<RouteBase> get $appRoutes => [
       $movieReviewsRoute,
       $theaterInfoRoute,
       $seatLayoutRoute,
+      $checkoutRoute,
       $upcomingBookingsRoute,
       $previousBookingsRoute,
       $cancelledBookingsRoute,
@@ -429,6 +430,29 @@ extension $SeatLayoutRouteExtension on SeatLayoutRoute {
         queryParams: {
           'seat-layout-data': seatLayoutData,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $checkoutRoute => GoRouteData.$route(
+      path: '/checkout',
+      name: 'checkout',
+      factory: $CheckoutRouteExtension._fromState,
+    );
+
+extension $CheckoutRouteExtension on CheckoutRoute {
+  static CheckoutRoute _fromState(GoRouterState state) => CheckoutRoute();
+
+  String get location => GoRouteData.$location(
+        '/checkout',
       );
 
   void go(BuildContext context) => context.go(location);

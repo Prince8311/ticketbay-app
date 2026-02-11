@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_bay/core/shared/widgets/bottom_nav_bar.dart';
 import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
+import 'package:ticket_bay/features/booking/presentation/screens/checkout_screen.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 
 // UI Screens
@@ -64,6 +65,7 @@ class RoutePath {
 
   // booking
   static const String seatLayout = '/seat-layout';
+  static const String checkout = '/checkout';
 
   // account screens
   static const String upcomingBookings = '/upcoming-bookings';
@@ -105,6 +107,7 @@ class RouteName {
 
   // booking
   static const String seatLayout = 'seatLayout';
+  static const String checkout = 'checkout';
 
   // account screens
   static const String upcomingBookings = 'upcomingBookings';
@@ -350,6 +353,17 @@ class SeatLayoutRoute extends GoRouteData {
     final decodedMap = json.decode(seatLayoutData) as Map<String, dynamic>;
     final layoutData = SeatLayoutInfoModel.fromJson(decodedMap);
     return slideTransitionPage(ScreenLayoutScreen(layoutData: layoutData));
+  }
+}
+
+@TypedGoRoute<CheckoutRoute>(
+  path: RoutePath.checkout,
+  name: RouteName.checkout,
+)
+class CheckoutRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(CheckoutScreen());
   }
 }
 
