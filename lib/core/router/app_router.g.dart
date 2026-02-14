@@ -449,10 +449,15 @@ RouteBase get $checkoutRoute => GoRouteData.$route(
     );
 
 extension $CheckoutRouteExtension on CheckoutRoute {
-  static CheckoutRoute _fromState(GoRouterState state) => CheckoutRoute();
+  static CheckoutRoute _fromState(GoRouterState state) => CheckoutRoute(
+        bookingInfo: state.uri.queryParameters['booking-info']!,
+      );
 
   String get location => GoRouteData.$location(
         '/checkout',
+        queryParams: {
+          'booking-info': bookingInfo,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

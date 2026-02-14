@@ -1,16 +1,41 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/shared/helpers/booking_prices.dart';
+import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
+import 'package:ticket_bay/features/booking/presentation/providers/screen_layout_provider.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
 class CheckoutScreen extends HookConsumerWidget {
-  const CheckoutScreen({super.key});
+  const CheckoutScreen({
+    super.key,
+    required this.bookingData,
+  });
+
+  final BookingInfoModel bookingData;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final showFeeBreakdown = useState(false);
+    final selectedSeats = ref.watch(selectedSeatsProvider);
+    final formattedSeats = selectedSeats.toList()
+      ..sort((a, b) {
+        final rowCompare = a.row.compareTo(b.row);
+        if (rowCompare != 0) return rowCompare;
+        return a.seat.compareTo(b.seat);
+      });
+    final seatText = formattedSeats.map((s) => '${s.row}-${s.seat}').join(', ');
+    final priceData = calculateBookingPrice(
+      seatCount: selectedSeats.length,
+      seatPrice: bookingData.price,
+      adminCommission: bookingData.adminCommission,
+    );
+
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: AppBar(
@@ -62,7 +87,7 @@ class CheckoutScreen extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '2 seats',
+                          '${selectedSeats.length} seats',
                           style: TextStyle(
                             height: 1,
                             fontSize: 13,
@@ -111,7 +136,7 @@ class CheckoutScreen extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Kantara: A Legend - Chapter 1',
+                          bookingData.movieName ?? '-',
                           style: TextStyle(
                             fontSize: 14,
                             color: ColorName.black,
@@ -123,7 +148,7 @@ class CheckoutScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             Text(
-                              'Telegu',
+                              bookingData.language ?? '-',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ColorName.black1,
@@ -140,7 +165,24 @@ class CheckoutScreen extends HookConsumerWidget {
                             ),
                             Gap(6.w),
                             Text(
-                              '3D',
+                              bookingData.format ?? '-',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: ColorName.black1,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
+                            Gap(6.w),
+                            Container(
+                              width: 1.5,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: ColorName.black2.withAlpha(200),
+                              ),
+                            ),
+                            Gap(6.w),
+                            Text(
+                              bookingData.screen ?? '-',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ColorName.black1,
@@ -153,7 +195,7 @@ class CheckoutScreen extends HookConsumerWidget {
                         Row(
                           children: [
                             Text(
-                              'Thu',
+                              formatDay(bookingData.day),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ColorName.black1,
@@ -170,7 +212,7 @@ class CheckoutScreen extends HookConsumerWidget {
                             ),
                             Gap(6.w),
                             Text(
-                              '10 Feb, 2026',
+                              bookingData.date ?? '-',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ColorName.black1,
@@ -187,7 +229,7 @@ class CheckoutScreen extends HookConsumerWidget {
                             ),
                             Gap(6.w),
                             Text(
-                              '02:10 PM',
+                              bookingData.time ?? '-',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: ColorName.black1,
@@ -198,7 +240,7 @@ class CheckoutScreen extends HookConsumerWidget {
                         ),
                         Gap(4.h),
                         Text(
-                          'Sreelekha Theater',
+                          bookingData.theaterName ?? '-',
                           style: TextStyle(
                             fontSize: 13,
                             color: ColorName.black1,
@@ -238,7 +280,7 @@ class CheckoutScreen extends HookConsumerWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'First Class: ',
+                                text: '${bookingData.section}: ',
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontStyle: FontStyle.italic,
@@ -248,10 +290,9 @@ class CheckoutScreen extends HookConsumerWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: 'A-1, A-2, A-3, B-2',
+                                text: seatText.isEmpty ? '-' : seatText,
                                 style: TextStyle(
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w500,
                                   color: ColorName.black2,
                                   fontFamily: FontFamily.poppins,
                                 ),
@@ -280,7 +321,7 @@ class CheckoutScreen extends HookConsumerWidget {
                             ),
                             Spacer(),
                             Text(
-                              '₹100.00',
+                              '₹${priceData.ticketTotal.toStringAsFixed(2)}',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: ColorName.black2,
@@ -301,16 +342,23 @@ class CheckoutScreen extends HookConsumerWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.keyboard_arrow_down,
-                                size: 22,
-                                color: ColorName.black1,
+                              onTap: () {
+                                showFeeBreakdown.value =
+                                    !showFeeBreakdown.value;
+                              },
+                              child: AnimatedRotation(
+                                turns: showFeeBreakdown.value ? 0.5 : 0.0,
+                                duration: const Duration(milliseconds: 250),
+                                child: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  size: 22,
+                                  color: ColorName.black1,
+                                ),
                               ),
                             ),
                             Spacer(),
                             Text(
-                              '₹45.00',
+                              '₹${priceData.convenienceFees.toStringAsFixed(2)}',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: ColorName.black2,
@@ -320,61 +368,72 @@ class CheckoutScreen extends HookConsumerWidget {
                           ],
                         ),
                         Gap(4.h),
-                        Container(
-                          width: double.maxFinite,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                  color: ColorName.borderColor.withAlpha(150)),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'Base amount',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          alignment: Alignment.topCenter,
+                          child: ClipRect(
+                            child: showFeeBreakdown.value
+                                ? Container(
+                                    width: double.maxFinite,
+                                    padding: EdgeInsets.symmetric(vertical: 4),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: ColorName.borderColor
+                                              .withAlpha(150),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '₹45.00',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: ColorName.black2,
-                                      fontFamily: FontFamily.poppins,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Base amount',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Text(
+                                              '₹${priceData.baseAmount.toStringAsFixed(2)}',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: ColorName.black2,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Gap(2.h),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Integrated GST (@18%)',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Text(
+                                              '₹${priceData.gstAmount.toStringAsFixed(2)}',
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                color: ColorName.black2,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Gap(2.h),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Integrated GST (@18%)',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '₹45.00',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: ColorName.black2,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  )
+                                : const SizedBox.shrink(),
                           ),
                         ),
                         Gap(2.h),
@@ -399,7 +458,7 @@ class CheckoutScreen extends HookConsumerWidget {
                               ),
                               Spacer(),
                               Text(
-                                '₹45.00',
+                                '₹${priceData.orderTotal.toStringAsFixed(2)}',
                                 style: TextStyle(
                                   fontSize: 14.5,
                                   color: ColorName.themeColor,
@@ -573,7 +632,7 @@ class CheckoutScreen extends HookConsumerWidget {
                           ),
                         ),
                         TextSpan(
-                          text: '100.00',
+                          text: priceData.orderTotal.toStringAsFixed(2),
                           style: TextStyle(
                             color: ColorName.black1,
                             fontSize: 17.5,

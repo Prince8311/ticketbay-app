@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +9,8 @@ import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/loader.dart';
+import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
+import 'package:ticket_bay/features/booking/domain/models/commission_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/screen_layout_model.dart';
 import 'package:ticket_bay/features/booking/presentation/providers/screen_layout_provider.dart';
@@ -29,6 +33,8 @@ class ScreenLayoutScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final seatCount = ref.watch(seatCountProvider);
     final selectedSection = ref.watch(selectedSectionProvider);
+    final selectedSeats = ref.watch(selectedSeatsProvider);
+    final isSeatSelectionValid = selectedSeats.length == seatCount;
     Widget getVehicleImage(int count) {
       if (count == 1) {
         return Assets.images.cycle.image(height: 90);
@@ -210,6 +216,9 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                           .read(
                                               selectedSectionProvider.notifier)
                                           .state = item;
+                                      ref
+                                          .read(selectedSeatsProvider.notifier)
+                                          .clear();
                                     },
                                     child: Container(
                                       width: double.maxFinite,
@@ -331,400 +340,484 @@ class ScreenLayoutScreen extends HookConsumerWidget {
       );
     }
 
-    void _showTermsConditionsDrawer() {
+    void _showTermsConditionsDrawer(WidgetRef ref) {
       showModalBottomSheet(
         context: context,
         useRootNavigator: true,
         isScrollControlled: true,
         backgroundColor: ColorName.white,
         builder: (ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(ctx).viewInsets.bottom,
-            ),
-            child: FractionallySizedBox(
-              heightFactor: 0.5,
-              widthFactor: 1,
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
-                child: Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 5,
-                      margin: const EdgeInsets.only(top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                        color: ColorName.black3.withAlpha(120),
-                        borderRadius: BorderRadius.circular(6),
+          return Consumer(
+            builder: (context, ref, _) {
+              final bookingCommissionAsync = selectedSection == null
+                  ? const AsyncValue<CommissionModel?>.loading()
+                  : ref.watch(
+                      getBookingCommissionsProvider(
+                        theaterName: layoutData.theaterName ?? '',
+                        price: int.tryParse(selectedSection.price ?? '0') ?? 0,
                       ),
-                    ),
-                    Gap(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    );
+
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom,
+                ),
+                child: FractionallySizedBox(
+                  heightFactor: 0.5,
+                  widthFactor: 1,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                    child: Column(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 70,
-                              height: 1,
-                              decoration: BoxDecoration(
-                                color: ColorName.black3.withAlpha(255),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                            Gap(3.h),
-                            Container(
-                              width: 50,
-                              height: 1,
-                              decoration: BoxDecoration(
-                                color: ColorName.black3.withAlpha(255),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Gap(6.w),
-                        Text(
-                          "Terms & Conditions",
-                          style: TextStyle(
-                            color: ColorName.black1,
-                            fontSize: 14,
-                            fontFamily: FontFamily.poppins,
-                            fontWeight: FontWeight.w500,
+                        Container(
+                          width: 100,
+                          height: 5,
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: ColorName.black3.withAlpha(120),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                         ),
-                        Gap(6.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Gap(10.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 70,
-                              height: 1,
-                              decoration: BoxDecoration(
-                                color: ColorName.black3.withAlpha(255),
-                                borderRadius: BorderRadius.circular(6),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 1,
+                                  decoration: BoxDecoration(
+                                    color: ColorName.black3.withAlpha(255),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                                Gap(3.h),
+                                Container(
+                                  width: 50,
+                                  height: 1,
+                                  decoration: BoxDecoration(
+                                    color: ColorName.black3.withAlpha(255),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Gap(6.w),
+                            Text(
+                              "Terms & Conditions",
+                              style: TextStyle(
+                                color: ColorName.black1,
+                                fontSize: 14,
+                                fontFamily: FontFamily.poppins,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Gap(3.h),
-                            Container(
-                              width: 50,
-                              height: 1,
-                              decoration: BoxDecoration(
-                                color: ColorName.black3.withAlpha(255),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
+                            Gap(6.w),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 1,
+                                  decoration: BoxDecoration(
+                                    color: ColorName.black3.withAlpha(255),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                                Gap(3.h),
+                                Container(
+                                  width: 50,
+                                  height: 1,
+                                  decoration: BoxDecoration(
+                                    color: ColorName.black3.withAlpha(255),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
+                        ),
+                        Gap(16.h),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: bookingCommissionAsync.isLoading
+                                ? Column(
+                                    children: [
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                      Gap(10.h),
+                                      SkeletonLoader(
+                                        height: 25,
+                                        width: double.maxFinite,
+                                      ),
+                                    ],
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '1. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Please pick up your tickets at least 20 mins before showtime to avoid rush at the counter.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '2. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Outside food & beverages are not allowed inside the cinema premises.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '3. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Ticket is compulsory for children of 3 years & above.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '4. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Ticket for ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: "'A'",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  " rated movie should not be purchased for people under 18 years of age. There won't be a refund for tickets booked in such cases.",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '5. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Handbags, Laptops/Tabs, cameras and all other electronic items are not allowed inside cinema premises.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '6. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Smoking is strictly not permitted inside the cinema premises. Cigarettes/lighters/matchsticks/Gutkha/Pan masala etc. will not be allowed.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '7. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Cinema reserves the Right of Admission.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '8. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'People under the influence of Alcohol/Drugs will not be allowed inside the cinema premise.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '9. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Tickets once purchased cannot be exchanged or adjusted/transferred for any other shows.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(8.h),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '10. ',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: ColorName.blueColor,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  'Screenshots or forwarded messages will not be accepted during the entry at the Cinema.',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: ColorName.black1,
+                                                fontFamily: FontFamily.poppins,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ),
+                        Gap(15.h),
+                        bookingCommissionAsync.when(
+                          loading: () => const SkeletonLoader(
+                            height: 40,
+                            width: double.maxFinite,
+                          ),
+                          error: (e, _) =>
+                              Center(child: Text('Error loading commission')),
+                          data: (commissionData) {
+                            return SizedBox(
+                              height: 45,
+                              width: double.maxFinite,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: ColorName.redColor1,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  final bookingInfo = BookingInfoModel(
+                                    movieName: layoutData.movieName,
+                                    theaterName: layoutData.theaterName,
+                                    language: layoutData.language,
+                                    format: layoutData.format,
+                                    day: layoutData.day,
+                                    date: layoutData.date,
+                                    time: layoutData.time,
+                                    screen: layoutData.screen,
+                                    price: selectedSection?.price != null
+                                        ? int.tryParse(selectedSection!.price!)
+                                        : null,
+                                    adminCommission:
+                                        commissionData?.adminCommission,
+                                    theaterCommission:
+                                        commissionData?.theaterCommission,
+                                    section: selectedSection?.sectionName,
+                                  );
+                                  context.pop();
+                                  CheckoutRoute(
+                                          bookingInfo:
+                                              json.encode(bookingInfo.toJson()))
+                                      .push(context);
+                                },
+                                child: const Text(
+                                  "Yes, Proceed",
+                                  style: TextStyle(
+                                    color: ColorName.white,
+                                    fontSize: 14,
+                                    fontFamily: FontFamily.poppins,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
-                    Gap(16.h),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '1. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Please pick up your tickets at least 20 mins before showtime to avoid rush at the counter.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '2. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Outside food & beverages are not allowed inside the cinema premises.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '3. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Ticket is compulsory for children of 3 years & above.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '4. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'Ticket for ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: "'A'",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        " rated movie should not be purchased for people under 18 years of age. There won't be a refund for tickets booked in such cases.",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '5. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Handbags, Laptops/Tabs, cameras and all other electronic items are not allowed inside cinema premises.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '6. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Smoking is strictly not permitted inside the cinema premises. Cigarettes/lighters/matchsticks/Gutkha/Pan masala etc. will not be allowed.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '7. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Cinema reserves the Right of Admission.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '8. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'People under the influence of Alcohol/Drugs will not be allowed inside the cinema premise.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '9. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Tickets once purchased cannot be exchanged or adjusted/transferred for any other shows.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Gap(8.h),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '10. ',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: ColorName.blueColor,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        'Screenshots or forwarded messages will not be accepted during the entry at the Cinema.',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: ColorName.black1,
-                                      fontFamily: FontFamily.poppins,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Gap(15.h),
-                    SizedBox(
-                      height: 45,
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorName.redColor1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: () {
-                          context.pop();
-                          CheckoutRoute().push(context);
-                        },
-                        child: const Text(
-                          "Yes, Proceed",
-                          style: TextStyle(
-                            color: ColorName.white,
-                            fontSize: 14,
-                            fontFamily: FontFamily.poppins,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       );
@@ -1007,7 +1100,13 @@ class ScreenLayoutScreen extends HookConsumerWidget {
             Gap(15.h),
             Expanded(
               child: screenLayoutAsync.when(
-                loading: () => const SizedBox(),
+                loading: () => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: const SkeletonLoader(
+                    height: 250,
+                    width: double.maxFinite,
+                  ),
+                ),
                 error: (e, _) =>
                     const Center(child: Text('Failed to load layout')),
                 data: (sections) {
@@ -1262,12 +1361,16 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorName.redColor1,
+                    backgroundColor: isSeatSelectionValid
+                        ? ColorName.redColor1
+                        : ColorName.lightBackground2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: () => _showTermsConditionsDrawer(),
+                  onPressed: isSeatSelectionValid
+                      ? () => _showTermsConditionsDrawer(ref)
+                      : null,
                   child: const Text(
                     "Proceed",
                     style: TextStyle(

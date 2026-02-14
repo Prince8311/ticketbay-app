@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ticket_bay/core/api/error_handler.dart';
 import 'package:ticket_bay/features/booking/data/repositories/screen_layout_repo_impl.dart';
+import 'package:ticket_bay/features/booking/domain/models/commission_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/screen_layout_model.dart';
 import 'package:ticket_bay/features/booking/presentation/screens/seat_layout_screen.dart';
 
@@ -48,6 +49,26 @@ Future<List<ScreenSeatsModel>?> getScreenLayout(
       return [];
     },
     (data) => data ?? [],
+  );
+}
+
+@riverpod
+Future<CommissionModel?> getBookingCommissions(
+  Ref ref, {
+  required String theaterName,
+  required int price,
+}) async {
+  final result = await ref.read(screenLayoutRepoProvider).getCommissions(
+        theaterName: theaterName,
+        price: price,
+      );
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return null;
+    },
+    (data) => data,
   );
 }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 
@@ -361,9 +362,13 @@ class SeatLayoutRoute extends GoRouteData {
   name: RouteName.checkout,
 )
 class CheckoutRoute extends GoRouteData {
+  const CheckoutRoute({required this.bookingInfo});
+  final String bookingInfo;
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(CheckoutScreen());
+    final decodedMap = json.decode(bookingInfo) as Map<String, dynamic>;
+    final bookingData = BookingInfoModel.fromJson(decodedMap);
+    return slideTransitionPage(CheckoutScreen(bookingData: bookingData));
   }
 }
 

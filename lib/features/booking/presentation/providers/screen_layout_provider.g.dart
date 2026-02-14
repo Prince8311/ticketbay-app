@@ -359,5 +359,158 @@ class _GetScreenLayoutProviderElement
   @override
   String get theaterName => (origin as GetScreenLayoutProvider).theaterName;
 }
+
+String _$getBookingCommissionsHash() =>
+    r'61a3c016d1cbb3247e5ff9d7b33d590a65ddd807';
+
+/// See also [getBookingCommissions].
+@ProviderFor(getBookingCommissions)
+const getBookingCommissionsProvider = GetBookingCommissionsFamily();
+
+/// See also [getBookingCommissions].
+class GetBookingCommissionsFamily extends Family<AsyncValue<CommissionModel?>> {
+  /// See also [getBookingCommissions].
+  const GetBookingCommissionsFamily();
+
+  /// See also [getBookingCommissions].
+  GetBookingCommissionsProvider call({
+    required String theaterName,
+    required int price,
+  }) {
+    return GetBookingCommissionsProvider(
+      theaterName: theaterName,
+      price: price,
+    );
+  }
+
+  @override
+  GetBookingCommissionsProvider getProviderOverride(
+    covariant GetBookingCommissionsProvider provider,
+  ) {
+    return call(
+      theaterName: provider.theaterName,
+      price: provider.price,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getBookingCommissionsProvider';
+}
+
+/// See also [getBookingCommissions].
+class GetBookingCommissionsProvider
+    extends AutoDisposeFutureProvider<CommissionModel?> {
+  /// See also [getBookingCommissions].
+  GetBookingCommissionsProvider({
+    required String theaterName,
+    required int price,
+  }) : this._internal(
+          (ref) => getBookingCommissions(
+            ref as GetBookingCommissionsRef,
+            theaterName: theaterName,
+            price: price,
+          ),
+          from: getBookingCommissionsProvider,
+          name: r'getBookingCommissionsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getBookingCommissionsHash,
+          dependencies: GetBookingCommissionsFamily._dependencies,
+          allTransitiveDependencies:
+              GetBookingCommissionsFamily._allTransitiveDependencies,
+          theaterName: theaterName,
+          price: price,
+        );
+
+  GetBookingCommissionsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.theaterName,
+    required this.price,
+  }) : super.internal();
+
+  final String theaterName;
+  final int price;
+
+  @override
+  Override overrideWith(
+    FutureOr<CommissionModel?> Function(GetBookingCommissionsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetBookingCommissionsProvider._internal(
+        (ref) => create(ref as GetBookingCommissionsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        theaterName: theaterName,
+        price: price,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<CommissionModel?> createElement() {
+    return _GetBookingCommissionsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetBookingCommissionsProvider &&
+        other.theaterName == theaterName &&
+        other.price == price;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, theaterName.hashCode);
+    hash = _SystemHash.combine(hash, price.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetBookingCommissionsRef
+    on AutoDisposeFutureProviderRef<CommissionModel?> {
+  /// The parameter `theaterName` of this provider.
+  String get theaterName;
+
+  /// The parameter `price` of this provider.
+  int get price;
+}
+
+class _GetBookingCommissionsProviderElement
+    extends AutoDisposeFutureProviderElement<CommissionModel?>
+    with GetBookingCommissionsRef {
+  _GetBookingCommissionsProviderElement(super.provider);
+
+  @override
+  String get theaterName =>
+      (origin as GetBookingCommissionsProvider).theaterName;
+  @override
+  int get price => (origin as GetBookingCommissionsProvider).price;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
