@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/utils/private_routes.dart';
-import 'package:ticket_bay/features/auth/data/datasources/auth_token_provider.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 import '../router/app_router.dart';
 
 bool isPrivateRoute(String location) {

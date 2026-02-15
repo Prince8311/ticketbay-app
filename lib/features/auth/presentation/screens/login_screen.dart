@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
+import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
 import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
 import 'package:ticket_bay/core/shared/widgets/text_field.dart';
+import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_provider.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
@@ -12,6 +17,16 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final nameController = useTextEditingController();
+    final passwordController = useTextEditingController();
+
+    useListenable(nameController);
+    useListenable(passwordController);
+
+    final isLoading = useState(false);
+    final isFormValid = nameController.text.trim().isNotEmpty &&
+        passwordController.text.trim().isNotEmpty;
+
     return Scaffold(
       backgroundColor: ColorName.white,
       body: SafeArea(
@@ -31,9 +46,16 @@ class LoginScreen extends HookConsumerWidget {
                         subtitle: "In",
                       ),
                       const SizedBox(height: 30),
-                      AppTextField(label: "Email / Mobile No."),
+                      AppTextField(
+                        label: "Email / Mobile No.",
+                        controller: nameController,
+                      ),
                       const SizedBox(height: 12),
-                      AppTextField(label: "Password", obscureText: true),
+                      AppTextField(
+                        label: "Password",
+                        controller: passwordController,
+                        obscureText: true,
+                      ),
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
@@ -63,15 +85,46 @@ class LoginScreen extends HookConsumerWidget {
                       const SizedBox(height: 15),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorName.themeColor,
+                          backgroundColor: isFormValid
+                              ? ColorName.themeColor
+                              : ColorName.lightBackground2,
                           minimumSize: const Size(double.infinity, 48),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: (!isFormValid || isLoading.value)
+                            ? null
+                            : () async {
+                                if (nameController.text.isEmpty ||
+                                    passwordController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text("Please enter credentials")),
+                                  );
+                                  return;
+                                }
+                                isLoading.value = true;
+                                final request = LoginRequestModel(
+                                  name: nameController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                );
+                                final result = await ref.read(
+                                  loginProvider(requestBody: request).future,
+                                );
+                                if (result != null &&
+                                    result.status == 200 &&
+                                    context.mounted) {
+                                  isLoading.value = false;
+                                  ref
+                                      .read(authTokenProvider.notifier)
+                                      .saveToken(result.authToken!);
+                                  HomeRoute().go(context);
+                                }
+                              },
                         child: Text(
-                          'Sign In',
+                          isLoading.value ? 'Processing...' : 'Sign In',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,

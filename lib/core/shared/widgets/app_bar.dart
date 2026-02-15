@@ -8,15 +8,16 @@ import 'package:ticket_bay/features/home/presentation/providers/location_provide
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
-PreferredSizeWidget primaryAppBar() {
+PreferredSizeWidget primaryAppBar(userName) {
   return PreferredSize(
-    preferredSize: const Size.fromHeight(112),
-    child: const _PrimaryAppBarBody(),
+    preferredSize: const Size.fromHeight(106),
+    child: _PrimaryAppBarBody(userName: userName),
   );
 }
 
 class _PrimaryAppBarBody extends ConsumerStatefulWidget {
-  const _PrimaryAppBarBody();
+  final String? userName;
+  const _PrimaryAppBarBody({this.userName});
 
   @override
   ConsumerState<_PrimaryAppBarBody> createState() => _PrimaryAppBarBodyState();
@@ -39,6 +40,14 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
   void initState() {
     super.initState();
     _startTypewriter();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final location = ref.read(locationProvider);
+
+      if (!_sheetOpened && (location == null || location.isEmpty)) {
+        _sheetOpened = true;
+        _openLocationSheet();
+      }
+    });
   }
 
   void _startTypewriter() {
@@ -120,6 +129,7 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
       },
     ).whenComplete(() {
       ref.read(locationSearchProvider.notifier).state = null;
+      _sheetOpened = false;
     });
   }
 
@@ -151,11 +161,13 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      "Hello, User",
-                      style: TextStyle(
-                        fontSize: 17,
+                      widget.userName != null
+                          ? "Hello, ${widget.userName}"
+                          : "Hello, Guest",
+                      style: const TextStyle(
+                        fontSize: 16,
                         color: ColorName.white,
                         fontWeight: FontWeight.w500,
                         fontFamily: FontFamily.poppins,
@@ -165,8 +177,7 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
                   GestureDetector(
                     onTap: _openLocationSheet,
                     child: Container(
-                      constraints:
-                          const BoxConstraints(maxWidth: 80, minWidth: 10),
+                      constraints: const BoxConstraints(maxWidth: 70),
                       child: Row(
                         children: [
                           Icon(Icons.location_on,
@@ -193,7 +204,7 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
                 ],
               ),
 
-              Gap(16.h),
+              Gap(12.h),
 
               //---------------------- SECOND LAYER ----------------------
               Container(

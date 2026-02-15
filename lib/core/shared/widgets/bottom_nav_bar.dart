@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
@@ -92,12 +93,20 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
 
   void _onDestinationSelected(int index) {
     if (_currentIndex == index) {
-      debugPrint("_currentIndex == index");
       return;
     }
-    if (_currentIndex != index) {
-      context.go(_destinations()[index].initialLocation);
+    final destination = _destinations()[index];
+    if (destination.initialLocation == RoutePath.account) {
+      final token = ref.read(authTokenProvider);
+
+      if (token != null && token.isNotEmpty) {
+        context.go(RoutePath.account);
+      } else {
+        context.go(RoutePath.login);
+      }
+      return;
     }
+    context.go(_destinations()[index].initialLocation);
   }
 }
 

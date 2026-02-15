@@ -11,6 +11,8 @@ import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
 import 'package:ticket_bay/core/shared/widgets/loader.dart';
 import 'package:ticket_bay/core/shared/widgets/movie_card.dart';
 import 'package:ticket_bay/core/shared/widgets/ticket_card.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_provider.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:ticket_bay/features/home/presentation/providers/location_provider.dart';
 import 'package:ticket_bay/features/movie/presentation/providers/coming_soon_movies_provider.dart';
 import 'package:ticket_bay/features/movie/presentation/providers/recommended_movies_provider.dart';
@@ -24,9 +26,21 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final location = ref.watch(locationProvider);
-
+    final authToken = ref.watch(authTokenProvider);
+    print("authToken: $authToken");
     final recommendedState = ref.watch(recommendedMoviesProvider);
     final comingSoonState = ref.watch(comingSoonMoviesProvider);
+    final userAsync = authToken != null ? ref.watch(userDetailsProvider) : null;
+
+    final userName = userAsync?.maybeWhen(
+      data: (data) {
+        final fullName = data?.name;
+        if (fullName == null || fullName.trim().isEmpty) return null;
+
+        return fullName.trim().split(' ').first;
+      },
+      orElse: () => null,
+    );
 
     final recommendedMovies =
         recommendedState.data?.movies?.take(8).toList() ?? [];
@@ -50,7 +64,7 @@ class HomeScreen extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: ColorName.white,
-      appBar: primaryAppBar(),
+      appBar: primaryAppBar(userName),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -177,10 +191,15 @@ class HomeScreen extends HookConsumerWidget {
               ),
 
               /* ================= RECOMMENDED ================= */
-              _RecommendedSection(
-                movies: recommendedMovies,
-                isLoading: recommendedState.isLoading,
-              ),
+              if (recommendedMovies.isNotEmpty)
+                Column(
+                  children: [
+                    _RecommendedSection(
+                      movies: recommendedMovies,
+                      isLoading: recommendedState.isLoading,
+                    ),
+                  ],
+                ),
 
               /* ================= COMING SOON (WITH DIVIDER) ================= */
               if (comingSoonMovies.isNotEmpty)
@@ -191,6 +210,25 @@ class HomeScreen extends HookConsumerWidget {
                       movies: comingSoonMovies,
                       isLoading: comingSoonState.isLoading,
                     ),
+                  ],
+                ),
+
+              /* ================= NO MOVIES ================= */
+              if (recommendedMovies.isEmpty && comingSoonMovies.isEmpty)
+                Column(
+                  children: [
+                    Gap(30.h),
+                    Assets.images.noShow.svg(width: 220),
+                    Gap(14.h),
+                    Text(
+                      'No show available in this location',
+                      style: TextStyle(
+                        fontSize: 13.5,
+                        fontFamily: FontFamily.poppins,
+                        color: ColorName.black2,
+                      ),
+                    ),
+                    Gap(25.h),
                   ],
                 ),
             ],

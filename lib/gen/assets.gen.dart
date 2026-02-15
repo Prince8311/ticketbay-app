@@ -57,8 +57,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/large-car.jpg
   AssetGenImage get largeCar => const AssetGenImage('assets/images/large-car.jpg');
 
+  /// File path: assets/images/loader.svg
+  SvgGenImage get loader => const SvgGenImage('assets/images/loader.svg');
+
   /// File path: assets/images/login-icon.svg
   SvgGenImage get loginIcon => const SvgGenImage('assets/images/login-icon.svg');
+
+  /// File path: assets/images/no-show.svg
+  SvgGenImage get noShow => const SvgGenImage('assets/images/no-show.svg');
 
   /// File path: assets/images/profile-image.png
   AssetGenImage get profileImage => const AssetGenImage('assets/images/profile-image.png');
@@ -106,7 +112,9 @@ class $AssetsImagesGen {
         director,
         forgotPasswordIcon,
         largeCar,
+        loader,
         loginIcon,
+        noShow,
         profileImage,
         registerIcon,
         slide1,

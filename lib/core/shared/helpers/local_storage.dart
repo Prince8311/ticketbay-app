@@ -17,6 +17,8 @@ abstract class LocalDB {
   Future<void> clearLocalData(String key);
   Future<void> deleteData(String key);
   Future<bool> writeData(String key, String? value);
+  Future<bool?> readBool(String key);
+  Future<bool> writeBool(String key, bool value);
 }
 
 // ---------------- SHARED PREFS ----------------
@@ -45,6 +47,16 @@ class LocalStorage implements LocalDB {
   Future<bool> writeData(String key, String? value) async {
     if (value == null) return false;
     return preferences.setString(key, value);
+  }
+
+  @override
+  Future<bool?> readBool(String key) async {
+    return preferences.getBool(key);
+  }
+
+  @override
+  Future<bool> writeBool(String key, bool value) async {
+    return preferences.setBool(key, value);
   }
 
   @override
@@ -82,6 +94,23 @@ class SecureLocalStorage implements LocalDB {
   @override
   Future<Map<String, String>> readAllData() async {
     return secureStorage.readAll();
+  }
+
+  @override
+  Future<bool?> readBool(String key) async {
+    final value = await secureStorage.read(key: key);
+    if (value == null) return null;
+    return value.toLowerCase() == 'true';
+  }
+
+  @override
+  Future<bool> writeBool(String key, bool value) async {
+    try {
+      await secureStorage.write(key: key, value: value.toString());
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   @override

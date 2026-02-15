@@ -30,9 +30,7 @@ class ComingSoonMoviesNotifier extends StateNotifier<ComingSoonMoviesState>
   bool _isLoading = false;
 
   ComingSoonMoviesNotifier(this._repository, this.ref)
-      : super(const ComingSoonMoviesState()) {
-    loadData();
-  }
+      : super(const ComingSoonMoviesState());
 
   @override
   Future<void> loadData() async {

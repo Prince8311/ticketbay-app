@@ -293,7 +293,7 @@ class AccountScreen extends HookConsumerWidget {
                         color: ColorName.redColor,
                       ),
                       title: "Sign Out",
-                      onPressed: () => LoginRoute().push(context),
+                      onPressed: () {},
                     ),
                   ),
                 ],

@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/api/end_points.dart';
 import 'package:ticket_bay/core/shared/widgets/toast.dart';
 import 'package:ticket_bay/core/utils/private_api.dart';
-import 'package:ticket_bay/features/auth/data/datasources/auth_token_provider.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 
 class NetworkInterceptor extends Interceptor {
   final Ref ref;
@@ -36,6 +36,8 @@ class NetworkInterceptor extends Interceptor {
     }
 
     final token = await ref.read(authTokenProvider.notifier).getToken();
+    debugPrint("🌐 Request: ${options.path}");
+    debugPrint("🔐 Interceptor Token: $token");
     if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';
     }
@@ -120,9 +122,9 @@ class NetworkInterceptor extends Interceptor {
   // ---------------------------------------------------------------------------
   Future<bool> _refreshToken() async {
     try {
-      final response = await dio.post(Endpoints.refreshToken);
+      final response = await dio.get(Endpoints.refreshToken);
 
-      final token = response.data['token'];
+      final token = response.data['newToken'];
       if (token != null) {
         await ref.read(authTokenProvider.notifier).saveToken(token);
         return true;

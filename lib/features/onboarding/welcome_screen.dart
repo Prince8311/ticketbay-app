@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
+import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
-class WelcomeScreen extends HookWidget {
+class WelcomeScreen extends HookConsumerWidget {
   WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final pageController = usePageController();
     final currentIndex = useState(0);
     final images = [
@@ -171,8 +173,13 @@ class WelcomeScreen extends HookWidget {
                     top: 45,
                     right: 15,
                     child: ElevatedButton(
-                      onPressed: () {
-                        HomeRoute().go(context);
+                      onPressed: () async {
+                        final localDb =
+                            await ref.read(localStorageProvider.future);
+                        await localDb.writeBool("alreadyOpened", true);
+                        if (context.mounted) {
+                          HomeRoute().go(context);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorName.white.withAlpha(50),
@@ -242,9 +249,13 @@ class WelcomeScreen extends HookWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (currentIndex.value == images.length - 1) {
-                  HomeRoute().go(context);
+                  final localDb = await ref.read(localStorageProvider.future);
+                  await localDb.writeBool("alreadyOpened", true);
+                  if (context.mounted) {
+                    HomeRoute().go(context);
+                  }
                 } else {
                   pageController.animateToPage(
                     currentIndex.value + 1,
