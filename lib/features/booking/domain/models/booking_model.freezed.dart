@@ -20,6 +20,12 @@ BookingInfoModel _$BookingInfoModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BookingInfoModel {
+  @JsonKey(name: 'userName')
+  String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userEmail')
+  String? get userEmail => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userPhone')
+  String? get userPhone => throw _privateConstructorUsedError;
   @JsonKey(name: 'movieName')
   String? get movieName => throw _privateConstructorUsedError;
   @JsonKey(name: 'theaterName')
@@ -38,6 +44,8 @@ mixin _$BookingInfoModel {
   String? get screen => throw _privateConstructorUsedError;
   @JsonKey(name: 'price')
   int? get price => throw _privateConstructorUsedError;
+  @JsonKey(name: 'bookingId')
+  String? get bookingId => throw _privateConstructorUsedError;
   @JsonKey(name: 'adminCommission')
   int? get adminCommission => throw _privateConstructorUsedError;
   @JsonKey(name: 'theaterCommission')
@@ -62,7 +70,10 @@ abstract class $BookingInfoModelCopyWith<$Res> {
       _$BookingInfoModelCopyWithImpl<$Res, BookingInfoModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'movieName') String? movieName,
+      {@JsonKey(name: 'userName') String? userName,
+      @JsonKey(name: 'userEmail') String? userEmail,
+      @JsonKey(name: 'userPhone') String? userPhone,
+      @JsonKey(name: 'movieName') String? movieName,
       @JsonKey(name: 'theaterName') String? theaterName,
       @JsonKey(name: 'language') String? language,
       @JsonKey(name: 'format') String? format,
@@ -71,6 +82,7 @@ abstract class $BookingInfoModelCopyWith<$Res> {
       @JsonKey(name: 'time') String? time,
       @JsonKey(name: 'screen') String? screen,
       @JsonKey(name: 'price') int? price,
+      @JsonKey(name: 'bookingId') String? bookingId,
       @JsonKey(name: 'adminCommission') int? adminCommission,
       @JsonKey(name: 'theaterCommission') int? theaterCommission,
       @JsonKey(name: 'section') String? section});
@@ -91,6 +103,9 @@ class _$BookingInfoModelCopyWithImpl<$Res, $Val extends BookingInfoModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
     Object? movieName = freezed,
     Object? theaterName = freezed,
     Object? language = freezed,
@@ -100,11 +115,24 @@ class _$BookingInfoModelCopyWithImpl<$Res, $Val extends BookingInfoModel>
     Object? time = freezed,
     Object? screen = freezed,
     Object? price = freezed,
+    Object? bookingId = freezed,
     Object? adminCommission = freezed,
     Object? theaterCommission = freezed,
     Object? section = freezed,
   }) {
     return _then(_value.copyWith(
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userEmail: freezed == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
       movieName: freezed == movieName
           ? _value.movieName
           : movieName // ignore: cast_nullable_to_non_nullable
@@ -141,6 +169,10 @@ class _$BookingInfoModelCopyWithImpl<$Res, $Val extends BookingInfoModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int?,
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
       adminCommission: freezed == adminCommission
           ? _value.adminCommission
           : adminCommission // ignore: cast_nullable_to_non_nullable
@@ -166,7 +198,10 @@ abstract class _$$BookingInfoModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'movieName') String? movieName,
+      {@JsonKey(name: 'userName') String? userName,
+      @JsonKey(name: 'userEmail') String? userEmail,
+      @JsonKey(name: 'userPhone') String? userPhone,
+      @JsonKey(name: 'movieName') String? movieName,
       @JsonKey(name: 'theaterName') String? theaterName,
       @JsonKey(name: 'language') String? language,
       @JsonKey(name: 'format') String? format,
@@ -175,6 +210,7 @@ abstract class _$$BookingInfoModelImplCopyWith<$Res>
       @JsonKey(name: 'time') String? time,
       @JsonKey(name: 'screen') String? screen,
       @JsonKey(name: 'price') int? price,
+      @JsonKey(name: 'bookingId') String? bookingId,
       @JsonKey(name: 'adminCommission') int? adminCommission,
       @JsonKey(name: 'theaterCommission') int? theaterCommission,
       @JsonKey(name: 'section') String? section});
@@ -193,6 +229,9 @@ class __$$BookingInfoModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
     Object? movieName = freezed,
     Object? theaterName = freezed,
     Object? language = freezed,
@@ -202,11 +241,24 @@ class __$$BookingInfoModelImplCopyWithImpl<$Res>
     Object? time = freezed,
     Object? screen = freezed,
     Object? price = freezed,
+    Object? bookingId = freezed,
     Object? adminCommission = freezed,
     Object? theaterCommission = freezed,
     Object? section = freezed,
   }) {
     return _then(_$BookingInfoModelImpl(
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userEmail: freezed == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
       movieName: freezed == movieName
           ? _value.movieName
           : movieName // ignore: cast_nullable_to_non_nullable
@@ -243,6 +295,10 @@ class __$$BookingInfoModelImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int?,
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
       adminCommission: freezed == adminCommission
           ? _value.adminCommission
           : adminCommission // ignore: cast_nullable_to_non_nullable
@@ -263,7 +319,10 @@ class __$$BookingInfoModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BookingInfoModelImpl implements _BookingInfoModel {
   const _$BookingInfoModelImpl(
-      {@JsonKey(name: 'movieName') this.movieName,
+      {@JsonKey(name: 'userName') this.userName,
+      @JsonKey(name: 'userEmail') this.userEmail,
+      @JsonKey(name: 'userPhone') this.userPhone,
+      @JsonKey(name: 'movieName') this.movieName,
       @JsonKey(name: 'theaterName') this.theaterName,
       @JsonKey(name: 'language') this.language,
       @JsonKey(name: 'format') this.format,
@@ -272,6 +331,7 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
       @JsonKey(name: 'time') this.time,
       @JsonKey(name: 'screen') this.screen,
       @JsonKey(name: 'price') this.price,
+      @JsonKey(name: 'bookingId') this.bookingId,
       @JsonKey(name: 'adminCommission') this.adminCommission,
       @JsonKey(name: 'theaterCommission') this.theaterCommission,
       @JsonKey(name: 'section') this.section});
@@ -279,6 +339,15 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
   factory _$BookingInfoModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookingInfoModelImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'userName')
+  final String? userName;
+  @override
+  @JsonKey(name: 'userEmail')
+  final String? userEmail;
+  @override
+  @JsonKey(name: 'userPhone')
+  final String? userPhone;
   @override
   @JsonKey(name: 'movieName')
   final String? movieName;
@@ -307,6 +376,9 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
   @JsonKey(name: 'price')
   final int? price;
   @override
+  @JsonKey(name: 'bookingId')
+  final String? bookingId;
+  @override
   @JsonKey(name: 'adminCommission')
   final int? adminCommission;
   @override
@@ -318,7 +390,7 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
 
   @override
   String toString() {
-    return 'BookingInfoModel(movieName: $movieName, theaterName: $theaterName, language: $language, format: $format, day: $day, date: $date, time: $time, screen: $screen, price: $price, adminCommission: $adminCommission, theaterCommission: $theaterCommission, section: $section)';
+    return 'BookingInfoModel(userName: $userName, userEmail: $userEmail, userPhone: $userPhone, movieName: $movieName, theaterName: $theaterName, language: $language, format: $format, day: $day, date: $date, time: $time, screen: $screen, price: $price, bookingId: $bookingId, adminCommission: $adminCommission, theaterCommission: $theaterCommission, section: $section)';
   }
 
   @override
@@ -326,6 +398,12 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookingInfoModelImpl &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone) &&
             (identical(other.movieName, movieName) ||
                 other.movieName == movieName) &&
             (identical(other.theaterName, theaterName) ||
@@ -338,6 +416,8 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
             (identical(other.time, time) || other.time == time) &&
             (identical(other.screen, screen) || other.screen == screen) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.bookingId, bookingId) ||
+                other.bookingId == bookingId) &&
             (identical(other.adminCommission, adminCommission) ||
                 other.adminCommission == adminCommission) &&
             (identical(other.theaterCommission, theaterCommission) ||
@@ -349,6 +429,9 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      userName,
+      userEmail,
+      userPhone,
       movieName,
       theaterName,
       language,
@@ -358,6 +441,7 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
       time,
       screen,
       price,
+      bookingId,
       adminCommission,
       theaterCommission,
       section);
@@ -381,7 +465,10 @@ class _$BookingInfoModelImpl implements _BookingInfoModel {
 
 abstract class _BookingInfoModel implements BookingInfoModel {
   const factory _BookingInfoModel(
-          {@JsonKey(name: 'movieName') final String? movieName,
+          {@JsonKey(name: 'userName') final String? userName,
+          @JsonKey(name: 'userEmail') final String? userEmail,
+          @JsonKey(name: 'userPhone') final String? userPhone,
+          @JsonKey(name: 'movieName') final String? movieName,
           @JsonKey(name: 'theaterName') final String? theaterName,
           @JsonKey(name: 'language') final String? language,
           @JsonKey(name: 'format') final String? format,
@@ -390,6 +477,7 @@ abstract class _BookingInfoModel implements BookingInfoModel {
           @JsonKey(name: 'time') final String? time,
           @JsonKey(name: 'screen') final String? screen,
           @JsonKey(name: 'price') final int? price,
+          @JsonKey(name: 'bookingId') final String? bookingId,
           @JsonKey(name: 'adminCommission') final int? adminCommission,
           @JsonKey(name: 'theaterCommission') final int? theaterCommission,
           @JsonKey(name: 'section') final String? section}) =
@@ -398,6 +486,15 @@ abstract class _BookingInfoModel implements BookingInfoModel {
   factory _BookingInfoModel.fromJson(Map<String, dynamic> json) =
       _$BookingInfoModelImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'userName')
+  String? get userName;
+  @override
+  @JsonKey(name: 'userEmail')
+  String? get userEmail;
+  @override
+  @JsonKey(name: 'userPhone')
+  String? get userPhone;
   @override
   @JsonKey(name: 'movieName')
   String? get movieName;
@@ -425,6 +522,9 @@ abstract class _BookingInfoModel implements BookingInfoModel {
   @override
   @JsonKey(name: 'price')
   int? get price;
+  @override
+  @JsonKey(name: 'bookingId')
+  String? get bookingId;
   @override
   @JsonKey(name: 'adminCommission')
   int? get adminCommission;
@@ -1076,4 +1176,752 @@ abstract class _SeatReserveResponse implements SeatReserveResponse {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SeatReserveResponseImplCopyWith<_$SeatReserveResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+PaymentCredentialsRequest _$PaymentCredentialsRequestFromJson(
+    Map<String, dynamic> json) {
+  return _PaymentCredentialsRequest.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PaymentCredentialsRequest {
+  @JsonKey(name: 'bookingId')
+  String? get bookingId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userName')
+  String? get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userEmail')
+  String? get userEmail => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userPhone')
+  String? get userPhone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'theaterName')
+  String? get theaterName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'movieName')
+  String? get movieName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ticketPrice')
+  String? get ticketPrice => throw _privateConstructorUsedError;
+  @JsonKey(name: 'baseConvenience')
+  String? get baseConvenience => throw _privateConstructorUsedError;
+  @JsonKey(name: 'gst')
+  String? get gst => throw _privateConstructorUsedError;
+  @JsonKey(name: 'theaterCommission')
+  String? get theaterCommission => throw _privateConstructorUsedError;
+
+  /// Serializes this PaymentCredentialsRequest to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of PaymentCredentialsRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PaymentCredentialsRequestCopyWith<PaymentCredentialsRequest> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaymentCredentialsRequestCopyWith<$Res> {
+  factory $PaymentCredentialsRequestCopyWith(PaymentCredentialsRequest value,
+          $Res Function(PaymentCredentialsRequest) then) =
+      _$PaymentCredentialsRequestCopyWithImpl<$Res, PaymentCredentialsRequest>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'bookingId') String? bookingId,
+      @JsonKey(name: 'userName') String? userName,
+      @JsonKey(name: 'userEmail') String? userEmail,
+      @JsonKey(name: 'userPhone') String? userPhone,
+      @JsonKey(name: 'theaterName') String? theaterName,
+      @JsonKey(name: 'movieName') String? movieName,
+      @JsonKey(name: 'ticketPrice') String? ticketPrice,
+      @JsonKey(name: 'baseConvenience') String? baseConvenience,
+      @JsonKey(name: 'gst') String? gst,
+      @JsonKey(name: 'theaterCommission') String? theaterCommission});
+}
+
+/// @nodoc
+class _$PaymentCredentialsRequestCopyWithImpl<$Res,
+        $Val extends PaymentCredentialsRequest>
+    implements $PaymentCredentialsRequestCopyWith<$Res> {
+  _$PaymentCredentialsRequestCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PaymentCredentialsRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bookingId = freezed,
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
+    Object? theaterName = freezed,
+    Object? movieName = freezed,
+    Object? ticketPrice = freezed,
+    Object? baseConvenience = freezed,
+    Object? gst = freezed,
+    Object? theaterCommission = freezed,
+  }) {
+    return _then(_value.copyWith(
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userEmail: freezed == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaterName: freezed == theaterName
+          ? _value.theaterName
+          : theaterName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      movieName: freezed == movieName
+          ? _value.movieName
+          : movieName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketPrice: freezed == ticketPrice
+          ? _value.ticketPrice
+          : ticketPrice // ignore: cast_nullable_to_non_nullable
+              as String?,
+      baseConvenience: freezed == baseConvenience
+          ? _value.baseConvenience
+          : baseConvenience // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gst: freezed == gst
+          ? _value.gst
+          : gst // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaterCommission: freezed == theaterCommission
+          ? _value.theaterCommission
+          : theaterCommission // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaymentCredentialsRequestImplCopyWith<$Res>
+    implements $PaymentCredentialsRequestCopyWith<$Res> {
+  factory _$$PaymentCredentialsRequestImplCopyWith(
+          _$PaymentCredentialsRequestImpl value,
+          $Res Function(_$PaymentCredentialsRequestImpl) then) =
+      __$$PaymentCredentialsRequestImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'bookingId') String? bookingId,
+      @JsonKey(name: 'userName') String? userName,
+      @JsonKey(name: 'userEmail') String? userEmail,
+      @JsonKey(name: 'userPhone') String? userPhone,
+      @JsonKey(name: 'theaterName') String? theaterName,
+      @JsonKey(name: 'movieName') String? movieName,
+      @JsonKey(name: 'ticketPrice') String? ticketPrice,
+      @JsonKey(name: 'baseConvenience') String? baseConvenience,
+      @JsonKey(name: 'gst') String? gst,
+      @JsonKey(name: 'theaterCommission') String? theaterCommission});
+}
+
+/// @nodoc
+class __$$PaymentCredentialsRequestImplCopyWithImpl<$Res>
+    extends _$PaymentCredentialsRequestCopyWithImpl<$Res,
+        _$PaymentCredentialsRequestImpl>
+    implements _$$PaymentCredentialsRequestImplCopyWith<$Res> {
+  __$$PaymentCredentialsRequestImplCopyWithImpl(
+      _$PaymentCredentialsRequestImpl _value,
+      $Res Function(_$PaymentCredentialsRequestImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentCredentialsRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bookingId = freezed,
+    Object? userName = freezed,
+    Object? userEmail = freezed,
+    Object? userPhone = freezed,
+    Object? theaterName = freezed,
+    Object? movieName = freezed,
+    Object? ticketPrice = freezed,
+    Object? baseConvenience = freezed,
+    Object? gst = freezed,
+    Object? theaterCommission = freezed,
+  }) {
+    return _then(_$PaymentCredentialsRequestImpl(
+      bookingId: freezed == bookingId
+          ? _value.bookingId
+          : bookingId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userEmail: freezed == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userPhone: freezed == userPhone
+          ? _value.userPhone
+          : userPhone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaterName: freezed == theaterName
+          ? _value.theaterName
+          : theaterName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      movieName: freezed == movieName
+          ? _value.movieName
+          : movieName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ticketPrice: freezed == ticketPrice
+          ? _value.ticketPrice
+          : ticketPrice // ignore: cast_nullable_to_non_nullable
+              as String?,
+      baseConvenience: freezed == baseConvenience
+          ? _value.baseConvenience
+          : baseConvenience // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gst: freezed == gst
+          ? _value.gst
+          : gst // ignore: cast_nullable_to_non_nullable
+              as String?,
+      theaterCommission: freezed == theaterCommission
+          ? _value.theaterCommission
+          : theaterCommission // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PaymentCredentialsRequestImpl implements _PaymentCredentialsRequest {
+  const _$PaymentCredentialsRequestImpl(
+      {@JsonKey(name: 'bookingId') this.bookingId,
+      @JsonKey(name: 'userName') this.userName,
+      @JsonKey(name: 'userEmail') this.userEmail,
+      @JsonKey(name: 'userPhone') this.userPhone,
+      @JsonKey(name: 'theaterName') this.theaterName,
+      @JsonKey(name: 'movieName') this.movieName,
+      @JsonKey(name: 'ticketPrice') this.ticketPrice,
+      @JsonKey(name: 'baseConvenience') this.baseConvenience,
+      @JsonKey(name: 'gst') this.gst,
+      @JsonKey(name: 'theaterCommission') this.theaterCommission});
+
+  factory _$PaymentCredentialsRequestImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaymentCredentialsRequestImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'bookingId')
+  final String? bookingId;
+  @override
+  @JsonKey(name: 'userName')
+  final String? userName;
+  @override
+  @JsonKey(name: 'userEmail')
+  final String? userEmail;
+  @override
+  @JsonKey(name: 'userPhone')
+  final String? userPhone;
+  @override
+  @JsonKey(name: 'theaterName')
+  final String? theaterName;
+  @override
+  @JsonKey(name: 'movieName')
+  final String? movieName;
+  @override
+  @JsonKey(name: 'ticketPrice')
+  final String? ticketPrice;
+  @override
+  @JsonKey(name: 'baseConvenience')
+  final String? baseConvenience;
+  @override
+  @JsonKey(name: 'gst')
+  final String? gst;
+  @override
+  @JsonKey(name: 'theaterCommission')
+  final String? theaterCommission;
+
+  @override
+  String toString() {
+    return 'PaymentCredentialsRequest(bookingId: $bookingId, userName: $userName, userEmail: $userEmail, userPhone: $userPhone, theaterName: $theaterName, movieName: $movieName, ticketPrice: $ticketPrice, baseConvenience: $baseConvenience, gst: $gst, theaterCommission: $theaterCommission)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentCredentialsRequestImpl &&
+            (identical(other.bookingId, bookingId) ||
+                other.bookingId == bookingId) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
+            (identical(other.userPhone, userPhone) ||
+                other.userPhone == userPhone) &&
+            (identical(other.theaterName, theaterName) ||
+                other.theaterName == theaterName) &&
+            (identical(other.movieName, movieName) ||
+                other.movieName == movieName) &&
+            (identical(other.ticketPrice, ticketPrice) ||
+                other.ticketPrice == ticketPrice) &&
+            (identical(other.baseConvenience, baseConvenience) ||
+                other.baseConvenience == baseConvenience) &&
+            (identical(other.gst, gst) || other.gst == gst) &&
+            (identical(other.theaterCommission, theaterCommission) ||
+                other.theaterCommission == theaterCommission));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      bookingId,
+      userName,
+      userEmail,
+      userPhone,
+      theaterName,
+      movieName,
+      ticketPrice,
+      baseConvenience,
+      gst,
+      theaterCommission);
+
+  /// Create a copy of PaymentCredentialsRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentCredentialsRequestImplCopyWith<_$PaymentCredentialsRequestImpl>
+      get copyWith => __$$PaymentCredentialsRequestImplCopyWithImpl<
+          _$PaymentCredentialsRequestImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaymentCredentialsRequestImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PaymentCredentialsRequest implements PaymentCredentialsRequest {
+  const factory _PaymentCredentialsRequest(
+      {@JsonKey(name: 'bookingId') final String? bookingId,
+      @JsonKey(name: 'userName') final String? userName,
+      @JsonKey(name: 'userEmail') final String? userEmail,
+      @JsonKey(name: 'userPhone') final String? userPhone,
+      @JsonKey(name: 'theaterName') final String? theaterName,
+      @JsonKey(name: 'movieName') final String? movieName,
+      @JsonKey(name: 'ticketPrice') final String? ticketPrice,
+      @JsonKey(name: 'baseConvenience') final String? baseConvenience,
+      @JsonKey(name: 'gst') final String? gst,
+      @JsonKey(name: 'theaterCommission')
+      final String? theaterCommission}) = _$PaymentCredentialsRequestImpl;
+
+  factory _PaymentCredentialsRequest.fromJson(Map<String, dynamic> json) =
+      _$PaymentCredentialsRequestImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'bookingId')
+  String? get bookingId;
+  @override
+  @JsonKey(name: 'userName')
+  String? get userName;
+  @override
+  @JsonKey(name: 'userEmail')
+  String? get userEmail;
+  @override
+  @JsonKey(name: 'userPhone')
+  String? get userPhone;
+  @override
+  @JsonKey(name: 'theaterName')
+  String? get theaterName;
+  @override
+  @JsonKey(name: 'movieName')
+  String? get movieName;
+  @override
+  @JsonKey(name: 'ticketPrice')
+  String? get ticketPrice;
+  @override
+  @JsonKey(name: 'baseConvenience')
+  String? get baseConvenience;
+  @override
+  @JsonKey(name: 'gst')
+  String? get gst;
+  @override
+  @JsonKey(name: 'theaterCommission')
+  String? get theaterCommission;
+
+  /// Create a copy of PaymentCredentialsRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaymentCredentialsRequestImplCopyWith<_$PaymentCredentialsRequestImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+PaymentCredentialsResponse _$PaymentCredentialsResponseFromJson(
+    Map<String, dynamic> json) {
+  return _PaymentCredentialsResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PaymentCredentialsResponse {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+  @JsonKey(name: 'body')
+  String? get body => throw _privateConstructorUsedError;
+  @JsonKey(name: 'checksum')
+  String? get checksum => throw _privateConstructorUsedError;
+  @JsonKey(name: 'merchantId')
+  String? get merchantId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'merchantTransactionId')
+  String? get merchantTransactionId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'callbackUrl')
+  String? get callbackUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'apiEndPoint')
+  String? get apiEndPoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'environment')
+  String? get environment => throw _privateConstructorUsedError;
+
+  /// Serializes this PaymentCredentialsResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of PaymentCredentialsResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PaymentCredentialsResponseCopyWith<PaymentCredentialsResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaymentCredentialsResponseCopyWith<$Res> {
+  factory $PaymentCredentialsResponseCopyWith(PaymentCredentialsResponse value,
+          $Res Function(PaymentCredentialsResponse) then) =
+      _$PaymentCredentialsResponseCopyWithImpl<$Res,
+          PaymentCredentialsResponse>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'body') String? body,
+      @JsonKey(name: 'checksum') String? checksum,
+      @JsonKey(name: 'merchantId') String? merchantId,
+      @JsonKey(name: 'merchantTransactionId') String? merchantTransactionId,
+      @JsonKey(name: 'callbackUrl') String? callbackUrl,
+      @JsonKey(name: 'apiEndPoint') String? apiEndPoint,
+      @JsonKey(name: 'environment') String? environment});
+}
+
+/// @nodoc
+class _$PaymentCredentialsResponseCopyWithImpl<$Res,
+        $Val extends PaymentCredentialsResponse>
+    implements $PaymentCredentialsResponseCopyWith<$Res> {
+  _$PaymentCredentialsResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PaymentCredentialsResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? body = freezed,
+    Object? checksum = freezed,
+    Object? merchantId = freezed,
+    Object? merchantTransactionId = freezed,
+    Object? callbackUrl = freezed,
+    Object? apiEndPoint = freezed,
+    Object? environment = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      checksum: freezed == checksum
+          ? _value.checksum
+          : checksum // ignore: cast_nullable_to_non_nullable
+              as String?,
+      merchantId: freezed == merchantId
+          ? _value.merchantId
+          : merchantId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      merchantTransactionId: freezed == merchantTransactionId
+          ? _value.merchantTransactionId
+          : merchantTransactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      callbackUrl: freezed == callbackUrl
+          ? _value.callbackUrl
+          : callbackUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      apiEndPoint: freezed == apiEndPoint
+          ? _value.apiEndPoint
+          : apiEndPoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      environment: freezed == environment
+          ? _value.environment
+          : environment // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaymentCredentialsResponseImplCopyWith<$Res>
+    implements $PaymentCredentialsResponseCopyWith<$Res> {
+  factory _$$PaymentCredentialsResponseImplCopyWith(
+          _$PaymentCredentialsResponseImpl value,
+          $Res Function(_$PaymentCredentialsResponseImpl) then) =
+      __$$PaymentCredentialsResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message,
+      @JsonKey(name: 'body') String? body,
+      @JsonKey(name: 'checksum') String? checksum,
+      @JsonKey(name: 'merchantId') String? merchantId,
+      @JsonKey(name: 'merchantTransactionId') String? merchantTransactionId,
+      @JsonKey(name: 'callbackUrl') String? callbackUrl,
+      @JsonKey(name: 'apiEndPoint') String? apiEndPoint,
+      @JsonKey(name: 'environment') String? environment});
+}
+
+/// @nodoc
+class __$$PaymentCredentialsResponseImplCopyWithImpl<$Res>
+    extends _$PaymentCredentialsResponseCopyWithImpl<$Res,
+        _$PaymentCredentialsResponseImpl>
+    implements _$$PaymentCredentialsResponseImplCopyWith<$Res> {
+  __$$PaymentCredentialsResponseImplCopyWithImpl(
+      _$PaymentCredentialsResponseImpl _value,
+      $Res Function(_$PaymentCredentialsResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentCredentialsResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+    Object? body = freezed,
+    Object? checksum = freezed,
+    Object? merchantId = freezed,
+    Object? merchantTransactionId = freezed,
+    Object? callbackUrl = freezed,
+    Object? apiEndPoint = freezed,
+    Object? environment = freezed,
+  }) {
+    return _then(_$PaymentCredentialsResponseImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      body: freezed == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
+              as String?,
+      checksum: freezed == checksum
+          ? _value.checksum
+          : checksum // ignore: cast_nullable_to_non_nullable
+              as String?,
+      merchantId: freezed == merchantId
+          ? _value.merchantId
+          : merchantId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      merchantTransactionId: freezed == merchantTransactionId
+          ? _value.merchantTransactionId
+          : merchantTransactionId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      callbackUrl: freezed == callbackUrl
+          ? _value.callbackUrl
+          : callbackUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      apiEndPoint: freezed == apiEndPoint
+          ? _value.apiEndPoint
+          : apiEndPoint // ignore: cast_nullable_to_non_nullable
+              as String?,
+      environment: freezed == environment
+          ? _value.environment
+          : environment // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PaymentCredentialsResponseImpl implements _PaymentCredentialsResponse {
+  const _$PaymentCredentialsResponseImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message,
+      @JsonKey(name: 'body') this.body,
+      @JsonKey(name: 'checksum') this.checksum,
+      @JsonKey(name: 'merchantId') this.merchantId,
+      @JsonKey(name: 'merchantTransactionId') this.merchantTransactionId,
+      @JsonKey(name: 'callbackUrl') this.callbackUrl,
+      @JsonKey(name: 'apiEndPoint') this.apiEndPoint,
+      @JsonKey(name: 'environment') this.environment});
+
+  factory _$PaymentCredentialsResponseImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$PaymentCredentialsResponseImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+  @override
+  @JsonKey(name: 'body')
+  final String? body;
+  @override
+  @JsonKey(name: 'checksum')
+  final String? checksum;
+  @override
+  @JsonKey(name: 'merchantId')
+  final String? merchantId;
+  @override
+  @JsonKey(name: 'merchantTransactionId')
+  final String? merchantTransactionId;
+  @override
+  @JsonKey(name: 'callbackUrl')
+  final String? callbackUrl;
+  @override
+  @JsonKey(name: 'apiEndPoint')
+  final String? apiEndPoint;
+  @override
+  @JsonKey(name: 'environment')
+  final String? environment;
+
+  @override
+  String toString() {
+    return 'PaymentCredentialsResponse(status: $status, message: $message, body: $body, checksum: $checksum, merchantId: $merchantId, merchantTransactionId: $merchantTransactionId, callbackUrl: $callbackUrl, apiEndPoint: $apiEndPoint, environment: $environment)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentCredentialsResponseImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.body, body) || other.body == body) &&
+            (identical(other.checksum, checksum) ||
+                other.checksum == checksum) &&
+            (identical(other.merchantId, merchantId) ||
+                other.merchantId == merchantId) &&
+            (identical(other.merchantTransactionId, merchantTransactionId) ||
+                other.merchantTransactionId == merchantTransactionId) &&
+            (identical(other.callbackUrl, callbackUrl) ||
+                other.callbackUrl == callbackUrl) &&
+            (identical(other.apiEndPoint, apiEndPoint) ||
+                other.apiEndPoint == apiEndPoint) &&
+            (identical(other.environment, environment) ||
+                other.environment == environment));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message, body, checksum,
+      merchantId, merchantTransactionId, callbackUrl, apiEndPoint, environment);
+
+  /// Create a copy of PaymentCredentialsResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentCredentialsResponseImplCopyWith<_$PaymentCredentialsResponseImpl>
+      get copyWith => __$$PaymentCredentialsResponseImplCopyWithImpl<
+          _$PaymentCredentialsResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaymentCredentialsResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PaymentCredentialsResponse
+    implements PaymentCredentialsResponse {
+  const factory _PaymentCredentialsResponse(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message,
+          @JsonKey(name: 'body') final String? body,
+          @JsonKey(name: 'checksum') final String? checksum,
+          @JsonKey(name: 'merchantId') final String? merchantId,
+          @JsonKey(name: 'merchantTransactionId')
+          final String? merchantTransactionId,
+          @JsonKey(name: 'callbackUrl') final String? callbackUrl,
+          @JsonKey(name: 'apiEndPoint') final String? apiEndPoint,
+          @JsonKey(name: 'environment') final String? environment}) =
+      _$PaymentCredentialsResponseImpl;
+
+  factory _PaymentCredentialsResponse.fromJson(Map<String, dynamic> json) =
+      _$PaymentCredentialsResponseImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+  @override
+  @JsonKey(name: 'body')
+  String? get body;
+  @override
+  @JsonKey(name: 'checksum')
+  String? get checksum;
+  @override
+  @JsonKey(name: 'merchantId')
+  String? get merchantId;
+  @override
+  @JsonKey(name: 'merchantTransactionId')
+  String? get merchantTransactionId;
+  @override
+  @JsonKey(name: 'callbackUrl')
+  String? get callbackUrl;
+  @override
+  @JsonKey(name: 'apiEndPoint')
+  String? get apiEndPoint;
+  @override
+  @JsonKey(name: 'environment')
+  String? get environment;
+
+  /// Create a copy of PaymentCredentialsResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaymentCredentialsResponseImplCopyWith<_$PaymentCredentialsResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

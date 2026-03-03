@@ -48,5 +48,8 @@ class Endpoints {
   static const String commissions = '/api/booking/commissions.php';
 
   // -------- Booking --------
+  static const String bookingList = '/api/booking/list.php';
   static const String seatReserve = '/api/booking/seat-reserve.php';
+  static const String paymentCredential =
+      '/api/booking/payment/app/payment-credentials.php';
 }

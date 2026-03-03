@@ -27,7 +27,6 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final location = ref.watch(locationProvider);
     final authToken = ref.watch(authTokenProvider);
-    print("authToken: $authToken");
     final recommendedState = ref.watch(recommendedMoviesProvider);
     final comingSoonState = ref.watch(comingSoonMoviesProvider);
     final userAsync = authToken != null ? ref.watch(userDetailsProvider) : null;

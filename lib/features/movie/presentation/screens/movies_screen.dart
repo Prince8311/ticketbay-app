@@ -107,6 +107,7 @@ class MoviesScreen extends HookConsumerWidget {
                         recommendedMovies.isEmpty,
                     itemCount: recommendedMovies.length,
                     padding: EdgeInsets.zero,
+                    isGridView: true,
                     aspectRatio: 0.49,
                     itemBuilder: (context, index) {
                       final movie = recommendedMovies[index];

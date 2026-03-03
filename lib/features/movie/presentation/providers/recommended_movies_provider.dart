@@ -30,7 +30,9 @@ class RecommendedMoviesNotifier extends StateNotifier<RecommendedMoviesState>
   bool _isLoading = false;
 
   RecommendedMoviesNotifier(this._repository, this.ref)
-      : super(const RecommendedMoviesState());
+      : super(const RecommendedMoviesState()) {
+    loadData();
+  }
 
   @override
   Future<void> loadData() async {

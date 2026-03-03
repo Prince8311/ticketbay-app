@@ -20,6 +20,7 @@ List<RouteBase> get $appRoutes => [
       $theaterInfoRoute,
       $seatLayoutRoute,
       $checkoutRoute,
+      $bookingSuccessRoute,
       $upcomingBookingsRoute,
       $previousBookingsRoute,
       $cancelledBookingsRoute,
@@ -458,6 +459,30 @@ extension $CheckoutRouteExtension on CheckoutRoute {
         queryParams: {
           'booking-info': bookingInfo,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bookingSuccessRoute => GoRouteData.$route(
+      path: '/booking-success',
+      name: 'bookingSuccess',
+      factory: $BookingSuccessRouteExtension._fromState,
+    );
+
+extension $BookingSuccessRouteExtension on BookingSuccessRoute {
+  static BookingSuccessRoute _fromState(GoRouterState state) =>
+      BookingSuccessRoute();
+
+  String get location => GoRouteData.$location(
+        '/booking-success',
       );
 
   void go(BuildContext context) => context.go(location);

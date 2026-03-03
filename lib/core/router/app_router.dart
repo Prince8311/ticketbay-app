@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
+import 'package:ticket_bay/features/booking/presentation/screens/success_screen.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 
@@ -67,6 +68,7 @@ class RoutePath {
   // booking
   static const String seatLayout = '/seat-layout';
   static const String checkout = '/checkout';
+  static const String bookingSuccess = '/booking-success';
 
   // account screens
   static const String upcomingBookings = '/upcoming-bookings';
@@ -109,6 +111,7 @@ class RouteName {
   // booking
   static const String seatLayout = 'seatLayout';
   static const String checkout = 'checkout';
+  static const String bookingSuccess = 'bookingSuccess';
 
   // account screens
   static const String upcomingBookings = 'upcomingBookings';
@@ -369,6 +372,17 @@ class CheckoutRoute extends GoRouteData {
     final decodedMap = json.decode(bookingInfo) as Map<String, dynamic>;
     final bookingData = BookingInfoModel.fromJson(decodedMap);
     return slideTransitionPage(CheckoutScreen(bookingData: bookingData));
+  }
+}
+
+@TypedGoRoute<BookingSuccessRoute>(
+  path: RoutePath.bookingSuccess,
+  name: RouteName.bookingSuccess,
+)
+class BookingSuccessRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(BookingSuccessScreen());
   }
 }
 

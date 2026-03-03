@@ -5,4 +5,7 @@ abstract class BookingRepository {
   FutureEither<SeatReserveResponse?> reserveSeats(
     SeatReserveRequest requestBody,
   );
+  FutureEither<PaymentCredentialsResponse?> getPaymentCredential(
+    PaymentCredentialsRequest requestBody,
+  );
 }

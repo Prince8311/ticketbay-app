@@ -310,6 +310,7 @@ class TheatersScreen extends HookConsumerWidget {
                         !theatersState.isLoading && theaters.isEmpty,
                     itemCount: theaters.length,
                     padding: EdgeInsets.zero,
+                    isGridView: true,
                     aspectRatio: 0.78,
                     itemBuilder: (context, index) {
                       final theater = theaters[index];

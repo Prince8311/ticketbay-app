@@ -17,4 +17,9 @@ abstract class BookingApiService {
   @POST(Endpoints.seatReserve)
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<SeatReserveResponse> reserveSeats(@Body() SeatReserveRequest body);
+
+  @POST(Endpoints.paymentCredential)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<PaymentCredentialsResponse> getPaymentCredential(
+      @Body() PaymentCredentialsRequest body);
 }

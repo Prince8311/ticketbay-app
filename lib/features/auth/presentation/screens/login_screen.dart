@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
-import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
 import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
 import 'package:ticket_bay/core/shared/widgets/text_field.dart';
 import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';

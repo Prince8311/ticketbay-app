@@ -19,3 +19,18 @@ Future<SeatReserveResponse?> reserveSeats(Ref ref,
     (data) => data,
   );
 }
+
+@riverpod
+Future<PaymentCredentialsResponse?> paymentCredentials(Ref ref,
+    {required PaymentCredentialsRequest requestBody}) async {
+  final result =
+      await ref.read(bookingRepoProvider).getPaymentCredential(requestBody);
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return null;
+    },
+    (data) => data,
+  );
+}

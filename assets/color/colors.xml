@@ -22,6 +22,7 @@
     <color name="lightBackground1">#FFFEFE</color>
     <color name="lightBackground2">#DADADA</color>
     <color name="lightBackground3">#F3F3F3</color>
+    <color name="lightBackground4">#FAFAFA</color>
     <color name="borderColor">#E1E0EA</color>
     <color name="borderColor1">#C9C9C9</color>
 </resources>

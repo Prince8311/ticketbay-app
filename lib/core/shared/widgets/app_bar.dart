@@ -176,20 +176,27 @@ class _PrimaryAppBarBodyState extends ConsumerState<_PrimaryAppBarBody> {
                   ),
                   GestureDetector(
                     onTap: _openLocationSheet,
-                    child: Container(
-                      constraints: const BoxConstraints(maxWidth: 70),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minWidth: 70,
+                        maxWidth: 100,
+                      ),
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.location_on,
-                              color: ColorName.white, size: 16),
-                          Gap(3.w),
-                          Expanded(
+                          Icon(
+                            Icons.location_on,
+                            color: ColorName.white,
+                            size: 15,
+                          ),
+                          Gap(2.w),
+                          Flexible(
                             child: Text(
                               location ?? "Location",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: ColorName.white,
-                                fontSize: 14,
+                                fontSize: 12.5,
                                 fontFamily: FontFamily.poppins,
                               ),
                             ),

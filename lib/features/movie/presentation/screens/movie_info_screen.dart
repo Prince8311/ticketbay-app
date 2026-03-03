@@ -339,7 +339,9 @@ class MovieInfoScreen extends HookConsumerWidget {
                   ),
                   Spacer(),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      BookingSuccessRoute().push(context);
+                    },
                     child: Row(
                       children: [
                         Icon(

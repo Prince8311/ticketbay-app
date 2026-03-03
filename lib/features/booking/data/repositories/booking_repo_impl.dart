@@ -26,4 +26,15 @@ class BookingRepoImpl extends BookingRepository {
       },
     );
   }
+
+  @override
+  FutureEither<PaymentCredentialsResponse?> getPaymentCredential(
+      PaymentCredentialsRequest requestBody) {
+    return apiHandler<PaymentCredentialsResponse?>(
+      () async {
+        var res = await _apiService.getPaymentCredential(requestBody);
+        return res;
+      },
+    );
+  }
 }

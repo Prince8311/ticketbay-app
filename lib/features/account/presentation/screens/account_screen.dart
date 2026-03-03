@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/api/end_points.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/app_bar.dart';
+import 'package:ticket_bay/core/shared/widgets/loader.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_provider.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
 
@@ -12,6 +16,9 @@ class AccountScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final authToken = ref.watch(authTokenProvider);
+    final userAsync = authToken != null ? ref.watch(userDetailsProvider) : null;
+
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: secondaryAppBar("My Account", leading: false),
@@ -36,75 +43,85 @@ class AccountScreen extends HookConsumerWidget {
                     ],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 13, 24, 13),
-                        child: Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: ColorName.white,
-                                border: Border.all(
-                                  color: Colors.grey,
-                                  width: 2,
+                  child: userAsync?.when(
+                    loading: () => ProfileLoading(),
+                    error: (e, _) => Center(child: Text(e.toString())),
+                    data: (data) {
+                      return Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 13, 24, 13),
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorName.white,
+                                    border: Border.all(
+                                      color: ColorName.borderColor,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.all(3),
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      '${Endpoints.profileImageURL}/${data?.image}',
+                                      width: 68,
+                                      height: 68,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              padding: const EdgeInsets.all(3),
-                              child: ClipOval(
-                                child: Image.asset(
-                                  "assets/images/profile-image.png",
-                                  width: 67,
-                                  height: 67,
-                                  fit: BoxFit.cover,
+                                Gap(16.w),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data?.name ?? '-',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: FontFamily.poppins,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorName.black),
+                                      ),
+                                      Gap(10.h),
+                                      Text(
+                                        data?.phone ?? '-',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          height: 1,
+                                          fontSize: 13,
+                                          fontFamily: FontFamily.poppins,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorName.black1,
+                                        ),
+                                      ),
+                                      Gap(2.h),
+                                      Text(
+                                        data?.email ?? '-',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontFamily: FontFamily.poppins,
+                                          fontWeight: FontWeight.w400,
+                                          color: ColorName.black1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                            Gap(18.w),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Sourish Mondal',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontFamily: FontFamily.poppins,
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorName.black1),
-                                  ),
-                                  Gap(7.h),
-                                  Text(
-                                    '8637361996',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontFamily: FontFamily.poppins,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorName.black2),
-                                  ),
-                                  Gap(1.h),
-                                  Text(
-                                    'demo123@gmail.com',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontFamily: FontFamily.poppins,
-                                        fontWeight: FontWeight.w500,
-                                        color: ColorName.black2),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                          )
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -429,6 +446,22 @@ class AccountOptionItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ProfileLoading extends StatelessWidget {
+  const ProfileLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SkeletonLoader(
+          width: 67,
+          height: 67,
+        ),
+      ],
     );
   }
 }

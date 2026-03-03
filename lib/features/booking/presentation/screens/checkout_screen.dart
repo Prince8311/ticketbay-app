@@ -2,11 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/router/app_router.dart';
 import 'package:ticket_bay/core/shared/helpers/booking_prices.dart';
 import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
+import 'package:ticket_bay/core/shared/helpers/payment_helper.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/core/shared/widgets/toast.dart';
 import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
+import 'package:ticket_bay/features/booking/presentation/providers/booking_provider.dart';
 import 'package:ticket_bay/features/booking/presentation/providers/screen_layout_provider.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
@@ -593,7 +597,7 @@ class CheckoutScreen extends HookConsumerWidget {
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 68,
-          padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
           decoration: BoxDecoration(
             color: ColorName.white,
             boxShadow: [
@@ -613,7 +617,7 @@ class CheckoutScreen extends HookConsumerWidget {
                     "Total",
                     style: TextStyle(
                       color: ColorName.black2,
-                      fontSize: 11,
+                      fontSize: 12,
                       fontFamily: FontFamily.poppins,
                       fontWeight: FontWeight.w500,
                     ),
@@ -626,7 +630,7 @@ class CheckoutScreen extends HookConsumerWidget {
                           text: '₹',
                           style: TextStyle(
                             color: ColorName.black1,
-                            fontSize: 13,
+                            fontSize: 15,
                             fontFamily: FontFamily.poppins,
                             fontWeight: FontWeight.w500,
                           ),
@@ -634,8 +638,9 @@ class CheckoutScreen extends HookConsumerWidget {
                         TextSpan(
                           text: priceData.orderTotal.toStringAsFixed(2),
                           style: TextStyle(
+                            height: 1,
                             color: ColorName.black1,
-                            fontSize: 17.5,
+                            fontSize: 24,
                             fontFamily: FontFamily.poppins,
                             fontWeight: FontWeight.w500,
                           ),
@@ -648,15 +653,60 @@ class CheckoutScreen extends HookConsumerWidget {
               Spacer(),
               SizedBox(
                 width: 200,
-                height: 45,
+                height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorName.redColor1,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final paymentData = PaymentCredentialsRequest(
+                      bookingId: bookingData.bookingId,
+                      userName: bookingData.userName,
+                      userEmail: bookingData.userEmail,
+                      userPhone: bookingData.userPhone,
+                      theaterName: bookingData.theaterName,
+                      movieName: bookingData.movieName,
+                      ticketPrice: priceData.ticketTotal.toStringAsFixed(2),
+                      baseConvenience: priceData.baseAmount.toStringAsFixed(2),
+                      gst: priceData.gstAmount.toStringAsFixed(2),
+                      theaterCommission:
+                          bookingData.theaterCommission.toString(),
+                    );
+
+                    final response = await ref.read(
+                        paymentCredentialsProvider(requestBody: paymentData)
+                            .future);
+
+                    if (response?.status == 200) {
+                      final initResult = await PhonePeService.initPhonePe(
+                        environment: response!.environment ?? '',
+                        merchantId: response.merchantId ?? '',
+                        appId: "",
+                        enableLogs: true,
+                      );
+
+                      if (!initResult) {
+                        errorToast("Payment initialization failed");
+                        return;
+                      }
+
+                      final status = await PhonePeService.startTransaction(
+                        body: response.body ?? '',
+                        checksum: response.checksum ?? '',
+                        callbackUrl: response.callbackUrl ?? '',
+                        apiEndPoint: response.apiEndPoint ?? '',
+                      );
+
+                      if (status == "SUCCESS") {
+                        BookingSuccessRoute().go(context);
+                      }
+                    } else {
+                      errorToast(response?.message);
+                    }
+                  },
                   child: const Text(
                     "Pay Now",
                     style: TextStyle(

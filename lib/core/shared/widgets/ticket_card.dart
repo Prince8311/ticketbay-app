@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
@@ -37,7 +39,7 @@ class TicketCard extends StatelessWidget {
       ),
       child: Container(
         width: MediaQuery.of(context).size.width * (displayAll ? 1 : 0.80),
-        height: 105,
+        height: 102,
         decoration: BoxDecoration(
           color:
               isUpcoming ? ColorName.yellowColor : ColorName.lightBackground2,
@@ -55,7 +57,7 @@ class TicketCard extends StatelessWidget {
                   ),
                   child: image.image(
                     width: 60,
-                    height: 105,
+                    height: 102,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -68,7 +70,7 @@ class TicketCard extends StatelessWidget {
                     margin:
                         const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                     padding:
-                        const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                        const EdgeInsets.symmetric(vertical: 6, horizontal: 9),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: ColorName.black2, width: 1),
@@ -86,7 +88,7 @@ class TicketCard extends StatelessWidget {
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
+                        Gap(4.h),
                         Row(
                           children: [
                             Text(date,
@@ -108,14 +110,14 @@ class TicketCard extends StatelessWidget {
                                     fontSize: 11)),
                           ],
                         ),
-                        const SizedBox(height: 2),
+                        Gap(1.h),
                         Text("Class : $seatClass",
                             style: const TextStyle(
                                 color: ColorName.black1,
                                 fontFamily: FontFamily.poppins,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11)),
-                        const SizedBox(height: 2),
+                        Gap(1.h),
                         Text(
                           "Seats : $seats",
                           style: const TextStyle(
@@ -197,7 +199,7 @@ class TicketCard extends StatelessWidget {
             ),
             if (isCancelled)
               Positioned(
-                top: 25,
+                top: 22,
                 right: 60,
                 child: Transform.rotate(
                   angle: -0.40,

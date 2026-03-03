@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:ticket_bay/gen/fonts.gen.dart';
 
 class AppRefreshIndicator<T> extends ConsumerWidget {
   const AppRefreshIndicator({
@@ -59,12 +60,23 @@ class AppRefreshButton<T> extends ConsumerWidget {
     return TextButton(
       onPressed: () async {
         onRefreshCalled?.call();
-        // ignore: unused_result
         ref.refresh(provider);
       },
-      child: Text(
-        "Refresh",
-        style: TextStyle(color: ColorName.themeColor),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+        decoration: BoxDecoration(
+          color: ColorName.themeColor.withAlpha(25),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Text(
+          "Refresh",
+          style: TextStyle(
+            color: ColorName.themeColor,
+            fontFamily: FontFamily.poppins,
+            fontSize: 13,
+            height: 1,
+          ),
+        ),
       ),
     );
   }

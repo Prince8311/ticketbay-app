@@ -93,6 +93,7 @@ class UpcomingMoviesScreen extends HookConsumerWidget {
                     emptyCondition: !upcomingState.isLoading && movies.isEmpty,
                     itemCount: movies.length,
                     padding: EdgeInsets.zero,
+                    isGridView: true,
                     aspectRatio: 0.49,
                     itemBuilder: (context, index) {
                       final movie = movies[index];

@@ -5,6 +5,8 @@ const Set<String> privateApiEndpoints = {
   Endpoints.refreshToken,
   Endpoints.logout,
   Endpoints.commissions,
+  Endpoints.seatReserve,
+  Endpoints.paymentCredential,
 };
 
 bool isPrivateApi(String path) {

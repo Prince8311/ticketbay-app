@@ -58,6 +58,9 @@ class ColorName {
   /// Color: #F3F3F3
   static const Color lightBackground3 = Color(0xFFF3F3F3);
 
+  /// Color: #FAFAFA
+  static const Color lightBackground4 = Color(0xFFFAFAFA);
+
   /// Color: #FF8F6A
   static const Color orangeColorLight = Color(0xFFFF8F6A);
 

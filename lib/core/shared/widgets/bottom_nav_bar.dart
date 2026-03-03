@@ -102,7 +102,7 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
       if (token != null && token.isNotEmpty) {
         context.go(RoutePath.account);
       } else {
-        context.go(RoutePath.login);
+        context.push(RoutePath.login);
       }
       return;
     }

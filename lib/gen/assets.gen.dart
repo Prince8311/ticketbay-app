@@ -51,6 +51,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/director.jpeg
   AssetGenImage get director => const AssetGenImage('assets/images/director.jpeg');
 
+  /// File path: assets/images/error.gif
+  AssetGenImage get error => const AssetGenImage('assets/images/error.gif');
+
   /// File path: assets/images/forgot-password-icon.svg
   SvgGenImage get forgotPasswordIcon => const SvgGenImage('assets/images/forgot-password-icon.svg');
 
@@ -90,11 +93,17 @@ class $AssetsImagesGen {
   /// File path: assets/images/splash_logo.gif
   AssetGenImage get splashLogo => const AssetGenImage('assets/images/splash_logo.gif');
 
+  /// File path: assets/images/success.gif
+  AssetGenImage get success => const AssetGenImage('assets/images/success.gif');
+
   /// File path: assets/images/theater-screen.svg
   SvgGenImage get theaterScreen => const SvgGenImage('assets/images/theater-screen.svg');
 
   /// File path: assets/images/theater.png
   AssetGenImage get theater => const AssetGenImage('assets/images/theater.png');
+
+  /// File path: assets/images/warning.gif
+  AssetGenImage get warning => const AssetGenImage('assets/images/warning.gif');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -110,6 +119,7 @@ class $AssetsImagesGen {
         city,
         cycle,
         director,
+        error,
         forgotPasswordIcon,
         largeCar,
         loader,
@@ -123,8 +133,10 @@ class $AssetsImagesGen {
         slide5,
         smallCar,
         splashLogo,
+        success,
         theaterScreen,
-        theater
+        theater,
+        warning
       ];
 }
 

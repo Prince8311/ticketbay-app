@@ -5,6 +5,9 @@ part 'booking_model.g.dart';
 @freezed
 class BookingInfoModel with _$BookingInfoModel {
   const factory BookingInfoModel({
+    @JsonKey(name: 'userName') String? userName,
+    @JsonKey(name: 'userEmail') String? userEmail,
+    @JsonKey(name: 'userPhone') String? userPhone,
     @JsonKey(name: 'movieName') String? movieName,
     @JsonKey(name: 'theaterName') String? theaterName,
     @JsonKey(name: 'language') String? language,
@@ -14,6 +17,7 @@ class BookingInfoModel with _$BookingInfoModel {
     @JsonKey(name: 'time') String? time,
     @JsonKey(name: 'screen') String? screen,
     @JsonKey(name: 'price') int? price,
+    @JsonKey(name: 'bookingId') String? bookingId,
     @JsonKey(name: 'adminCommission') int? adminCommission,
     @JsonKey(name: 'theaterCommission') int? theaterCommission,
     @JsonKey(name: 'section') String? section,
@@ -54,4 +58,41 @@ class SeatReserveResponse with _$SeatReserveResponse {
 
   factory SeatReserveResponse.fromJson(Map<String, dynamic> json) =>
       _$SeatReserveResponseFromJson(json);
+}
+
+@freezed
+class PaymentCredentialsRequest with _$PaymentCredentialsRequest {
+  const factory PaymentCredentialsRequest({
+    @JsonKey(name: 'bookingId') String? bookingId,
+    @JsonKey(name: 'userName') String? userName,
+    @JsonKey(name: 'userEmail') String? userEmail,
+    @JsonKey(name: 'userPhone') String? userPhone,
+    @JsonKey(name: 'theaterName') String? theaterName,
+    @JsonKey(name: 'movieName') String? movieName,
+    @JsonKey(name: 'ticketPrice') String? ticketPrice,
+    @JsonKey(name: 'baseConvenience') String? baseConvenience,
+    @JsonKey(name: 'gst') String? gst,
+    @JsonKey(name: 'theaterCommission') String? theaterCommission,
+  }) = _PaymentCredentialsRequest;
+
+  factory PaymentCredentialsRequest.fromJson(Map<String, dynamic> json) =>
+      _$PaymentCredentialsRequestFromJson(json);
+}
+
+@freezed
+class PaymentCredentialsResponse with _$PaymentCredentialsResponse {
+  const factory PaymentCredentialsResponse({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+    @JsonKey(name: 'body') String? body,
+    @JsonKey(name: 'checksum') String? checksum,
+    @JsonKey(name: 'merchantId') String? merchantId,
+    @JsonKey(name: 'merchantTransactionId') String? merchantTransactionId,
+    @JsonKey(name: 'callbackUrl') String? callbackUrl,
+    @JsonKey(name: 'apiEndPoint') String? apiEndPoint,
+    @JsonKey(name: 'environment') String? environment,
+  }) = _PaymentCredentialsResponse;
+
+  factory PaymentCredentialsResponse.fromJson(Map<String, dynamic> json) =>
+      _$PaymentCredentialsResponseFromJson(json);
 }

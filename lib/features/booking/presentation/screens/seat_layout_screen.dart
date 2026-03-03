@@ -9,10 +9,13 @@ import 'package:ticket_bay/core/shared/helpers/date_utils.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/loader.dart';
+import 'package:ticket_bay/core/shared/widgets/toast.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_provider.dart';
 import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/commission_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/layout_filter_model.dart';
 import 'package:ticket_bay/features/booking/domain/models/screen_layout_model.dart';
+import 'package:ticket_bay/features/booking/presentation/providers/booking_provider.dart';
 import 'package:ticket_bay/features/booking/presentation/providers/screen_layout_provider.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
@@ -774,30 +777,74 @@ class ScreenLayoutScreen extends HookConsumerWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                onPressed: () {
-                                  final bookingInfo = BookingInfoModel(
-                                    movieName: layoutData.movieName,
-                                    theaterName: layoutData.theaterName,
-                                    language: layoutData.language,
-                                    format: layoutData.format,
-                                    day: layoutData.day,
-                                    date: layoutData.date,
-                                    time: layoutData.time,
-                                    screen: layoutData.screen,
-                                    price: selectedSection?.price != null
-                                        ? int.tryParse(selectedSection!.price!)
-                                        : null,
-                                    adminCommission:
-                                        commissionData?.adminCommission,
-                                    theaterCommission:
-                                        commissionData?.theaterCommission,
-                                    section: selectedSection?.sectionName,
+                                onPressed: () async {
+                                  final user =
+                                      await ref.read(savedUserProvider.future);
+                                  if (user == null) {
+                                    LoginRoute().push(context);
+                                  }
+
+                                  final formattedSeats = selectedSeats.toList()
+                                    ..sort((a, b) {
+                                      final rowCompare = a.row.compareTo(b.row);
+                                      if (rowCompare != 0) return rowCompare;
+                                      return a.seat.compareTo(b.seat);
+                                    });
+                                  final seatText = formattedSeats
+                                      .map((s) => '${s.row}-${s.seat}')
+                                      .join(', ');
+                                  final seatReserveInfo = SeatReserveRequest(
+                                      userName: user?.name,
+                                      movieName: layoutData.movieName,
+                                      theaterName: layoutData.theaterName,
+                                      language: layoutData.language,
+                                      format: layoutData.format,
+                                      day: layoutData.day,
+                                      startTime: layoutData.time,
+                                      startDate: layoutData.date,
+                                      screen: layoutData.screen,
+                                      screenId: layoutData.screenId,
+                                      section: selectedSection?.sectionName,
+                                      seats: seatText);
+
+                                  final response = await ref.read(
+                                    reserveSeatsProvider(
+                                            requestBody: seatReserveInfo)
+                                        .future,
                                   );
-                                  context.pop();
-                                  CheckoutRoute(
-                                          bookingInfo:
-                                              json.encode(bookingInfo.toJson()))
-                                      .push(context);
+
+                                  if (response?.status == 200) {
+                                    final bookingInfo = BookingInfoModel(
+                                      userName: user?.name,
+                                      userEmail: user?.email,
+                                      userPhone: user?.phone,
+                                      movieName: layoutData.movieName,
+                                      theaterName: layoutData.theaterName,
+                                      language: layoutData.language,
+                                      format: layoutData.format,
+                                      day: layoutData.day,
+                                      date: layoutData.date,
+                                      time: layoutData.time,
+                                      screen: layoutData.screen,
+                                      price: selectedSection?.price != null
+                                          ? int.tryParse(
+                                              selectedSection!.price!)
+                                          : null,
+                                      bookingId: response?.bookingId,
+                                      adminCommission:
+                                          commissionData?.adminCommission,
+                                      theaterCommission:
+                                          commissionData?.theaterCommission,
+                                      section: selectedSection?.sectionName,
+                                    );
+                                    context.pop();
+                                    CheckoutRoute(
+                                            bookingInfo: json
+                                                .encode(bookingInfo.toJson()))
+                                        .push(context);
+                                  } else {
+                                    errorToast(response?.message);
+                                  }
                                 },
                                 child: const Text(
                                   "Yes, Proceed",
