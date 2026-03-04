@@ -296,11 +296,18 @@ class UpcomingMoviesRoute extends GoRouteData {
   name: RouteName.movieDetails,
 )
 class MovieDetailsRoute extends GoRouteData {
-  const MovieDetailsRoute({required this.movieName});
+  const MovieDetailsRoute({
+    required this.movieName,
+    this.isUpcoming = false,
+  });
   final String movieName;
+  final bool isUpcoming;
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return slideTransitionPage(MovieDetailsScreen(movieName: movieName));
+    return slideTransitionPage(MovieDetailsScreen(
+      movieName: movieName,
+      isUpcoming: isUpcoming,
+    ));
   }
 }
 

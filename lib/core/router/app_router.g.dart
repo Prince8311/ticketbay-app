@@ -322,12 +322,16 @@ RouteBase get $movieDetailsRoute => GoRouteData.$route(
 extension $MovieDetailsRouteExtension on MovieDetailsRoute {
   static MovieDetailsRoute _fromState(GoRouterState state) => MovieDetailsRoute(
         movieName: state.uri.queryParameters['movie-name']!,
+        isUpcoming: _$convertMapValue(
+                'is-upcoming', state.uri.queryParameters, _$boolConverter) ??
+            false,
       );
 
   String get location => GoRouteData.$location(
         '/movie-details',
         queryParams: {
           'movie-name': movieName,
+          if (isUpcoming != false) 'is-upcoming': isUpcoming.toString(),
         },
       );
 
@@ -339,6 +343,26 @@ extension $MovieDetailsRouteExtension on MovieDetailsRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
+}
+
+bool _$boolConverter(String value) {
+  switch (value) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    default:
+      throw UnsupportedError('Cannot convert "$value" into a bool.');
+  }
 }
 
 RouteBase get $movieInfoRoute => GoRouteData.$route(

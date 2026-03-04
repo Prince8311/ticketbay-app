@@ -24,8 +24,10 @@ class MovieDetailsScreen extends HookConsumerWidget {
   const MovieDetailsScreen({
     super.key,
     required this.movieName,
+    this.isUpcoming = false,
   });
   final String movieName;
+  final bool isUpcoming;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
