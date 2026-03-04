@@ -24,6 +24,7 @@ List<RouteBase> get $appRoutes => [
       $upcomingBookingsRoute,
       $previousBookingsRoute,
       $cancelledBookingsRoute,
+      $bookingDetailsRoute,
       $contactRoute,
       $faqRoute,
       $termsConditionsRoute,
@@ -555,6 +556,30 @@ extension $CancelledBookingsRouteExtension on CancelledBookingsRoute {
 
   String get location => GoRouteData.$location(
         '/cancelled-bookings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bookingDetailsRoute => GoRouteData.$route(
+      path: '/booking-details',
+      name: 'bookingDetails',
+      factory: $BookingDetailsRouteExtension._fromState,
+    );
+
+extension $BookingDetailsRouteExtension on BookingDetailsRoute {
+  static BookingDetailsRoute _fromState(GoRouterState state) =>
+      BookingDetailsRoute();
+
+  String get location => GoRouteData.$location(
+        '/booking-details',
       );
 
   void go(BuildContext context) => context.go(location);

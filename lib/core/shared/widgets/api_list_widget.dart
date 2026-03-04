@@ -24,7 +24,7 @@ class ApiGridWidget<T> extends ConsumerStatefulWidget {
     required this.itemBuilder,
     required this.pageProvider,
     required this.canLoadMore,
-    required this.aspectRatio,
+    this.aspectRatio = 0.49,
     this.padding,
     this.isGridView = false,
   });
@@ -91,7 +91,7 @@ class _ApiGridWidgetState<T> extends ConsumerState<ApiGridWidget<T>> {
 
   Widget _buildContent(dynamic state) {
     // 🔥 Only show empty when NOT loading
-    final shouldShowEmpty = widget.itemCount == 0 && state.isLoading == false;
+    final shouldShowEmpty = widget.emptyCondition;
 
     if (shouldShowEmpty) {
       return ListView(
@@ -149,7 +149,8 @@ class _ApiGridWidgetState<T> extends ConsumerState<ApiGridWidget<T>> {
             physics: const AlwaysScrollableScrollPhysics(),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: widget.itemCount,
-            itemBuilder: widget.itemBuilder,
+            itemBuilder: (context, index) =>
+                widget.itemBuilder(context, index)!,
           );
   }
 }

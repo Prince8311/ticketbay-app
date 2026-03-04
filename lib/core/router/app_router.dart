@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ticket_bay/features/account/presentation/screens/booking_history/booking_details_screen.dart';
 import 'package:ticket_bay/features/booking/domain/models/booking_model.dart';
 import 'package:ticket_bay/features/booking/presentation/screens/success_screen.dart';
 import 'package:ticket_bay/features/movie/domain/models/movies_model.dart';
@@ -74,6 +75,7 @@ class RoutePath {
   static const String upcomingBookings = '/upcoming-bookings';
   static const String previousBookings = '/previous-bookings';
   static const String cancelledBookings = '/cancelled-bookings';
+  static const String bookingDetails = '/booking-details';
   static const String contact = '/contact';
   static const String faq = '/faq';
   static const String termsConditions = '/terms-conditions';
@@ -117,6 +119,7 @@ class RouteName {
   static const String upcomingBookings = 'upcomingBookings';
   static const String previousBookings = 'previousBookings';
   static const String cancelledBookings = 'cancelledBookings';
+  static const String bookingDetails = 'bookingDetails';
   static const String contact = 'contact';
   static const String faq = 'faq';
   static const String termsConditions = 'termsConditions';
@@ -423,6 +426,17 @@ class CancelledBookingsRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return slideTransitionPage(CancelledBookingsScreen());
+  }
+}
+
+@TypedGoRoute<BookingDetailsRoute>(
+  path: RoutePath.bookingDetails,
+  name: RouteName.bookingDetails,
+)
+class BookingDetailsRoute extends GoRouteData {
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return slideTransitionPage(BookingDetailsScreen());
   }
 }
 

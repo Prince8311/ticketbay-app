@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ticket_bay/core/api/end_points.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/core/shared/widgets/loader.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
@@ -12,7 +14,8 @@ class TicketCard extends StatelessWidget {
   final String seatClass;
   final String seats;
   final String ticketId;
-  final AssetGenImage image;
+  final AssetGenImage? image;
+  final String? posterImage;
   final bool displayAll;
   final bool isUpcoming;
   final bool isCancelled;
@@ -25,11 +28,19 @@ class TicketCard extends StatelessWidget {
     required this.seatClass,
     required this.seats,
     required this.ticketId,
-    required this.image,
+    this.image,
+    this.posterImage,
     this.displayAll = false,
     this.isUpcoming = false,
     this.isCancelled = false,
   });
+
+  String get _imageUrl {
+    if (posterImage != null && posterImage!.isNotEmpty) {
+      return '${Endpoints.moviePosterURL}/$posterImage';
+    }
+    return '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +66,7 @@ class TicketCard extends StatelessWidget {
                     topLeft: Radius.circular(14),
                     bottomLeft: Radius.circular(14),
                   ),
-                  child: image.image(
-                    width: 60,
-                    height: 102,
-                    fit: BoxFit.cover,
-                  ),
+                  child: _buildImage(),
                 ),
 
                 SizedBox(
@@ -212,6 +219,47 @@ class TicketCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildImage() {
+    if (posterImage != null && posterImage!.isNotEmpty) {
+      return Image.network(
+        _imageUrl,
+        width: 60,
+        height: 102,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _fallbackImage(),
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return SizedBox(
+            width: 60,
+            height: 102,
+            child: SkeletonLoader(
+              width: 60,
+              height: 102,
+            ),
+          );
+        },
+      );
+    }
+
+    if (image != null) {
+      return image!.image(
+        width: 60,
+        height: 102,
+        fit: BoxFit.cover,
+      );
+    }
+
+    return _fallbackImage();
+  }
+
+  Widget _fallbackImage() {
+    return Assets.images.movie1.image(
+      width: 60,
+      height: 102,
+      fit: BoxFit.cover,
     );
   }
 }

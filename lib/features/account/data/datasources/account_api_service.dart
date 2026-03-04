@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:ticket_bay/core/api/api_client.dart';
 import 'package:ticket_bay/core/api/end_points.dart';
+import 'package:ticket_bay/features/account/domain/models/booking_list_model.dart';
 part 'account_api_service.g.dart';
 
 final accountApiServiceProvider = Provider<AccountApiService>((ref) {
@@ -12,4 +13,11 @@ final accountApiServiceProvider = Provider<AccountApiService>((ref) {
 @RestApi(baseUrl: Endpoints.apiURL)
 abstract class AccountApiService {
   factory AccountApiService(Dio dio, {String baseUrl}) = _AccountApiService;
+
+  @GET(Endpoints.bookingList)
+  Future<BookingListModel> getBookingList({
+    @Query("name") required String userName,
+    @Query("type") required String type,
+    @Query("page") int? page,
+  });
 }
