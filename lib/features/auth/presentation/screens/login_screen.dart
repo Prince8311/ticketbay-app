@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
 import 'package:ticket_bay/core/shared/widgets/text_field.dart';
 import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';
@@ -44,18 +47,18 @@ class LoginScreen extends HookConsumerWidget {
                         title: "Sign",
                         subtitle: "In",
                       ),
-                      const SizedBox(height: 30),
+                      Gap(30.h),
                       AppTextField(
                         label: "Email / Mobile No.",
                         controller: nameController,
                       ),
-                      const SizedBox(height: 12),
+                      Gap(12.h),
                       AppTextField(
                         label: "Password",
                         controller: passwordController,
                         obscureText: true,
                       ),
-                      const SizedBox(height: 10),
+                      Gap(10.h),
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: Row(
@@ -81,7 +84,7 @@ class LoginScreen extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 15),
+                      Gap(15.h),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: isFormValid
@@ -112,25 +115,30 @@ class LoginScreen extends HookConsumerWidget {
                                 final result = await ref.read(
                                   loginProvider(requestBody: request).future,
                                 );
+                                isLoading.value = false;
                                 if (result != null &&
                                     result.status == 200 &&
                                     context.mounted) {
-                                  isLoading.value = false;
                                   ref
                                       .read(authTokenProvider.notifier)
                                       .saveToken(result.authToken!);
                                   HomeRoute().go(context);
                                 }
                               },
-                        child: Text(
-                          isLoading.value ? 'Processing...' : 'Sign In',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: FontFamily.poppins,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        child: isLoading.value
+                            ? const SpinKitThreeBounce(
+                                color: Colors.white,
+                                size: 20,
+                              )
+                            : const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: FontFamily.poppins,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                       ),
                     ],
                   ),

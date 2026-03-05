@@ -15,6 +15,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/Logo.png');
+
   /// File path: assets/images/Movie-1.jpg
   AssetGenImage get movie1 => const AssetGenImage('assets/images/Movie-1.jpg');
 
@@ -41,6 +44,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/cancel-tag.png
   AssetGenImage get cancelTag => const AssetGenImage('assets/images/cancel-tag.png');
+
+  /// File path: assets/images/checkmark.svg
+  SvgGenImage get checkmark => const SvgGenImage('assets/images/checkmark.svg');
 
   /// File path: assets/images/city.svg
   SvgGenImage get city => const SvgGenImage('assets/images/city.svg');
@@ -107,6 +113,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        logo,
         movie1,
         actor,
         autoRikshaw,
@@ -116,6 +123,7 @@ class $AssetsImagesGen {
         bike,
         bus,
         cancelTag,
+        checkmark,
         city,
         cycle,
         director,

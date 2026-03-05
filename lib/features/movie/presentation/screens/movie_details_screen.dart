@@ -395,66 +395,85 @@ class MovieDetailsScreen extends HookConsumerWidget {
                                           ),
                                         ],
                                       ),
-                                      Gap(4.h),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            movie.ageCategory ?? '',
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorName.black1,
+                                      if ((movie.ageCategory?.isNotEmpty ??
+                                              false) ||
+                                          (movie.totalTime?.isNotEmpty ??
+                                              false))
+                                        Column(
+                                          children: [
+                                            Gap(4.h),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  movie.ageCategory ?? '',
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: ColorName.black1,
+                                                  ),
+                                                ),
+                                                Gap(8.w),
+                                                Icon(
+                                                  Icons.circle,
+                                                  size: 5,
+                                                  color: ColorName.black2,
+                                                ),
+                                                Gap(8.w),
+                                                Text(
+                                                  movie.totalTime ?? '',
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: ColorName.black1,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          Gap(8.w),
-                                          Icon(
-                                            Icons.circle,
-                                            size: 5,
-                                            color: ColorName.black2,
-                                          ),
-                                          Gap(8.w),
-                                          Text(
-                                            movie.totalTime ?? '',
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorName.black1,
+                                          ],
+                                        ),
+                                      if ((movie.releaseDate?.isNotEmpty ??
+                                              false) ||
+                                          (movie.releaseYear?.isNotEmpty ??
+                                              false))
+                                        Column(
+                                          children: [
+                                            Gap(4.h),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  movie.releaseDate != null
+                                                      ? "Released on:"
+                                                      : 'Release:',
+                                                  style: const TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: ColorName.black,
+                                                      fontStyle:
+                                                          FontStyle.italic),
+                                                ),
+                                                Gap(3.w),
+                                                Text(
+                                                  (movie.releaseDate != null &&
+                                                          movie.releaseDate!
+                                                              .isNotEmpty)
+                                                      ? movie.releaseDate!
+                                                      : (movie.releaseYear ??
+                                                          ''),
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: ColorName.black2,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Gap(4.h),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            movie.releaseDate != null
-                                                ? "Released on:"
-                                                : 'Release:',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500,
-                                                color: ColorName.black,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                          Gap(3.w),
-                                          Text(
-                                            (movie.releaseDate != null &&
-                                                    movie.releaseDate!
-                                                        .isNotEmpty)
-                                                ? movie.releaseDate!
-                                                : (movie.releaseYear ?? ''),
-                                            style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: ColorName.black2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
                                       Gap(8.h),
                                       GestureDetector(
                                         onTap: () {},
@@ -527,7 +546,9 @@ class MovieDetailsScreen extends HookConsumerWidget {
                                   )
                                   .toList(),
                             ),
-                            Gap(8.h),
+                            Gap(movie.availableFormats?.isNotEmpty ?? false
+                                ? 8.h
+                                : 0),
                             Wrap(
                               spacing: 8,
                               runSpacing: 8,
@@ -540,30 +561,36 @@ class MovieDetailsScreen extends HookConsumerWidget {
                                   )
                                   .toList(),
                             ),
-                            Gap(8.h),
+                            Gap(movie.availableLanguages?.isNotEmpty ?? false
+                                ? 8.h
+                                : 0),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 2),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    (movie.genres ?? '')
-                                        .split(',')
-                                        .map((e) => e.trim())
-                                        .where((e) => e.isNotEmpty)
-                                        .join(' • '),
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontFamily: FontFamily.poppins,
-                                      color: ColorName.black1,
+                                  if (movie.genres?.isNotEmpty ?? false)
+                                    Text(
+                                      (movie.genres ?? '')
+                                          .split(',')
+                                          .map((e) => e.trim())
+                                          .where((e) => e.isNotEmpty)
+                                          .join(' • '),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontFamily: FontFamily.poppins,
+                                        color: ColorName.black1,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                  InlineExpandableText(
-                                    text: "${movie.description}",
-                                    trimLines: 2,
-                                  ),
+                                  Gap(movie.description?.isNotEmpty ?? false
+                                      ? 5.h
+                                      : 0),
+                                  if (movie.description?.isNotEmpty ?? false)
+                                    InlineExpandableText(
+                                      text: "${movie.description}",
+                                      trimLines: 2,
+                                    ),
                                 ],
                               ),
                             ),
@@ -698,48 +725,50 @@ class MovieDetailsScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: ColorName.white,
-          boxShadow: [
-            BoxShadow(
-              color: ColorName.black.withAlpha(20),
-              blurRadius: 8,
-              offset: Offset(0, -2),
-            )
-          ],
-        ),
-        child: movieAsync.isLoading
-            ? const SkeletonLoader(
-                height: 40,
-                width: double.maxFinite,
-              )
-            : SizedBox(
-                height: 48,
-                width: double.maxFinite,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorName.redColor1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    _showLanguageFormats();
-                  },
-                  child: const Text(
-                    "Book Tickets",
-                    style: TextStyle(
-                      color: ColorName.white,
-                      fontSize: 14,
-                      fontFamily: FontFamily.poppins,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+      bottomNavigationBar: isUpcoming
+          ? null
+          : Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: ColorName.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorName.black.withAlpha(20),
+                    blurRadius: 8,
+                    offset: Offset(0, -2),
+                  )
+                ],
               ),
-      ),
+              child: movieAsync.isLoading
+                  ? const SkeletonLoader(
+                      height: 40,
+                      width: double.maxFinite,
+                    )
+                  : SizedBox(
+                      height: 48,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorName.redColor1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () {
+                          _showLanguageFormats();
+                        },
+                        child: const Text(
+                          "Book Tickets",
+                          style: TextStyle(
+                            color: ColorName.white,
+                            fontSize: 14,
+                            fontFamily: FontFamily.poppins,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+            ),
     );
   }
 }

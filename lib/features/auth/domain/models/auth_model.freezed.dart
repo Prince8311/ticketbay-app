@@ -401,6 +401,1010 @@ abstract class _LoginResponseModel implements LoginResponseModel {
       throw _privateConstructorUsedError;
 }
 
+RegisterRequestModel _$RegisterRequestModelFromJson(Map<String, dynamic> json) {
+  return _RegisterRequestModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RegisterRequestModel {
+  @JsonKey(name: 'name')
+  String? get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email')
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'phone')
+  String? get phone => throw _privateConstructorUsedError;
+  @JsonKey(name: 'password')
+  String? get password => throw _privateConstructorUsedError;
+
+  /// Serializes this RegisterRequestModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of RegisterRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $RegisterRequestModelCopyWith<RegisterRequestModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RegisterRequestModelCopyWith<$Res> {
+  factory $RegisterRequestModelCopyWith(RegisterRequestModel value,
+          $Res Function(RegisterRequestModel) then) =
+      _$RegisterRequestModelCopyWithImpl<$Res, RegisterRequestModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'password') String? password});
+}
+
+/// @nodoc
+class _$RegisterRequestModelCopyWithImpl<$Res,
+        $Val extends RegisterRequestModel>
+    implements $RegisterRequestModelCopyWith<$Res> {
+  _$RegisterRequestModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of RegisterRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$RegisterRequestModelImplCopyWith<$Res>
+    implements $RegisterRequestModelCopyWith<$Res> {
+  factory _$$RegisterRequestModelImplCopyWith(_$RegisterRequestModelImpl value,
+          $Res Function(_$RegisterRequestModelImpl) then) =
+      __$$RegisterRequestModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'name') String? name,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'password') String? password});
+}
+
+/// @nodoc
+class __$$RegisterRequestModelImplCopyWithImpl<$Res>
+    extends _$RegisterRequestModelCopyWithImpl<$Res, _$RegisterRequestModelImpl>
+    implements _$$RegisterRequestModelImplCopyWith<$Res> {
+  __$$RegisterRequestModelImplCopyWithImpl(_$RegisterRequestModelImpl _value,
+      $Res Function(_$RegisterRequestModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RegisterRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_$RegisterRequestModelImpl(
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RegisterRequestModelImpl implements _RegisterRequestModel {
+  const _$RegisterRequestModelImpl(
+      {@JsonKey(name: 'name') this.name,
+      @JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'phone') this.phone,
+      @JsonKey(name: 'password') this.password});
+
+  factory _$RegisterRequestModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RegisterRequestModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'name')
+  final String? name;
+  @override
+  @JsonKey(name: 'email')
+  final String? email;
+  @override
+  @JsonKey(name: 'phone')
+  final String? phone;
+  @override
+  @JsonKey(name: 'password')
+  final String? password;
+
+  @override
+  String toString() {
+    return 'RegisterRequestModel(name: $name, email: $email, phone: $phone, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterRequestModelImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, email, phone, password);
+
+  /// Create a copy of RegisterRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterRequestModelImplCopyWith<_$RegisterRequestModelImpl>
+      get copyWith =>
+          __$$RegisterRequestModelImplCopyWithImpl<_$RegisterRequestModelImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RegisterRequestModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RegisterRequestModel implements RegisterRequestModel {
+  const factory _RegisterRequestModel(
+          {@JsonKey(name: 'name') final String? name,
+          @JsonKey(name: 'email') final String? email,
+          @JsonKey(name: 'phone') final String? phone,
+          @JsonKey(name: 'password') final String? password}) =
+      _$RegisterRequestModelImpl;
+
+  factory _RegisterRequestModel.fromJson(Map<String, dynamic> json) =
+      _$RegisterRequestModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'name')
+  String? get name;
+  @override
+  @JsonKey(name: 'email')
+  String? get email;
+  @override
+  @JsonKey(name: 'phone')
+  String? get phone;
+  @override
+  @JsonKey(name: 'password')
+  String? get password;
+
+  /// Create a copy of RegisterRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RegisterRequestModelImplCopyWith<_$RegisterRequestModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+RegisterResponseModel _$RegisterResponseModelFromJson(
+    Map<String, dynamic> json) {
+  return _RegisterResponseModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RegisterResponseModel {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+
+  /// Serializes this RegisterResponseModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of RegisterResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $RegisterResponseModelCopyWith<RegisterResponseModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RegisterResponseModelCopyWith<$Res> {
+  factory $RegisterResponseModelCopyWith(RegisterResponseModel value,
+          $Res Function(RegisterResponseModel) then) =
+      _$RegisterResponseModelCopyWithImpl<$Res, RegisterResponseModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class _$RegisterResponseModelCopyWithImpl<$Res,
+        $Val extends RegisterResponseModel>
+    implements $RegisterResponseModelCopyWith<$Res> {
+  _$RegisterResponseModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of RegisterResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$RegisterResponseModelImplCopyWith<$Res>
+    implements $RegisterResponseModelCopyWith<$Res> {
+  factory _$$RegisterResponseModelImplCopyWith(
+          _$RegisterResponseModelImpl value,
+          $Res Function(_$RegisterResponseModelImpl) then) =
+      __$$RegisterResponseModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class __$$RegisterResponseModelImplCopyWithImpl<$Res>
+    extends _$RegisterResponseModelCopyWithImpl<$Res,
+        _$RegisterResponseModelImpl>
+    implements _$$RegisterResponseModelImplCopyWith<$Res> {
+  __$$RegisterResponseModelImplCopyWithImpl(_$RegisterResponseModelImpl _value,
+      $Res Function(_$RegisterResponseModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of RegisterResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_$RegisterResponseModelImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RegisterResponseModelImpl implements _RegisterResponseModel {
+  const _$RegisterResponseModelImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message});
+
+  factory _$RegisterResponseModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RegisterResponseModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+
+  @override
+  String toString() {
+    return 'RegisterResponseModel(status: $status, message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterResponseModelImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message);
+
+  /// Create a copy of RegisterResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterResponseModelImplCopyWith<_$RegisterResponseModelImpl>
+      get copyWith => __$$RegisterResponseModelImplCopyWithImpl<
+          _$RegisterResponseModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RegisterResponseModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RegisterResponseModel implements RegisterResponseModel {
+  const factory _RegisterResponseModel(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message}) =
+      _$RegisterResponseModelImpl;
+
+  factory _RegisterResponseModel.fromJson(Map<String, dynamic> json) =
+      _$RegisterResponseModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+
+  /// Create a copy of RegisterResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RegisterResponseModelImplCopyWith<_$RegisterResponseModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+OTPVerificationRequestModel _$OTPVerificationRequestModelFromJson(
+    Map<String, dynamic> json) {
+  return _OTPVerificationRequestModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OTPVerificationRequestModel {
+  @JsonKey(name: 'email')
+  String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'otp')
+  String? get otp => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isRegistration')
+  bool? get isRegistration => throw _privateConstructorUsedError;
+
+  /// Serializes this OTPVerificationRequestModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of OTPVerificationRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $OTPVerificationRequestModelCopyWith<OTPVerificationRequestModel>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OTPVerificationRequestModelCopyWith<$Res> {
+  factory $OTPVerificationRequestModelCopyWith(
+          OTPVerificationRequestModel value,
+          $Res Function(OTPVerificationRequestModel) then) =
+      _$OTPVerificationRequestModelCopyWithImpl<$Res,
+          OTPVerificationRequestModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'otp') String? otp,
+      @JsonKey(name: 'isRegistration') bool? isRegistration});
+}
+
+/// @nodoc
+class _$OTPVerificationRequestModelCopyWithImpl<$Res,
+        $Val extends OTPVerificationRequestModel>
+    implements $OTPVerificationRequestModelCopyWith<$Res> {
+  _$OTPVerificationRequestModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of OTPVerificationRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = freezed,
+    Object? otp = freezed,
+    Object? isRegistration = freezed,
+  }) {
+    return _then(_value.copyWith(
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      otp: freezed == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isRegistration: freezed == isRegistration
+          ? _value.isRegistration
+          : isRegistration // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OTPVerificationRequestModelImplCopyWith<$Res>
+    implements $OTPVerificationRequestModelCopyWith<$Res> {
+  factory _$$OTPVerificationRequestModelImplCopyWith(
+          _$OTPVerificationRequestModelImpl value,
+          $Res Function(_$OTPVerificationRequestModelImpl) then) =
+      __$$OTPVerificationRequestModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'otp') String? otp,
+      @JsonKey(name: 'isRegistration') bool? isRegistration});
+}
+
+/// @nodoc
+class __$$OTPVerificationRequestModelImplCopyWithImpl<$Res>
+    extends _$OTPVerificationRequestModelCopyWithImpl<$Res,
+        _$OTPVerificationRequestModelImpl>
+    implements _$$OTPVerificationRequestModelImplCopyWith<$Res> {
+  __$$OTPVerificationRequestModelImplCopyWithImpl(
+      _$OTPVerificationRequestModelImpl _value,
+      $Res Function(_$OTPVerificationRequestModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of OTPVerificationRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = freezed,
+    Object? otp = freezed,
+    Object? isRegistration = freezed,
+  }) {
+    return _then(_$OTPVerificationRequestModelImpl(
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      otp: freezed == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isRegistration: freezed == isRegistration
+          ? _value.isRegistration
+          : isRegistration // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OTPVerificationRequestModelImpl
+    implements _OTPVerificationRequestModel {
+  const _$OTPVerificationRequestModelImpl(
+      {@JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'otp') this.otp,
+      @JsonKey(name: 'isRegistration') this.isRegistration});
+
+  factory _$OTPVerificationRequestModelImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$OTPVerificationRequestModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'email')
+  final String? email;
+  @override
+  @JsonKey(name: 'otp')
+  final String? otp;
+  @override
+  @JsonKey(name: 'isRegistration')
+  final bool? isRegistration;
+
+  @override
+  String toString() {
+    return 'OTPVerificationRequestModel(email: $email, otp: $otp, isRegistration: $isRegistration)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OTPVerificationRequestModelImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.otp, otp) || other.otp == otp) &&
+            (identical(other.isRegistration, isRegistration) ||
+                other.isRegistration == isRegistration));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, email, otp, isRegistration);
+
+  /// Create a copy of OTPVerificationRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OTPVerificationRequestModelImplCopyWith<_$OTPVerificationRequestModelImpl>
+      get copyWith => __$$OTPVerificationRequestModelImplCopyWithImpl<
+          _$OTPVerificationRequestModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OTPVerificationRequestModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OTPVerificationRequestModel
+    implements OTPVerificationRequestModel {
+  const factory _OTPVerificationRequestModel(
+          {@JsonKey(name: 'email') final String? email,
+          @JsonKey(name: 'otp') final String? otp,
+          @JsonKey(name: 'isRegistration') final bool? isRegistration}) =
+      _$OTPVerificationRequestModelImpl;
+
+  factory _OTPVerificationRequestModel.fromJson(Map<String, dynamic> json) =
+      _$OTPVerificationRequestModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'email')
+  String? get email;
+  @override
+  @JsonKey(name: 'otp')
+  String? get otp;
+  @override
+  @JsonKey(name: 'isRegistration')
+  bool? get isRegistration;
+
+  /// Create a copy of OTPVerificationRequestModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OTPVerificationRequestModelImplCopyWith<_$OTPVerificationRequestModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+OTPVerificationResponseModel _$OTPVerificationResponseModelFromJson(
+    Map<String, dynamic> json) {
+  return _OTPVerificationResponseModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OTPVerificationResponseModel {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+
+  /// Serializes this OTPVerificationResponseModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of OTPVerificationResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $OTPVerificationResponseModelCopyWith<OTPVerificationResponseModel>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OTPVerificationResponseModelCopyWith<$Res> {
+  factory $OTPVerificationResponseModelCopyWith(
+          OTPVerificationResponseModel value,
+          $Res Function(OTPVerificationResponseModel) then) =
+      _$OTPVerificationResponseModelCopyWithImpl<$Res,
+          OTPVerificationResponseModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class _$OTPVerificationResponseModelCopyWithImpl<$Res,
+        $Val extends OTPVerificationResponseModel>
+    implements $OTPVerificationResponseModelCopyWith<$Res> {
+  _$OTPVerificationResponseModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of OTPVerificationResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OTPVerificationResponseModelImplCopyWith<$Res>
+    implements $OTPVerificationResponseModelCopyWith<$Res> {
+  factory _$$OTPVerificationResponseModelImplCopyWith(
+          _$OTPVerificationResponseModelImpl value,
+          $Res Function(_$OTPVerificationResponseModelImpl) then) =
+      __$$OTPVerificationResponseModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class __$$OTPVerificationResponseModelImplCopyWithImpl<$Res>
+    extends _$OTPVerificationResponseModelCopyWithImpl<$Res,
+        _$OTPVerificationResponseModelImpl>
+    implements _$$OTPVerificationResponseModelImplCopyWith<$Res> {
+  __$$OTPVerificationResponseModelImplCopyWithImpl(
+      _$OTPVerificationResponseModelImpl _value,
+      $Res Function(_$OTPVerificationResponseModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of OTPVerificationResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_$OTPVerificationResponseModelImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OTPVerificationResponseModelImpl
+    implements _OTPVerificationResponseModel {
+  const _$OTPVerificationResponseModelImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message});
+
+  factory _$OTPVerificationResponseModelImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$OTPVerificationResponseModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+
+  @override
+  String toString() {
+    return 'OTPVerificationResponseModel(status: $status, message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OTPVerificationResponseModelImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message);
+
+  /// Create a copy of OTPVerificationResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OTPVerificationResponseModelImplCopyWith<
+          _$OTPVerificationResponseModelImpl>
+      get copyWith => __$$OTPVerificationResponseModelImplCopyWithImpl<
+          _$OTPVerificationResponseModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OTPVerificationResponseModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OTPVerificationResponseModel
+    implements OTPVerificationResponseModel {
+  const factory _OTPVerificationResponseModel(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message}) =
+      _$OTPVerificationResponseModelImpl;
+
+  factory _OTPVerificationResponseModel.fromJson(Map<String, dynamic> json) =
+      _$OTPVerificationResponseModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+
+  /// Create a copy of OTPVerificationResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OTPVerificationResponseModelImplCopyWith<
+          _$OTPVerificationResponseModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+LogoutResponseModel _$LogoutResponseModelFromJson(Map<String, dynamic> json) {
+  return _LogoutResponseModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LogoutResponseModel {
+  @JsonKey(name: 'status')
+  int? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: 'message')
+  String? get message => throw _privateConstructorUsedError;
+
+  /// Serializes this LogoutResponseModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of LogoutResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $LogoutResponseModelCopyWith<LogoutResponseModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LogoutResponseModelCopyWith<$Res> {
+  factory $LogoutResponseModelCopyWith(
+          LogoutResponseModel value, $Res Function(LogoutResponseModel) then) =
+      _$LogoutResponseModelCopyWithImpl<$Res, LogoutResponseModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class _$LogoutResponseModelCopyWithImpl<$Res, $Val extends LogoutResponseModel>
+    implements $LogoutResponseModelCopyWith<$Res> {
+  _$LogoutResponseModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of LogoutResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LogoutResponseModelImplCopyWith<$Res>
+    implements $LogoutResponseModelCopyWith<$Res> {
+  factory _$$LogoutResponseModelImplCopyWith(_$LogoutResponseModelImpl value,
+          $Res Function(_$LogoutResponseModelImpl) then) =
+      __$$LogoutResponseModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'status') int? status,
+      @JsonKey(name: 'message') String? message});
+}
+
+/// @nodoc
+class __$$LogoutResponseModelImplCopyWithImpl<$Res>
+    extends _$LogoutResponseModelCopyWithImpl<$Res, _$LogoutResponseModelImpl>
+    implements _$$LogoutResponseModelImplCopyWith<$Res> {
+  __$$LogoutResponseModelImplCopyWithImpl(_$LogoutResponseModelImpl _value,
+      $Res Function(_$LogoutResponseModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of LogoutResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? status = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_$LogoutResponseModelImpl(
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int?,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LogoutResponseModelImpl implements _LogoutResponseModel {
+  const _$LogoutResponseModelImpl(
+      {@JsonKey(name: 'status') this.status,
+      @JsonKey(name: 'message') this.message});
+
+  factory _$LogoutResponseModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LogoutResponseModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'status')
+  final int? status;
+  @override
+  @JsonKey(name: 'message')
+  final String? message;
+
+  @override
+  String toString() {
+    return 'LogoutResponseModel(status: $status, message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LogoutResponseModelImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, status, message);
+
+  /// Create a copy of LogoutResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LogoutResponseModelImplCopyWith<_$LogoutResponseModelImpl> get copyWith =>
+      __$$LogoutResponseModelImplCopyWithImpl<_$LogoutResponseModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LogoutResponseModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _LogoutResponseModel implements LogoutResponseModel {
+  const factory _LogoutResponseModel(
+          {@JsonKey(name: 'status') final int? status,
+          @JsonKey(name: 'message') final String? message}) =
+      _$LogoutResponseModelImpl;
+
+  factory _LogoutResponseModel.fromJson(Map<String, dynamic> json) =
+      _$LogoutResponseModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'status')
+  int? get status;
+  @override
+  @JsonKey(name: 'message')
+  String? get message;
+
+  /// Create a copy of LogoutResponseModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LogoutResponseModelImplCopyWith<_$LogoutResponseModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) {
   return _UserInfoModel.fromJson(json);
 }

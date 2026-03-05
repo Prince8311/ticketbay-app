@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
+import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 
 void Function() errorToast(
@@ -82,7 +83,11 @@ void Function()? successToast(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         children: [
-          icon ?? const SizedBox(), // ?? Assets.icons.verifiedGreen.svg(),
+          icon ??
+              Assets.images.checkmark.svg(
+                width: 24,
+                height: 24,
+              ), // ?? Assets.icons.verifiedGreen.svg(),
           const Gap(12),
           Expanded(
             child: Column(

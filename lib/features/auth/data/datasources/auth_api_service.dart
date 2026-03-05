@@ -18,6 +18,19 @@ abstract class AuthApiService {
   @Headers(<String, dynamic>{'Content-Type': 'application/json'})
   Future<LoginResponseModel> login(@Body() LoginRequestModel body);
 
+  @POST(Endpoints.register)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<RegisterResponseModel> register(@Body() RegisterRequestModel body);
+
+  @POST(Endpoints.verifyOtp)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<OTPVerificationResponseModel> verifyOTP(
+      @Body() OTPVerificationRequestModel body);
+
   @GET(Endpoints.checkAuth)
   Future<UserInfoModel> getUserDetails();
+
+  @POST(Endpoints.logout)
+  @Headers(<String, dynamic>{'Content-Type': 'application/json'})
+  Future<LogoutResponseModel> logout();
 }

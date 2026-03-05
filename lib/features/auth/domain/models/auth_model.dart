@@ -26,6 +26,64 @@ class LoginResponseModel with _$LoginResponseModel {
 }
 
 @freezed
+class RegisterRequestModel with _$RegisterRequestModel {
+  const factory RegisterRequestModel({
+    @JsonKey(name: 'name') String? name,
+    @JsonKey(name: 'email') String? email,
+    @JsonKey(name: 'phone') String? phone,
+    @JsonKey(name: 'password') String? password,
+  }) = _RegisterRequestModel;
+
+  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$RegisterRequestModelFromJson(json);
+}
+
+@freezed
+class RegisterResponseModel with _$RegisterResponseModel {
+  const factory RegisterResponseModel({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+  }) = _RegisterResponseModel;
+
+  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$RegisterResponseModelFromJson(json);
+}
+
+@freezed
+class OTPVerificationRequestModel with _$OTPVerificationRequestModel {
+  const factory OTPVerificationRequestModel({
+    @JsonKey(name: 'email') String? email,
+    @JsonKey(name: 'otp') String? otp,
+    @JsonKey(name: 'isRegistration') bool? isRegistration,
+  }) = _OTPVerificationRequestModel;
+
+  factory OTPVerificationRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$OTPVerificationRequestModelFromJson(json);
+}
+
+@freezed
+class OTPVerificationResponseModel with _$OTPVerificationResponseModel {
+  const factory OTPVerificationResponseModel({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+  }) = _OTPVerificationResponseModel;
+
+  factory OTPVerificationResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$OTPVerificationResponseModelFromJson(json);
+}
+
+@freezed
+class LogoutResponseModel with _$LogoutResponseModel {
+  const factory LogoutResponseModel({
+    @JsonKey(name: 'status') int? status,
+    @JsonKey(name: 'message') String? message,
+  }) = _LogoutResponseModel;
+
+  factory LogoutResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$LogoutResponseModelFromJson(json);
+}
+
+@freezed
 class UserInfoModel with _$UserInfoModel {
   const factory UserInfoModel({
     @JsonKey(name: 'status') int? status,

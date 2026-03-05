@@ -60,6 +60,7 @@ dependencies:
   loading_animation_widget: ^1.2.1
   flutter_easyloading: ^3.0.5
   shimmer: ^3.0.0
+  flutter_spinkit: ^5.2.0
 
   # * Location *
   geocoding: ^3.0.0
@@ -120,6 +121,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   retrofit_generator: ^8.1.0
   flutter_gen_runner: ^5.9.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_gen:
   output: lib/gen/
@@ -131,6 +133,11 @@ flutter_gen:
   colors:
     inputs:
       - assets/color/colors.xml
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/Logo.png"
 
 flutter:
   uses-material-design: true

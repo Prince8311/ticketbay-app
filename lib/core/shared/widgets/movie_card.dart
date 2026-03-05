@@ -15,6 +15,7 @@ class MovieCard extends StatelessWidget {
   final String user;
   final String title;
   final bool displayAll;
+  final bool isUpcoming;
 
   const MovieCard({
     super.key,
@@ -24,6 +25,7 @@ class MovieCard extends StatelessWidget {
     required this.user,
     required this.title,
     this.displayAll = false,
+    this.isUpcoming = false,
   });
 
   String get _imageUrl {
@@ -36,7 +38,8 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => MovieDetailsRoute(movieName: title).push(context),
+      onTap: () => MovieDetailsRoute(movieName: title, isUpcoming: isUpcoming)
+          .push(context),
       child: Padding(
         padding: EdgeInsets.only(right: displayAll ? 0 : 14),
         child: Column(

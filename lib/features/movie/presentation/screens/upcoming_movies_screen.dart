@@ -103,6 +103,7 @@ class UpcomingMoviesScreen extends HookConsumerWidget {
                         user: "5k",
                         title: movie.movieName ?? '',
                         displayAll: true,
+                        isUpcoming: true,
                       );
                     },
                   );

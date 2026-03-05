@@ -19,7 +19,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   Future<void> _checkOnboarding() async {
-    await Future.delayed(const Duration(milliseconds: 8400));
+    await Future.delayed(const Duration(milliseconds: 4000));
     final localDb = await ref.read(localStorageProvider.future);
     final isOpened = await localDb.readBool("alreadyOpened") ?? false;
 

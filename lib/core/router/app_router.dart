@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_bay/features/account/presentation/screens/booking_history/booking_details_screen.dart';
@@ -132,6 +133,9 @@ class RouteName {
 class AppRouter {
   static final router = GoRouter(
     navigatorKey: rootNavigatorKey,
+    observers: [
+      BotToastNavigatorObserver(),
+    ],
     debugLogDiagnostics: true,
     initialLocation: RoutePath.initial,
     routes: $appRoutes,

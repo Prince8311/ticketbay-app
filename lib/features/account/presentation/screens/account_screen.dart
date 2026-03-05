@@ -310,7 +310,12 @@ class AccountScreen extends HookConsumerWidget {
                         color: ColorName.redColor,
                       ),
                       title: "Sign Out",
-                      onPressed: () {},
+                      onPressed: () async {
+                        final result = await ref.read(logoutProvider.future);
+                        if (result?.status == 200 && context.mounted) {
+                          HomeRoute().go(context);
+                        }
+                      },
                     ),
                   ),
                 ],
