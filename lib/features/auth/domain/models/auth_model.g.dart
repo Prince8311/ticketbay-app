@@ -54,18 +54,16 @@ Map<String, dynamic> _$$RegisterRequestModelImplToJson(
       'password': instance.password,
     };
 
-_$RegisterResponseModelImpl _$$RegisterResponseModelImplFromJson(
+_$OTPRequestModelImpl _$$OTPRequestModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$RegisterResponseModelImpl(
-      status: (json['status'] as num?)?.toInt(),
-      message: json['message'] as String?,
+    _$OTPRequestModelImpl(
+      email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$$RegisterResponseModelImplToJson(
-        _$RegisterResponseModelImpl instance) =>
+Map<String, dynamic> _$$OTPRequestModelImplToJson(
+        _$OTPRequestModelImpl instance) =>
     <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
+      'email': instance.email,
     };
 
 _$OTPVerificationRequestModelImpl _$$OTPVerificationRequestModelImplFromJson(
@@ -84,32 +82,20 @@ Map<String, dynamic> _$$OTPVerificationRequestModelImplToJson(
       'isRegistration': instance.isRegistration,
     };
 
-_$OTPVerificationResponseModelImpl _$$OTPVerificationResponseModelImplFromJson(
+_$ResetPasswordModelImpl _$$ResetPasswordModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$OTPVerificationResponseModelImpl(
-      status: (json['status'] as num?)?.toInt(),
-      message: json['message'] as String?,
+    _$ResetPasswordModelImpl(
+      email: json['email'] as String?,
+      password: json['password'] as String?,
+      confirmPassword: json['confirmPassword'] as String?,
     );
 
-Map<String, dynamic> _$$OTPVerificationResponseModelImplToJson(
-        _$OTPVerificationResponseModelImpl instance) =>
+Map<String, dynamic> _$$ResetPasswordModelImplToJson(
+        _$ResetPasswordModelImpl instance) =>
     <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
-    };
-
-_$LogoutResponseModelImpl _$$LogoutResponseModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$LogoutResponseModelImpl(
-      status: (json['status'] as num?)?.toInt(),
-      message: json['message'] as String?,
-    );
-
-Map<String, dynamic> _$$LogoutResponseModelImplToJson(
-        _$LogoutResponseModelImpl instance) =>
-    <String, dynamic>{
-      'status': instance.status,
-      'message': instance.message,
+      'email': instance.email,
+      'password': instance.password,
+      'confirmPassword': instance.confirmPassword,
     };
 
 _$UserInfoModelImpl _$$UserInfoModelImplFromJson(Map<String, dynamic> json) =>

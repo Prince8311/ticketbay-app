@@ -73,6 +73,7 @@ class RoutePath {
   static const String bookingSuccess = '/booking-success';
 
   // account screens
+  static const String updateProfile = '/update-profile';
   static const String upcomingBookings = '/upcoming-bookings';
   static const String previousBookings = '/previous-bookings';
   static const String cancelledBookings = '/cancelled-bookings';
@@ -117,6 +118,7 @@ class RouteName {
   static const String bookingSuccess = 'bookingSuccess';
 
   // account screens
+  static const String updateProfile = 'updateProfile';
   static const String upcomingBookings = 'upcomingBookings';
   static const String previousBookings = 'previousBookings';
   static const String cancelledBookings = 'cancelledBookings';

@@ -39,14 +39,13 @@ class RegisterRequestModel with _$RegisterRequestModel {
 }
 
 @freezed
-class RegisterResponseModel with _$RegisterResponseModel {
-  const factory RegisterResponseModel({
-    @JsonKey(name: 'status') int? status,
-    @JsonKey(name: 'message') String? message,
-  }) = _RegisterResponseModel;
+class OTPRequestModel with _$OTPRequestModel {
+  const factory OTPRequestModel({
+    @JsonKey(name: 'email') String? email,
+  }) = _OTPRequestModel;
 
-  factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$RegisterResponseModelFromJson(json);
+  factory OTPRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$OTPRequestModelFromJson(json);
 }
 
 @freezed
@@ -62,25 +61,15 @@ class OTPVerificationRequestModel with _$OTPVerificationRequestModel {
 }
 
 @freezed
-class OTPVerificationResponseModel with _$OTPVerificationResponseModel {
-  const factory OTPVerificationResponseModel({
-    @JsonKey(name: 'status') int? status,
-    @JsonKey(name: 'message') String? message,
-  }) = _OTPVerificationResponseModel;
+class ResetPasswordModel with _$ResetPasswordModel {
+  const factory ResetPasswordModel({
+    @JsonKey(name: 'email') String? email,
+    @JsonKey(name: 'password') String? password,
+    @JsonKey(name: 'confirmPassword') String? confirmPassword,
+  }) = _ResetPasswordModel;
 
-  factory OTPVerificationResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$OTPVerificationResponseModelFromJson(json);
-}
-
-@freezed
-class LogoutResponseModel with _$LogoutResponseModel {
-  const factory LogoutResponseModel({
-    @JsonKey(name: 'status') int? status,
-    @JsonKey(name: 'message') String? message,
-  }) = _LogoutResponseModel;
-
-  factory LogoutResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$LogoutResponseModelFromJson(json);
+  factory ResetPasswordModel.fromJson(Map<String, dynamic> json) =>
+      _$ResetPasswordModelFromJson(json);
 }
 
 @freezed

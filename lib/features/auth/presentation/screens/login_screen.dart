@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/router/app_router.dart';
+import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
@@ -21,6 +25,7 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nameController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final emailController = useTextEditingController();
 
     useListenable(nameController);
     useListenable(passwordController);
@@ -28,6 +33,387 @@ class LoginScreen extends HookConsumerWidget {
     final isLoading = useState(false);
     final isFormValid = nameController.text.trim().isNotEmpty &&
         passwordController.text.trim().isNotEmpty;
+
+    void _openOTPVerifyDrawer() {
+      final controllers = List.generate(6, (index) => TextEditingController());
+      final focusNodes = List.generate(6, (index) => FocusNode());
+      bool isVerifyLoading = false;
+      int secondsRemaining = 90;
+      Timer? timer;
+      String maskEmail(String email) {
+        final parts = email.split('@');
+        if (parts.length != 2) return email;
+        final name = parts[0];
+        final domain = parts[1];
+        if (name.length <= 3) {
+          return '${name[0]}***@$domain';
+        }
+        return '${name.substring(0, 3)}***@$domain';
+      }
+
+      showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        backgroundColor: ColorName.white,
+        builder: (ctx) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              void startTimer() {
+                timer?.cancel();
+                secondsRemaining = 90;
+
+                timer = Timer.periodic(const Duration(seconds: 1), (t) {
+                  if (secondsRemaining == 0) {
+                    t.cancel();
+                  } else {
+                    setState(() {
+                      secondsRemaining--;
+                    });
+                  }
+                });
+              }
+
+              if (timer == null) {
+                startTimer();
+              }
+
+              bool isOtpComplete() {
+                return controllers.every((c) => c.text.isNotEmpty);
+              }
+
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom,
+                ),
+                child: FractionallySizedBox(
+                  heightFactor: 0.42,
+                  widthFactor: 1,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 5,
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: ColorName.black3.withAlpha(120),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+
+                        Gap(25.h),
+
+                        /// OTP TEXT
+                        Text.rich(
+                          TextSpan(
+                            text: "We have sent an OTP to ",
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: ColorName.black1,
+                              fontFamily: FontFamily.poppins,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: maskEmail(emailController.text.trim()),
+                                style: const TextStyle(
+                                  color: ColorName.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.poppins,
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+
+                        Gap(16.h),
+
+                        /// OTP INPUTS
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(6, (index) {
+                            return SizedBox(
+                              width: 45,
+                              height: 45,
+                              child: TextField(
+                                controller: controllers[index],
+                                focusNode: focusNodes[index],
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                maxLength: 1,
+                                cursorColor: ColorName.black,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.poppins,
+                                ),
+                                decoration: InputDecoration(
+                                  counterText: "",
+                                  contentPadding: EdgeInsets.zero,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                      color: ColorName.borderColor,
+                                      width: 1.2,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: const BorderSide(
+                                      color: ColorName.blueColor,
+                                      width: 1.3,
+                                    ),
+                                  ),
+                                ),
+                                onChanged: (value) {
+                                  if (value.isNotEmpty && index < 5) {
+                                    FocusScope.of(ctx)
+                                        .requestFocus(focusNodes[index + 1]);
+                                  }
+                                  if (value.isEmpty && index > 0) {
+                                    FocusScope.of(ctx)
+                                        .requestFocus(focusNodes[index - 1]);
+                                  }
+                                  setState(() {});
+                                },
+                              ),
+                            );
+                          }),
+                        ),
+
+                        Gap(10.h),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            /// TIMER OR RESEND BUTTON
+                            secondsRemaining > 0
+                                ? Text(
+                                    "Resend OTP in ${secondsRemaining}s",
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: ColorName.black2,
+                                      fontFamily: FontFamily.poppins,
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      startTimer();
+
+                                      /// call resend OTP API here
+                                    },
+                                    child: const Text(
+                                      "Resend OTP",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorName.blueColor,
+                                        fontFamily: FontFamily.poppins,
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                        Spacer(),
+                        Gap(10.h),
+                        SizedBox(
+                          width: double.maxFinite,
+                          height: 45,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  (isOtpComplete() && !isVerifyLoading)
+                                      ? ColorName.redColor1
+                                      : ColorName.lightBackground2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: (isOtpComplete() && !isVerifyLoading)
+                                ? () async {
+                                    setState(() {
+                                      isVerifyLoading = true;
+                                    });
+
+                                    final request = OTPVerificationRequestModel(
+                                      email: emailController.text.trim(),
+                                      otp:
+                                          controllers.map((c) => c.text).join(),
+                                      isRegistration: false,
+                                    );
+
+                                    final result = await ref.read(
+                                      verifyOTPProvider(requestBody: request)
+                                          .future,
+                                    );
+
+                                    setState(() {
+                                      isVerifyLoading = false;
+                                    });
+
+                                    if (result != null &&
+                                        result.status == 200 &&
+                                        context.mounted) {
+                                      final localDB = await ref
+                                          .read(localStorageProvider.future);
+                                      await localDB.writeData("reset_email",
+                                          emailController.text.trim());
+                                      context.pop();
+                                      ResetPasswordRoute().push(context);
+                                    }
+                                  }
+                                : null,
+                            child: isVerifyLoading
+                                ? const SpinKitThreeBounce(
+                                    color: Colors.white,
+                                    size: 20,
+                                  )
+                                : const Text(
+                                    'Verify OTP',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
+
+    void _openEmailDrawer() {
+      bool isButtonLoading = false;
+      bool emailListenerAdded = false;
+
+      showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        backgroundColor: ColorName.white,
+        builder: (ctx) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              if (!emailListenerAdded) {
+                emailController.addListener(() {
+                  setState(() {});
+                });
+                emailListenerAdded = true;
+              }
+              bool isEmailValid = emailController.text.trim().isNotEmpty;
+
+              return Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(ctx).viewInsets.bottom,
+                ),
+                child: FractionallySizedBox(
+                  heightFactor: 0.4,
+                  widthFactor: 1,
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 5,
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: ColorName.black3.withAlpha(120),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        Gap(25.h),
+                        Text(
+                          'Please enter your register email address',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: ColorName.black1,
+                            fontFamily: FontFamily.poppins,
+                          ),
+                        ),
+                        Gap(15.h),
+                        AppTextField(
+                          label: "",
+                          controller: emailController,
+                        ),
+                        Spacer(),
+                        Gap(10.h),
+                        SizedBox(
+                          width: double.maxFinite,
+                          height: 45,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  (isEmailValid && !isButtonLoading)
+                                      ? ColorName.redColor1
+                                      : ColorName.lightBackground2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: (isEmailValid && !isButtonLoading)
+                                ? () async {
+                                    setState(() {
+                                      isButtonLoading = true;
+                                    });
+
+                                    final request = OTPRequestModel(
+                                      email: emailController.text.trim(),
+                                    );
+
+                                    final result = await ref.read(
+                                      sendOTPProvider(requestBody: request)
+                                          .future,
+                                    );
+
+                                    setState(() {
+                                      isButtonLoading = false;
+                                    });
+
+                                    if (result != null &&
+                                        result.status == 200 &&
+                                        context.mounted) {
+                                      context.pop();
+                                      _openOTPVerifyDrawer();
+                                    }
+                                  }
+                                : null,
+                            child: isButtonLoading
+                                ? const SpinKitThreeBounce(
+                                    color: Colors.white,
+                                    size: 20,
+                                  )
+                                : const Text(
+                                    'Send OTP',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
 
     return Scaffold(
       backgroundColor: ColorName.white,
@@ -65,7 +451,7 @@ class LoginScreen extends HookConsumerWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             GestureDetector(
-                              onTap: () => ResetPasswordRoute().push(context),
+                              onTap: () => _openEmailDrawer(),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -87,7 +473,7 @@ class LoginScreen extends HookConsumerWidget {
                       Gap(15.h),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: isFormValid
+                          backgroundColor: (isFormValid || isLoading.value)
                               ? ColorName.themeColor
                               : ColorName.lightBackground2,
                           minimumSize: const Size(double.infinity, 48),

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ticket_bay/core/router/app_router.dart';
+import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/app_extensions.dart';
+import 'package:ticket_bay/core/shared/miscellaneous/gap.dart';
 import 'package:ticket_bay/core/shared/widgets/fancy_heading.dart';
 import 'package:ticket_bay/core/shared/widgets/text_field.dart';
+import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';
+import 'package:ticket_bay/features/auth/presentation/providers/auth_provider.dart';
 import 'package:ticket_bay/gen/assets.gen.dart';
 import 'package:ticket_bay/gen/colors.gen.dart';
 import 'package:ticket_bay/gen/fonts.gen.dart';
@@ -11,6 +19,19 @@ class ResetPasswordScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final passwordController = useTextEditingController();
+    final confirmPasswordController = useTextEditingController();
+
+    useListenable(passwordController);
+    useListenable(confirmPasswordController);
+
+    final isLoading = useState(false);
+    final isFormValid = passwordController.text.trim().isNotEmpty &&
+        confirmPasswordController.text.trim().isNotEmpty &&
+        passwordController.text == confirmPasswordController.text;
+    final isPasswordMatch =
+        passwordController.text == confirmPasswordController.text;
+
     return Scaffold(
       backgroundColor: ColorName.white,
       body: SafeArea(
@@ -20,7 +41,7 @@ class ResetPasswordScreen extends HookConsumerWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 90, 20, 200),
+                padding: const EdgeInsets.fromLTRB(20, 80, 20, 200),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,30 +50,84 @@ class ResetPasswordScreen extends HookConsumerWidget {
                         title: "Reset",
                         subtitle: "Password",
                       ),
-                      const SizedBox(height: 30),
-                      AppTextField(label: "New Password", obscureText: true),
-                      const SizedBox(height: 15),
+                      Gap(30.h),
                       AppTextField(
-                          label: "Confirm Password", obscureText: true),
-                      const SizedBox(height: 30),
+                        label: "New Password",
+                        controller: passwordController,
+                        obscureText: true,
+                      ),
+                      Gap(15.h),
+                      AppTextField(
+                        label: "Confirm Password",
+                        controller: confirmPasswordController,
+                        obscureText: true,
+                      ),
+                      if (confirmPasswordController.text.isNotEmpty &&
+                          !isPasswordMatch)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, left: 5),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Passwords do not match",
+                              style: TextStyle(
+                                color: ColorName.redColor,
+                                fontSize: 11,
+                                fontFamily: FontFamily.poppins,
+                              ),
+                            ),
+                          ),
+                        ),
+                      Gap(30.h),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorName.themeColor,
+                          backgroundColor: (isFormValid || isLoading.value)
+                              ? ColorName.themeColor
+                              : ColorName.lightBackground2,
                           minimumSize: const Size(double.infinity, 48),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        onPressed: () {},
-                        child: Text(
-                          'Submit',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontFamily: FontFamily.poppins,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        onPressed: (!isFormValid || isLoading.value)
+                            ? null
+                            : () async {
+                                isLoading.value = true;
+                                final localDB =
+                                    await ref.read(localStorageProvider.future);
+                                final email =
+                                    await localDB.readData("reset_email");
+                                final request = ResetPasswordModel(
+                                  email: email,
+                                  password: passwordController.text.trim(),
+                                  confirmPassword:
+                                      confirmPasswordController.text.trim(),
+                                );
+                                final result = await ref.read(
+                                  resetPasswordProvider(requestBody: request)
+                                      .future,
+                                );
+                                isLoading.value = false;
+                                if (result != null &&
+                                    result.status == 200 &&
+                                    context.mounted) {
+                                  LoginRoute().go(context);
+                                }
+                              },
+                        child: isLoading.value
+                            ? const SpinKitThreeBounce(
+                                color: Colors.white,
+                                size: 20,
+                              )
+                            : const Text(
+                                'Submit',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: FontFamily.poppins,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                       ),
                     ],
                   ),

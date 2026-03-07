@@ -157,14 +157,14 @@ class _LoginProviderElement
   LoginRequestModel get requestBody => (origin as LoginProvider).requestBody;
 }
 
-String _$registerHash() => r'65f761bc414a45ed299b2affa03984d19ad51d61';
+String _$registerHash() => r'48cbec28b3ace54f97ccfbb70ca7d71110ecd791';
 
 /// See also [register].
 @ProviderFor(register)
 const registerProvider = RegisterFamily();
 
 /// See also [register].
-class RegisterFamily extends Family<AsyncValue<RegisterResponseModel?>> {
+class RegisterFamily extends Family<AsyncValue<ApiResponseModel?>> {
   /// See also [register].
   const RegisterFamily();
 
@@ -202,8 +202,7 @@ class RegisterFamily extends Family<AsyncValue<RegisterResponseModel?>> {
 }
 
 /// See also [register].
-class RegisterProvider
-    extends AutoDisposeFutureProvider<RegisterResponseModel?> {
+class RegisterProvider extends AutoDisposeFutureProvider<ApiResponseModel?> {
   /// See also [register].
   RegisterProvider({
     required RegisterRequestModel requestBody,
@@ -237,7 +236,7 @@ class RegisterProvider
 
   @override
   Override overrideWith(
-    FutureOr<RegisterResponseModel?> Function(RegisterRef provider) create,
+    FutureOr<ApiResponseModel?> Function(RegisterRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -254,7 +253,7 @@ class RegisterProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<RegisterResponseModel?> createElement() {
+  AutoDisposeFutureProviderElement<ApiResponseModel?> createElement() {
     return _RegisterProviderElement(this);
   }
 
@@ -274,13 +273,13 @@ class RegisterProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin RegisterRef on AutoDisposeFutureProviderRef<RegisterResponseModel?> {
+mixin RegisterRef on AutoDisposeFutureProviderRef<ApiResponseModel?> {
   /// The parameter `requestBody` of this provider.
   RegisterRequestModel get requestBody;
 }
 
 class _RegisterProviderElement
-    extends AutoDisposeFutureProviderElement<RegisterResponseModel?>
+    extends AutoDisposeFutureProviderElement<ApiResponseModel?>
     with RegisterRef {
   _RegisterProviderElement(super.provider);
 
@@ -289,15 +288,144 @@ class _RegisterProviderElement
       (origin as RegisterProvider).requestBody;
 }
 
-String _$verifyOTPHash() => r'90f139ec3b4ae04825a01c786b56d1c0e6ad7eec';
+String _$sendOTPHash() => r'8cba678b2b9765eefe527213c5cffc78bfef622b';
+
+/// See also [sendOTP].
+@ProviderFor(sendOTP)
+const sendOTPProvider = SendOTPFamily();
+
+/// See also [sendOTP].
+class SendOTPFamily extends Family<AsyncValue<ApiResponseModel?>> {
+  /// See also [sendOTP].
+  const SendOTPFamily();
+
+  /// See also [sendOTP].
+  SendOTPProvider call({
+    required OTPRequestModel requestBody,
+  }) {
+    return SendOTPProvider(
+      requestBody: requestBody,
+    );
+  }
+
+  @override
+  SendOTPProvider getProviderOverride(
+    covariant SendOTPProvider provider,
+  ) {
+    return call(
+      requestBody: provider.requestBody,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'sendOTPProvider';
+}
+
+/// See also [sendOTP].
+class SendOTPProvider extends AutoDisposeFutureProvider<ApiResponseModel?> {
+  /// See also [sendOTP].
+  SendOTPProvider({
+    required OTPRequestModel requestBody,
+  }) : this._internal(
+          (ref) => sendOTP(
+            ref as SendOTPRef,
+            requestBody: requestBody,
+          ),
+          from: sendOTPProvider,
+          name: r'sendOTPProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$sendOTPHash,
+          dependencies: SendOTPFamily._dependencies,
+          allTransitiveDependencies: SendOTPFamily._allTransitiveDependencies,
+          requestBody: requestBody,
+        );
+
+  SendOTPProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.requestBody,
+  }) : super.internal();
+
+  final OTPRequestModel requestBody;
+
+  @override
+  Override overrideWith(
+    FutureOr<ApiResponseModel?> Function(SendOTPRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: SendOTPProvider._internal(
+        (ref) => create(ref as SendOTPRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        requestBody: requestBody,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ApiResponseModel?> createElement() {
+    return _SendOTPProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SendOTPProvider && other.requestBody == requestBody;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, requestBody.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin SendOTPRef on AutoDisposeFutureProviderRef<ApiResponseModel?> {
+  /// The parameter `requestBody` of this provider.
+  OTPRequestModel get requestBody;
+}
+
+class _SendOTPProviderElement
+    extends AutoDisposeFutureProviderElement<ApiResponseModel?>
+    with SendOTPRef {
+  _SendOTPProviderElement(super.provider);
+
+  @override
+  OTPRequestModel get requestBody => (origin as SendOTPProvider).requestBody;
+}
+
+String _$verifyOTPHash() => r'1f5790adb995050434130a0d6de1361d1f6776c7';
 
 /// See also [verifyOTP].
 @ProviderFor(verifyOTP)
 const verifyOTPProvider = VerifyOTPFamily();
 
 /// See also [verifyOTP].
-class VerifyOTPFamily
-    extends Family<AsyncValue<OTPVerificationResponseModel?>> {
+class VerifyOTPFamily extends Family<AsyncValue<ApiResponseModel?>> {
   /// See also [verifyOTP].
   const VerifyOTPFamily();
 
@@ -335,8 +463,7 @@ class VerifyOTPFamily
 }
 
 /// See also [verifyOTP].
-class VerifyOTPProvider
-    extends AutoDisposeFutureProvider<OTPVerificationResponseModel?> {
+class VerifyOTPProvider extends AutoDisposeFutureProvider<ApiResponseModel?> {
   /// See also [verifyOTP].
   VerifyOTPProvider({
     required OTPVerificationRequestModel requestBody,
@@ -370,8 +497,7 @@ class VerifyOTPProvider
 
   @override
   Override overrideWith(
-    FutureOr<OTPVerificationResponseModel?> Function(VerifyOTPRef provider)
-        create,
+    FutureOr<ApiResponseModel?> Function(VerifyOTPRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -388,8 +514,7 @@ class VerifyOTPProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<OTPVerificationResponseModel?>
-      createElement() {
+  AutoDisposeFutureProviderElement<ApiResponseModel?> createElement() {
     return _VerifyOTPProviderElement(this);
   }
 
@@ -409,20 +534,152 @@ class VerifyOTPProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin VerifyOTPRef
-    on AutoDisposeFutureProviderRef<OTPVerificationResponseModel?> {
+mixin VerifyOTPRef on AutoDisposeFutureProviderRef<ApiResponseModel?> {
   /// The parameter `requestBody` of this provider.
   OTPVerificationRequestModel get requestBody;
 }
 
 class _VerifyOTPProviderElement
-    extends AutoDisposeFutureProviderElement<OTPVerificationResponseModel?>
+    extends AutoDisposeFutureProviderElement<ApiResponseModel?>
     with VerifyOTPRef {
   _VerifyOTPProviderElement(super.provider);
 
   @override
   OTPVerificationRequestModel get requestBody =>
       (origin as VerifyOTPProvider).requestBody;
+}
+
+String _$resetPasswordHash() => r'aec3092ba094a978b2ce39ea65940d32c2bff1b2';
+
+/// See also [resetPassword].
+@ProviderFor(resetPassword)
+const resetPasswordProvider = ResetPasswordFamily();
+
+/// See also [resetPassword].
+class ResetPasswordFamily extends Family<AsyncValue<ApiResponseModel?>> {
+  /// See also [resetPassword].
+  const ResetPasswordFamily();
+
+  /// See also [resetPassword].
+  ResetPasswordProvider call({
+    required ResetPasswordModel requestBody,
+  }) {
+    return ResetPasswordProvider(
+      requestBody: requestBody,
+    );
+  }
+
+  @override
+  ResetPasswordProvider getProviderOverride(
+    covariant ResetPasswordProvider provider,
+  ) {
+    return call(
+      requestBody: provider.requestBody,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'resetPasswordProvider';
+}
+
+/// See also [resetPassword].
+class ResetPasswordProvider
+    extends AutoDisposeFutureProvider<ApiResponseModel?> {
+  /// See also [resetPassword].
+  ResetPasswordProvider({
+    required ResetPasswordModel requestBody,
+  }) : this._internal(
+          (ref) => resetPassword(
+            ref as ResetPasswordRef,
+            requestBody: requestBody,
+          ),
+          from: resetPasswordProvider,
+          name: r'resetPasswordProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$resetPasswordHash,
+          dependencies: ResetPasswordFamily._dependencies,
+          allTransitiveDependencies:
+              ResetPasswordFamily._allTransitiveDependencies,
+          requestBody: requestBody,
+        );
+
+  ResetPasswordProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.requestBody,
+  }) : super.internal();
+
+  final ResetPasswordModel requestBody;
+
+  @override
+  Override overrideWith(
+    FutureOr<ApiResponseModel?> Function(ResetPasswordRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ResetPasswordProvider._internal(
+        (ref) => create(ref as ResetPasswordRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        requestBody: requestBody,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ApiResponseModel?> createElement() {
+    return _ResetPasswordProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ResetPasswordProvider && other.requestBody == requestBody;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, requestBody.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ResetPasswordRef on AutoDisposeFutureProviderRef<ApiResponseModel?> {
+  /// The parameter `requestBody` of this provider.
+  ResetPasswordModel get requestBody;
+}
+
+class _ResetPasswordProviderElement
+    extends AutoDisposeFutureProviderElement<ApiResponseModel?>
+    with ResetPasswordRef {
+  _ResetPasswordProviderElement(super.provider);
+
+  @override
+  ResetPasswordModel get requestBody =>
+      (origin as ResetPasswordProvider).requestBody;
 }
 
 String _$userDetailsHash() => r'de80a7682815857703379fe1167009449300fa3c';
@@ -457,11 +714,11 @@ final savedUserProvider = AutoDisposeFutureProvider<UserData?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SavedUserRef = AutoDisposeFutureProviderRef<UserData?>;
-String _$logoutHash() => r'74231281e587ae93ebd1aca4edd2c7825ea3403c';
+String _$logoutHash() => r'8c0d795895cbf92c7fc2ae2324242a9e55f6272a';
 
 /// See also [logout].
 @ProviderFor(logout)
-final logoutProvider = AutoDisposeFutureProvider<LogoutResponseModel?>.internal(
+final logoutProvider = AutoDisposeFutureProvider<ApiResponseModel?>.internal(
   logout,
   name: r'logoutProvider',
   debugGetCreateSourceHash:
@@ -472,6 +729,6 @@ final logoutProvider = AutoDisposeFutureProvider<LogoutResponseModel?>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef LogoutRef = AutoDisposeFutureProviderRef<LogoutResponseModel?>;
+typedef LogoutRef = AutoDisposeFutureProviderRef<ApiResponseModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

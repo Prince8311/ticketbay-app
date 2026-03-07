@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ticket_bay/core/api/error_handler.dart';
 import 'package:ticket_bay/core/shared/helpers/local_storage.dart';
+import 'package:ticket_bay/core/shared/models/api_response_model.dart';
 import 'package:ticket_bay/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';
 import 'package:ticket_bay/features/auth/presentation/providers/auth_token_provider.dart';
@@ -25,7 +26,7 @@ Future<LoginResponseModel?> login(Ref ref,
 }
 
 @riverpod
-Future<RegisterResponseModel?> register(Ref ref,
+Future<ApiResponseModel?> register(Ref ref,
     {required RegisterRequestModel requestBody}) async {
   final result = await ref.read(authRepoProvider).register(requestBody);
 
@@ -39,9 +40,37 @@ Future<RegisterResponseModel?> register(Ref ref,
 }
 
 @riverpod
-Future<OTPVerificationResponseModel?> verifyOTP(Ref ref,
+Future<ApiResponseModel?> sendOTP(Ref ref,
+    {required OTPRequestModel requestBody}) async {
+  final result = await ref.read(authRepoProvider).sendOTP(requestBody);
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return null;
+    },
+    (data) => data,
+  );
+}
+
+@riverpod
+Future<ApiResponseModel?> verifyOTP(Ref ref,
     {required OTPVerificationRequestModel requestBody}) async {
   final result = await ref.read(authRepoProvider).verifyOTP(requestBody);
+
+  return result.fold(
+    (error) {
+      ApiError.commonErrorHandler(error);
+      return null;
+    },
+    (data) => data,
+  );
+}
+
+@riverpod
+Future<ApiResponseModel?> resetPassword(Ref ref,
+    {required ResetPasswordModel requestBody}) async {
+  final result = await ref.read(authRepoProvider).resetPassword(requestBody);
 
   return result.fold(
     (error) {
@@ -88,7 +117,7 @@ Future<UserData?> savedUser(Ref ref) async {
 }
 
 @riverpod
-Future<LogoutResponseModel?> logout(Ref ref) async {
+Future<ApiResponseModel?> logout(Ref ref) async {
   final result = await ref.read(authRepoProvider).logout();
 
   return result.fold(

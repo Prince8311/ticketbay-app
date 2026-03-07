@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_bay/core/api/api_handler.dart';
 import 'package:ticket_bay/core/shared/miscellaneous/typedefs.dart';
+import 'package:ticket_bay/core/shared/models/api_response_model.dart';
 import 'package:ticket_bay/core/shared/widgets/toast.dart';
 import 'package:ticket_bay/features/auth/data/datasources/auth_api_service.dart';
 import 'package:ticket_bay/features/auth/domain/models/auth_model.dart';
@@ -28,9 +29,8 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  FutureEither<RegisterResponseModel?> register(
-      RegisterRequestModel requestBody) {
-    return apiHandler<RegisterResponseModel?>(
+  FutureEither<ApiResponseModel?> register(RegisterRequestModel requestBody) {
+    return apiHandler<ApiResponseModel?>(
       () async {
         var res = await _apiService.register(requestBody);
         successToast(res.message);
@@ -40,11 +40,34 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  FutureEither<OTPVerificationResponseModel?> verifyOTP(
+  FutureEither<ApiResponseModel?> sendOTP(OTPRequestModel requestBody) {
+    return apiHandler<ApiResponseModel?>(
+      () async {
+        var res = await _apiService.sendOTP(requestBody);
+        successToast(res.message);
+        return res;
+      },
+    );
+  }
+
+  @override
+  FutureEither<ApiResponseModel?> verifyOTP(
       OTPVerificationRequestModel requestBody) {
-    return apiHandler<OTPVerificationResponseModel?>(
+    return apiHandler<ApiResponseModel?>(
       () async {
         var res = await _apiService.verifyOTP(requestBody);
+        successToast(res.message);
+        return res;
+      },
+    );
+  }
+
+  @override
+  FutureEither<ApiResponseModel?> resetPassword(
+      ResetPasswordModel requestBody) {
+    return apiHandler<ApiResponseModel?>(
+      () async {
+        var res = await _apiService.resetPassword(requestBody);
         successToast(res.message);
         return res;
       },
@@ -60,8 +83,8 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  FutureEither<LogoutResponseModel?> logout() {
-    return apiHandler<LogoutResponseModel?>(
+  FutureEither<ApiResponseModel?> logout() {
+    return apiHandler<ApiResponseModel?>(
       () async {
         var res = await _apiService.logout();
         successToast(res.message);
